@@ -1,0 +1,280 @@
+/* Basic styling */
+* {margin: 0; padding: 0; border: 0; vertical-align: baseline;}
+html {box-sizing: border-box;}
+*, *::after, *::before {
+	-webkit-user-select: none;
+	user-select: none; /*removes uncompatibility warning*/
+	-webkit-user-drag: none;
+	cursor: default;
+  box-sizing: inherit;
+}
+html, body {height: 100%; margin: 0; user-select: none;}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #666666;
+  color: #FFF;
+}
+
+/* Styling of window frame and titlebar */
+body {
+  border: 1px solid #666666;
+  overflow-y: hidden;
+}
+
+
+#main {
+  height: calc(100% - 32px);
+  margin-top: 32px;
+  padding: 0px;
+  overflow-y: auto;
+  background: #5c5c5c;
+
+  display: grid;
+  grid-template-columns: 42px auto;
+}
+
+/* Tool bar */
+
+#tool-bar {
+  grid-column: 1;
+  background-color: rgb(58, 58, 58);
+}
+
+#tool-bar .tool-bar-space {
+  width: 42px;
+  height: 42px;
+}
+
+
+#tool-bar .tool-bar-button {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  padding: 4px;
+  width: 42px;
+  height: 42px;
+}
+
+#tool-bar .tool-bar-button img {
+  margin: auto;
+  opacity: 0.5;
+  width: 20px;
+  width: 20px;
+}
+
+#tool-bar .tool-bar-button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+
+/* Tab Panel */
+
+#tab-panel {
+  grid-column: 2;
+  display: grid;
+  grid-template-rows: 32px auto;
+
+  background-color: #FFFFFF;
+}
+
+#tab-group {
+  grid-row: 1;
+  display: grid;
+  background-color: rgb(51, 51, 51);
+  height: 32px;
+  width: 100%;
+  grid-template-columns: repeat(20, 1fr) auto;
+}
+
+#tab-group .tab {
+  grid-row: 1;
+  background-color: rgb(71, 71, 71);
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: 32px;
+  width: 100px;
+  padding: 4px;
+  font-size: 12px;
+  color: #adadad;
+}
+
+#tab-group .tab.tab-active{
+  background-color: rgb(32, 32, 32);
+}
+
+#tab-content {
+  grid-row: 2;
+  background-color: rgb(32, 32, 32);
+  height: 100%;
+  width: 100%;
+}
+
+/* Window Title Bar */
+
+#titlebar {
+  display: block;
+  position: fixed;
+  height: 32px;
+  width: calc(100% - 2px);
+
+  padding: 0px;
+  color: rgb(197, 197, 197);
+}
+
+.maximized #titlebar {
+  width: 100%;
+  padding: 0;
+}
+
+#titlebar #drag-region {
+  width: 100%;
+  height: 100%;
+
+  display: grid;
+  grid-template-columns: 42px min-content auto minmax(auto, 200px) auto 183px;
+
+  -webkit-app-region: drag;
+}
+
+/* Window Icon */
+
+#window-icon {
+  grid-column: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#window-icon img{
+  margin: auto;
+  height: 28px;
+  padding: 4px;
+}
+
+
+/* Window Menu */
+
+#window-menu {
+  grid-column: 2;
+  display: grid;
+  overflow: hidden;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  
+  -webkit-app-region: no-drag;
+}
+
+#window-menu .button {
+  grid-row: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+#window-menu .button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+/* Window Title */
+
+#window-title {
+  grid-column: 4;
+  display: flex;
+  align-items: center;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#window-title span {
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Window Control | - | [] | X | */
+
+#window-controls {
+  display: grid;
+  grid-template-columns: repeat(3, 46px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+
+  -webkit-app-region: no-drag;
+}
+
+#window-controls .button {
+  grid-row: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+@media (-webkit-device-pixel-ratio: 1.5), (device-pixel-ratio: 1.5),
+(-webkit-device-pixel-ratio: 2), (device-pixel-ratio: 2),
+(-webkit-device-pixel-ratio: 3), (device-pixel-ratio: 3) {
+  #window-controls .icon {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+#window-controls .button {
+  user-select: none;
+}
+
+#window-controls .button:hover {
+  background: rgba(255,255,255,0.1);
+}
+
+#window-controls .button:active {
+  background: rgba(255,255,255,0.2);
+}
+
+#close-button:hover {
+  background: #E81123 !important;
+}
+
+#close-button:active {
+  background: #F1707A !important;
+}
+#close-button:active .icon {
+  filter: invert(1);
+}
+
+#min-button {
+  grid-column: 1;
+}
+#max-button, #restore-button {
+  grid-column: 2;
+}
+#close-button {
+  grid-column: 3;
+}
+
+#restore-button {
+  display: none !important;
+}
+
+.maximized #restore-button {
+  display: flex !important;
+}
+
+.maximized #max-button {
+  display: none;
+}

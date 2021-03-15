@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>TriaML</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <header id="titlebar">
+    <div id="drag-region">
+
+      <div id="window-icon">
+        <img src="icons/logo.png">
+      </div>
+
+      <div id="window-menu">
+        <div class="button">File</div>
+        <div class="button">Edit</div>
+        <div class="button">View</div>
+        <div class="button">Help</div>
+      </div>
+
+      <div id="window-title">
+        <span>TriaML</span>
+      </div>
+
+      <div id="window-controls">
+
+        <div class="button" id="min-button">
+          <img class="icon"
+            srcset="icons/control/min-w-10.png 1x, icons/control/min-w-12.png 1.25x, icons/control/min-w-15.png 1.5x, icons/control/min-w-15.png 1.75x, icons/control/min-w-20.png 2x, icons/control/min-w-20.png 2.25x, icons/control/min-w-24.png 2.5x, icons/control/min-w-30.png 3x, icons/control/min-w-30.png 3.5x"
+            draggable="false" />
+        </div>
+        <div class="button" id="max-button">
+          <img class="icon"
+            srcset="icons/control/max-w-10.png 1x, icons/control/max-w-12.png 1.25x, icons/control/max-w-15.png 1.5x, icons/control/max-w-15.png 1.75x, icons/control/max-w-20.png 2x, icons/control/max-w-20.png 2.25x, icons/control/max-w-24.png 2.5x, icons/control/max-w-30.png 3x, icons/control/max-w-30.png 3.5x"
+            draggable="false" />
+        </div>
+        <div class="button" id="restore-button">
+          <img class="icon"
+            srcset="icons/control/restore-w-10.png 1x, icons/control/restore-w-12.png 1.25x, icons/control/restore-w-15.png 1.5x, icons/control/restore-w-15.png 1.75x, icons/control/restore-w-20.png 2x, icons/control/restore-w-20.png 2.25x, icons/control/restore-w-24.png 2.5x, icons/control/restore-w-30.png 3x, icons/control/restore-w-30.png 3.5x"
+            draggable="false" />
+        </div>
+        <div class="button" id="close-button">
+          <img class="icon"
+            srcset="icons/control/close-w-10.png 1x, icons/control/close-w-12.png 1.25x, icons/control/close-w-15.png 1.5x, icons/control/close-w-15.png 1.75x, icons/control/close-w-20.png 2x, icons/control/close-w-20.png 2.25x, icons/control/close-w-24.png 2.5x, icons/control/close-w-30.png 3x, icons/control/close-w-30.png 3.5x"
+            draggable="false" />
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <div id="main">
+    <div id="tool-bar">
+      <div class="tool-bar-button">
+        <img class="tool-bar-item-icon" src="icons/run.png">
+      </div>
+      <div class="tool-bar-button">
+        <img class="tool-bar-item-icon" src="icons/debug.png">
+      </div>
+      <div class="tool-bar-space"></div>
+      <div class="tool-bar-button">
+        <img class="tool-bar-item-icon" src="icons/tri.png">
+      </div>
+      <div class="tool-bar-button">
+        <img class="tool-bar-item-icon" src="icons/tam.png">
+      </div>
+      <div class="tool-bar-button">
+        <img class="tool-bar-item-icon" src="icons/console.png">
+      </div>
+      <div class="tool-bar-button">
+        <img class="tool-bar-item-icon" src="icons/table.png">
+      </div>
+      <div class="tool-bar-button">
+        <img class="tool-bar-item-icon" src="icons/tree.png">
+      </div>
+    </div>
+
+    <div id="tab-panel">
+      <div id="tab-group">
+        <div class="tab tab-active">
+          Tab a
+        </div>
+        <div class="tab">
+          Tab b
+        </div>
+      </div>
+
+      <div id="tab-content">
+        
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // You can also require other files to run in this process
+    require('./renderer.js')
+  </script>
+</body>
+
+</html>

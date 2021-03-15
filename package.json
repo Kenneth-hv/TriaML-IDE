@@ -1,0 +1,14 @@
+{
+  "name": "triaml-ide",
+  "version": "1.0.0",
+  "description": "Traiangle IDE for OCaml Compiler and TAM Interpreter",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "binaryfunt",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^9.4.0"
+  }
+}
