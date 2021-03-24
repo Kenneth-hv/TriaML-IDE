@@ -4,11 +4,13 @@
   "description": "Traiangle IDE for OCaml Compiler and TAM Interpreter",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "lint": "lint '**/*.js'"
   },
   "author": "binaryfunt",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^9.4.0"
+    "electron": "^9.4.0",
+    "lint": "^0.7.0"
   }
 }

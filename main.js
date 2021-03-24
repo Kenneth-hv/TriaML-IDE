@@ -11,13 +11,13 @@ function createWindow () {
         width: 800,
         height: 600,
         minWidth: 512,
-        minHeight: 270,
+        minHeight: 410,
         frame: false,
         backgroundColor: '#666666',
         icon: "icons/logo.png",
         webPreferences: {
             nodeIntegration: true,
-            //devTools: false
+            devTools: false
         }
     });
 

@@ -56,6 +56,10 @@ body {
   height: 42px;
 }
 
+#tool-bar .tool-bar-button.active {
+  background-color: rgb(32, 32, 32);
+}
+
 #tool-bar .tool-bar-button img {
   margin: auto;
   opacity: 0.5;
@@ -100,7 +104,7 @@ body {
   color: #adadad;
 }
 
-#tab-group .tab.tab-active{
+#tab-group .tab.active{
   background-color: rgb(32, 32, 32);
 }
 
