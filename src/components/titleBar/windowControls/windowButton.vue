@@ -11,12 +11,17 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "windowButton",
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+
+@Options({
   props: {
     id: String,
     iconName: String,
   }
-};
+})
+export default class WindowButton extends Vue {
+  id!: string;
+  iconName!: string;
+}
 </script>

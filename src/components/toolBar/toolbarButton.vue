@@ -4,11 +4,15 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "toolbarButton",
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+
+@Options({
   props: {
-    iconName: String,
+    iconName: String
   }
-};
+})
+export default class ToolbarButton extends Vue {
+    iconName!: string
+}
 </script>

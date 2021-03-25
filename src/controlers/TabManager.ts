@@ -1,6 +1,6 @@
-import { Tab } from "./Tab";
+import Tab from "./Tab";
 
-export class TabManager {
+export default class TabManager {
     openTabs: Tab[] = [];
     constructor () {}
 

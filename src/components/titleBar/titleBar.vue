@@ -16,15 +16,22 @@
         <span>TriaML</span>
       </div>
 
-      <windowControls />
+      <WindowControls />
     </div>
   </header>
 </template>
 
-<script>
-import windowControls from './windowControls/windowControls.vue'
-export default {
-    components : { windowControls },
-    name : "titleBar"
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import WindowControls from './windowControls/WindowControls.vue'
+
+@Options({
+  components : { WindowControls },
+  props: {
+    tabName: String
+  }
+})
+export default class Titlebar extends Vue {
+    tabName!: string
 }
 </script>

@@ -5,9 +5,9 @@
 </template>
 
 
-<script>
-export default {
-    name : "tabContent"
-}
+<script lang="ts">
+import { Vue } from 'vue-class-component';
+
+export default class TabContent extends Vue {}
 </script>
 

@@ -4,12 +4,17 @@
 </template>
 
 
-<script>
-export default {
-    name : "tab",
-    props : {
-        tabName : String,
-        isActive : Boolean
-    }
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+
+@Options({
+  props: {
+    tabName: String,
+    isActive: Boolean
+  }
+})
+export default class Tab extends Vue {
+    tabName!: string;
+    isActive!: boolean;
 }
 </script>

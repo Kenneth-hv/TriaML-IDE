@@ -1,20 +1,26 @@
 <template>
   <div id="tab-panel">
     <div id="tab-group">
-      <tab tabName="hola.tri" isActive=true />
-      <tab tabName="hola.tri" />
+      <Tab tabName="hola.tri"  v-bind:isActive="true" />
+      <Tab tabName="hola.tri" />
     </div>
 
     <tabContent />
   </div>
 </template>
 
-<script>
-import tab from './tab.vue'
-import tabContent from './tabContent.vue'
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import Tab from './Tab.vue'
+import TabContent from './TabContent.vue'
 
-export default {
-  components : { tab, tabContent },
-  name: "tabPanel",
-};
+@Options({
+  components : { Tab, TabContent },
+  props: {
+    tabName: String
+  }
+})
+export default class TabPanel extends Vue {
+    tabName!: string
+}
 </script>

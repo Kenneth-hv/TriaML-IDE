@@ -1,4 +1,4 @@
-"use strict";
+//"use strict";
 
 import { app, protocol, BrowserWindow, ipcMain } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
@@ -23,11 +23,10 @@ async function createWindow() {
     webPreferences: {
       enableRemoteModule: true,
       devTools: true,
-      preload: __dirname + "/preload.js",
 
       // Use pluginOptions.nodeIntegration, leave this alone
       // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: process.env.ELECTRON_NODE_INTEGRATION,
+      nodeIntegration: !!process.env.ELECTRON_NODE_INTEGRATION
     },
   });
 

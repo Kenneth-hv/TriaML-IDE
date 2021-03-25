@@ -1,6 +1,6 @@
-import { FileManager } from "./FileManager";
+import FileManager from "./FileManager";
 
-export class Tab {
+export default class Tab {
     fileLocation: string;
     fileContent: string;
     isSaved: boolean;
@@ -9,7 +9,7 @@ export class Tab {
         if (fileLocation) {
             this.fileContent = FileManager.openFile(fileLocation);
             this.isSaved = true;
-            this.fileContent = fileLocation;
+            this.fileLocation = fileLocation;
         }else{
             this.isSaved = false;
             this.fileContent = "";

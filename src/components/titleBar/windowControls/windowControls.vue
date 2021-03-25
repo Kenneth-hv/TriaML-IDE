@@ -1,33 +1,35 @@
 <template>
   <div id="window-controls">
-    <windowButton id="min-button" iconName="min" @click="minimize"/>
-    <windowButton id="restore-button" iconName="restore" @click="maximize"/>
-    <windowButton id="max-button" iconName="max" @click="maximize"/>
-    <windowButton id="close-button" iconName="close" @click="close"/>
+    <WindowButton id="min-button" iconName="min" @click="minimize" />
+    <WindowButton id="restore-button" iconName="restore" @click="maximize" />
+    <WindowButton id="max-button" iconName="max" @click="maximize" />
+    <WindowButton id="close-button" iconName="close" @click="close" />
   </div>
 </template>
 
-<script>
-import windowButton from "./windowButton.vue";
-const win = window.remote.getCurrentWindow();
+<script  lang="ts">
+import { Options, Vue } from "vue-class-component";
+import WindowButton from "./WindowButton.vue";
+const { remote } = require('electron');
+const win = remote.getCurrentWindow();
 
-export default {
-  components: { windowButton },
-  name: "windowControls",
-  methods: {
-    close() {
-      win.close();
-    },
-    maximize() {
-      if (win.isMaximized()) {
-        win.unmaximize();
-      } else {
-        win.maximize();
-      }
-    },
-    minimize() {
-      win.minimize();
+
+@Options({
+  components: { WindowButton }
+})
+export default class WindowControls extends Vue {
+  close() {
+    win.close();
+  }
+  maximize() {
+    if (remote.getCurrentWindow().isMaximized()) {
+      win.unmaximize();
+    } else {
+      win.maximize();
     }
   }
-};
+  minimize() {
+    win.minimize();
+  }
+}
 </script>

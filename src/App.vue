@@ -1,23 +1,25 @@
 <template>
   <body>
-    <titleBar />
+    <Titlebar />
 
     <div id="main">
-      <toolBar />
-      <tabPanel />
+      <Toolbar />
+      <TabPanel />
     </div>
   </body>
 </template>
 
-<script>
-/* eslint-disable no-unused-vars */
-import titleBar from "./components/titleBar/titleBar.vue";
-import toolBar from "./components/toolBar/toolbar.vue";
-import tabPanel from "./components/tabPanel/tabPanel.vue";
+<script lang="ts">
+import Titlebar from "./components/titlebar/Titlebar.vue";
+import Toolbar from "./components/toolbar/Toolbar.vue";
+import TabPanel from "./components/tabPanel/TabPanel.vue";
 
-export default {
-  components: { titleBar, toolBar, tabPanel },
-};
+import { Options, Vue } from 'vue-class-component';
+
+@Options({
+  components: { Titlebar, Toolbar, TabPanel },
+})
+export default class App extends Vue {}
 </script>
 
 <style>

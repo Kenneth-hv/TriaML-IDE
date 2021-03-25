@@ -1,4 +1,4 @@
-import { TabManager } from "./TabManager";
+import TabManager from "./TabManager";
 
 class App {
     tabManager: TabManager = new TabManager();

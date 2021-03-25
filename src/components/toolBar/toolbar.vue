@@ -1,23 +1,23 @@
 <template>
   <div id="toolbar">
-    <toolbarButton iconName="run" />
-    <toolbarButton iconName="debug" />
+    <ToolbarButton iconName="run" />
+    <ToolbarButton iconName="debug" />
     <div class="toolbar-space"></div>
-    <toolbarButton iconName="tri" />
-    <toolbarButton iconName="console" />
-    <toolbarButton iconName="tam" />
-    <toolbarButton iconName="tree" />
-    <toolbarButton iconName="table" />
+    <ToolbarButton iconName="tri" />
+    <ToolbarButton iconName="console" />
+    <ToolbarButton iconName="tam" />
+    <ToolbarButton iconName="tree" />
+    <ToolbarButton iconName="table" />
   </div>
 </template>
 
 
-<script>
-import toolbarButton from './toolbarButton.vue'
+<script lang="ts">
+import { Options, Vue } from 'vue-class-component';
+import ToolbarButton from './ToolbarButton.vue'
 
-export default {
-  components: { toolbarButton },
-  name: "toolbar",
-
-}
+@Options({
+  components: { ToolbarButton }
+})
+export default class Toolbar extends Vue { }
 </script>
