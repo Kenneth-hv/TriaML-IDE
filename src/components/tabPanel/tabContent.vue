@@ -1,5 +1,7 @@
 <template>
-    <div id="tab-content"></div>
+    <div id="tab-content">
+
+    </div>
 </template>
 
 
