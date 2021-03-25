@@ -27,9 +27,6 @@ export default {
     },
     minimize() {
       win.minimize();
-    },
-    isWindowMaximized() {
-      return () => { console.log(win.isMaximized()); return win.isMaximized(); }
     }
   }
 };
