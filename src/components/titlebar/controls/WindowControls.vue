@@ -13,7 +13,6 @@ import WindowButton from "./WindowButton.vue";
 const { remote } = require('electron');
 const win = remote.getCurrentWindow();
 
-
 @Options({
   components: { WindowButton }
 })

@@ -1,37 +1,34 @@
 <template>
-  <header id="titlebar">
-    <div id="drag-region">
-      <div id="window-icon">
-        <img src="@/assets/logo.png" />
-      </div>
-
-      <div id="window-menu">
-        <div class="button">File</div>
-        <div class="button">Edit</div>
-        <div class="button">View</div>
-        <div class="button">Help</div>
-      </div>
-
-      <div id="window-title">
-        <span>TriaML</span>
-      </div>
-
-      <WindowControls />
+  <div id="titlebar" class="drag-region">
+    <div id="frr-1" class="floating-resize-region"></div>
+    <div id="frr-2" class="floating-resize-region"></div>
+    <div id="frr-3" class="floating-resize-region"></div>
+    <div id="window-icon">
+      <img src="@/assets/logo.png" />
     </div>
-  </header>
+
+    <WindowMenu />
+
+    <div id="window-title">
+      <span>TriaML</span>
+    </div>
+
+    <WindowControls />
+  </div>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import WindowControls from './windowControls/WindowControls.vue'
+import { Options, Vue } from "vue-class-component";
+import WindowControls from "./controls/WindowControls.vue";
+import WindowMenu from "./menu/WindowMenu.vue";
 
 @Options({
-  components : { WindowControls },
+  components: { WindowControls, WindowMenu },
   props: {
-    tabName: String
-  }
+    tabName: String,
+  },
 })
 export default class Titlebar extends Vue {
-    tabName!: string
+  tabName!: string;
 }
 </script>
