@@ -1,4 +1,5 @@
 import TabManager from "./TabManager";
+import { remote } from "electron";
 
 export default class TriaMLApp {
     tabManager: TabManager = new TabManager();
@@ -9,14 +10,20 @@ export default class TriaMLApp {
         dasm: "C:/Compile/Dasm.exe"
     }
 
-    constructor () {}
+    constructor() { }
 
-    newFile(){
+    newFile() {
         this.tabManager.newTab();
     }
-    
-    openFile(fileName: string) {
-        this.tabManager.openTab(fileName);
+
+    openFile() {
+        const ff = [{
+            name: "Triangle Source File",
+            extensions: ["tri"]
+        }];
+        const selectedFile = remote.dialog.showOpenDialogSync(remote.getCurrentWindow(), { filters: ff, properties: ['openFile'] });
+        if (selectedFile)
+            this.tabManager.openTab(selectedFile[0]);
     }
 
     saveFile(fileName: string) {

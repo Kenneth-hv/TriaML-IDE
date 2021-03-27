@@ -159,20 +159,39 @@ body {
   height: 32px;
   width: 100%;
   grid-template-columns: repeat(20, 1fr) auto;
+  overflow-x: overlay;
 }
+
+#tab-group::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
 
 #tab-group .tab {
   grid-row: 1;
   margin-right: 1px;
-  background-color: rgb(71, 71, 71);
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
   height: 32px;
-  width: 100px;
-  padding: 4px;
+  width: 120px;
+  padding: 7px 10px;
   font-size: 12px;
+  display: inline-flex;
+
+  background-color: rgb(71, 71, 71);
   color: #adadad;
+}
+
+#tab-group .tab img {
+  vertical-align: baseline;
+  cursor: pointer;
+  margin: auto 0 auto auto;
+  height: 12px;
+  opacity: 0.5;
+  filter: invert(1);
+}
+
+#tab-group .tab img:hover {
+  opacity: 0.8;
 }
 
 #tab-group .tab.active {

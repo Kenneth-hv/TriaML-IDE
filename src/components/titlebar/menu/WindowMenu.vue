@@ -4,7 +4,7 @@
       <div class="button">File</div>
       <div class="menu-list">
         <div class="button" @click="newFile()">New File</div>
-        <div class="button">Open File</div>
+        <div class="button" @click="openFile()">Open File</div>
         <div class="button">Save File</div>
         <div class="button">Preferences</div>
         <div class="button">Quit</div>
@@ -52,6 +52,9 @@ export default class WindowMenu extends Vue {
 
   newFile() {
     this.store.dispatch("NEW_FILE");
+  }
+  openFile() {
+    this.store.dispatch("OPEN_FILE");
   }
 }
 </script>

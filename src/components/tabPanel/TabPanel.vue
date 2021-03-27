@@ -2,7 +2,11 @@
   <div id="tab-panel">
     <div id="tab-group" cl>
       <Tab
-        v-for="tab in getTabs()" :tabName="tab.fileLocation" v-bind:key="tab.id"
+        v-for="(tab, index) in getTabManager().tabs"
+        :tabName="tab.getFileName()"
+        :isActive="getTabManager().getSelectedIndex() == index"
+        v-bind:key="tab"
+        @click="setSeletedIndex({index})"
       />
     </div>
 
@@ -21,16 +25,18 @@ import { useStore } from "@/store";
   props: {
     tabName: String,
   },
-  computed: {
-  }
+  computed: {},
 })
 export default class TabPanel extends Vue {
   store = setup(() => useStore());
   tabName!: string;
 
-  getTabs() {
-    return this.store.state.triaMLApp.tabManager.tabs
+  getTabManager() {
+    return this.store.state.triaMLApp.tabManager;
   }
 
+  setSeletedIndex(index: number) {
+    this.store.dispatch("SET_SELECTED_INDEX", index);
+  }
 }
 </script>
