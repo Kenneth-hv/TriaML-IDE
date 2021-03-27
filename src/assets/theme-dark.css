@@ -1,0 +1,119 @@
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  background: #666666;
+  color: #fff;
+}
+
+#main {
+  background: #5c5c5c;
+}
+
+#toolbar {
+  background-color: rgb(58, 58, 58);
+}
+
+#toolbar .toolbar-button.active {
+  background-color: rgb(32, 32, 32);
+}
+
+#toolbar .toolbar-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#tab-panel {
+  background-color: #ffffff;
+}
+
+#tab-group {
+  background-color: rgb(51, 51, 51);
+}
+
+#tab-group .tab {
+  background-color: rgb(71, 71, 71);
+  color: #adadad;
+}
+
+#tab-group .tab.active {
+  background-color: rgb(32, 32, 32);
+}
+
+#tab-content {
+  background-color: rgb(32, 32, 32);
+}
+
+
+#titlebar {
+  color: rgb(197,197,197);
+  background-color: #666666;
+}
+
+#window-menu > .dropdown:hover > .button {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-list > .button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Window Control | - | [] | X | */
+
+#window-controls {
+  display: grid;
+  grid-template-columns: repeat(3, 46px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+
+  -webkit-app-region: no-drag;
+}
+
+#window-controls .button {
+  grid-row: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+
+#window-controls .button {
+  user-select: none;
+}
+
+#window-controls .button:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+#window-controls .button:active {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+#close-button:hover {
+  background: #e81123 !important;
+}
+
+#close-button:active {
+  background: #f1707a !important;
+}
+#close-button:active .icon {
+  filter: invert(1);
+}

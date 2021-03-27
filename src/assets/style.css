@@ -122,9 +122,6 @@ body {
 
 #toolbar .toolbar-button {
   display: flex;
-  justify-content: center;
-  flex-direction: column;
-  padding: 4px;
   width: 42px;
   height: 42px;
 }
@@ -134,10 +131,11 @@ body {
 }
 
 #toolbar .toolbar-button img {
-  margin: auto;
   opacity: 0.5;
-  width: 20px;
-  width: 20px;
+  height: 40px;
+  filter: invert(1);
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #toolbar .toolbar-button:hover {
@@ -165,6 +163,7 @@ body {
 
 #tab-group .tab {
   grid-row: 1;
+  margin-right: 1px;
   background-color: rgb(71, 71, 71);
   display: flex;
   justify-content: center;
@@ -255,6 +254,7 @@ body {
   background-color: rgb(22, 22, 22);
   z-index: 999;
   display: none;
+  box-shadow: 1px 1px 2px black;
 }
 
 #window-menu > .dropdown:hover .menu-list {

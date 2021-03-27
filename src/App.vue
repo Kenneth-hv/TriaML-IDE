@@ -24,4 +24,5 @@ export default class App extends Vue {}
 
 <style>
 @import "./assets/style.css";
+@import "./assets/theme-dark.css";
 </style>
