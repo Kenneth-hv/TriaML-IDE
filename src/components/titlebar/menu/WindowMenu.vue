@@ -3,7 +3,7 @@
     <div class="dropdown">
       <div class="button">File</div>
       <div class="menu-list">
-        <div class="button">New File</div>
+        <div class="button" @click="newFile()">New File</div>
         <div class="button">Open File</div>
         <div class="button">Save File</div>
         <div class="button">Preferences</div>
@@ -44,8 +44,15 @@
 </template>
 
 <script lang="ts">
-import { Vue } from "vue-class-component";
+import { Vue, setup } from "vue-class-component";
+import { useStore } from "@/store";
 
-export default class WindowMenu extends Vue {}
+export default class WindowMenu extends Vue {
+  store = setup(() => useStore());
+
+  newFile() {
+    this.store.dispatch("NEW_FILE");
+  }
+}
 </script>
 

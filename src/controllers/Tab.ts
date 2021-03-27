@@ -13,7 +13,7 @@ export default class Tab {
         }else{
             this.isSaved = false;
             this.fileContent = "";
-            this.fileLocation = "";
+            this.fileLocation = "New File";
         }
     }
     

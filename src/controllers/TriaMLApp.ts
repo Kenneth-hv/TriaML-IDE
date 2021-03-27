@@ -1,9 +1,7 @@
 import TabManager from "./TabManager";
-import Tab from "./Tab"
 
 export default class TriaMLApp {
-    private static instance: TriaMLApp = new TriaMLApp();
-    private tabManager: TabManager = new TabManager();
+    tabManager: TabManager = new TabManager();
     config = {
         cygwin: "C:/OCaml64/bin/bash.exe",
         triangleCompiler: "C:/Compile/Triangle.exe",
@@ -11,11 +9,7 @@ export default class TriaMLApp {
         dasm: "C:/Compile/Dasm.exe"
     }
 
-    private constructor () {}
-
-    static getInstance(): TriaMLApp {
-        return TriaMLApp.instance;
-    }
+    constructor () {}
 
     newFile(){
         this.tabManager.newTab();
