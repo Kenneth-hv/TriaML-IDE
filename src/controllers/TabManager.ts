@@ -1,28 +1,28 @@
 import Tab from "./Tab";
 
 export default class TabManager {
-    openTabs: Tab[] = [];
+    tabs: Tab[] = [];
     constructor () {}
 
     openTab(fileLocation: string) {
-        this.openTabs.push(new Tab(fileLocation));
+        this.tabs.push(new Tab(fileLocation));
     }
 
     newTab(){
-        this.openTabs.push(new Tab());
+        this.tabs.push(new Tab());
     }
 
     saveFile(fileLocation: string){
-        this.openTabs.forEach(element => {
+        this.tabs.forEach(element => {
             if (element.fileLocation == fileLocation)
                 element.saveFileContent();               
         });
     }
 
     closeTab(fileLocation: string) {
-        this.openTabs.forEach((element, index) => {
+        this.tabs.forEach((element, index) => {
             if (element.fileLocation == fileLocation)
-                delete this.openTabs[index];
+                delete this.tabs[index];
         });
     }
 }
