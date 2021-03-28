@@ -1,5 +1,4 @@
 import TabManager from "./TabManager";
-import { remote } from "electron";
 
 export default class TriaMLApp {
     tabManager: TabManager = new TabManager();
@@ -17,19 +16,16 @@ export default class TriaMLApp {
     }
 
     openFile() {
-        const ff = [{
-            name: "Triangle Source File",
-            extensions: ["tri"]
-        }];
-        const selectedFile = remote.dialog.showOpenDialogSync(remote.getCurrentWindow(), { filters: ff, properties: ['openFile'] });
-        if (selectedFile)
-            this.tabManager.openTab(selectedFile[0]);
+        this.tabManager.openTab();
     }
 
-    saveFile(fileName: string) {
-        this.tabManager.saveFile(fileName);
+    saveFile() {
+        this.tabManager.saveCurrentTab();
     }
 
+    saveFileAs() {
+        this.tabManager.saveCurrentTabAs();
+    }
     // TODO closetab
 
     showData() {

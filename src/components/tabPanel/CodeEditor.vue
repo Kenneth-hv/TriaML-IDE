@@ -1,13 +1,17 @@
 <template>
-  <div class="tab-content" v-bind:class="{ active: isActive }" >
-    <CodeEditor :tab="this.tab"/>
+  <div class="editor-grid">
+    <div class="line-numbers"></div>
+    <textarea
+      class="code-editor"
+      spellcheck="false"
+      v-model="this.tab.fileContent"
+    ></textarea>
   </div>
 </template>
 
 
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component";
-import CodeEditor from "./CodeEditor.vue";
 import { useStore } from "@/store";
 import Tab from "@/controllers/Tab";
 
@@ -15,11 +19,14 @@ import Tab from "@/controllers/Tab";
   components: { CodeEditor },
   props: {
     tab: Tab,
-    isActive: Boolean,
   },
 })
-export default class TabContent extends Vue {
+export default class CodeEditor extends Vue {
   store = setup(() => useStore());
+  tab!: Tab;
+
+  print() {
+    console.log(this.tab.fileContent);
+  }
 }
 </script>
-

@@ -22,6 +22,7 @@ html {
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
@@ -138,8 +139,10 @@ body {
   margin-right: auto;
 }
 
-#toolbar .toolbar-button:hover {
+#toolbar .toolbar-button:hover img {
+  opacity: 1;
   background: rgba(255, 255, 255, 0.1);
+  box-shadow: #222;
 }
 
 /* Tab Panel */
@@ -148,8 +151,6 @@ body {
   grid-column: 2;
   display: grid;
   grid-template-rows: 32px auto;
-
-  background-color: #ffffff;
 }
 
 #tab-group {
@@ -198,13 +199,49 @@ body {
   background-color: rgb(32, 32, 32);
 }
 
-#tab-content {
+.tab-content {
+  display: none;
   grid-row: 2;
   background-color: rgb(32, 32, 32);
   height: 100%;
   width: 100%;
   overflow: auto;
   white-space: nowrap;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Text Editor */ 
+
+.editor-grid {
+  display: grid;
+  grid-template-columns: 40px auto;
+  height: 100%;
+}
+
+.code-editor {
+  grid-row: 1;
+  grid-column: 2;
+  padding: 5px;
+  min-height: 100%;
+  min-width: 100%;
+  outline: 0px solid transparent;
+  cursor: text;
+  font-family: "Consolas";
+  font-size: 16px;
+
+  border: none;
+  overflow-x: auto;
+  overflow-wrap: unset;
+  text-decoration: none;
+  resize: none;
+  box-shadow: none;
+
+  /* export to themes*/ 
+  background-color: #222;
+  color: #fff
 }
 
 /* Window Title Bar */

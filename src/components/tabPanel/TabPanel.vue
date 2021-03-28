@@ -1,16 +1,20 @@
 <template>
   <div id="tab-panel">
-    <div id="tab-group" cl>
+    <div id="tab-group">
       <Tab
         v-for="(tab, index) in getTabManager().tabs"
         :tabName="tab.getFileName()"
         :isActive="getTabManager().getSelectedIndex() == index"
         v-bind:key="tab"
-        @click="setSeletedIndex({index})"
+        @click="setSeletedIndex({ index })"
       />
     </div>
-
-    <TabContent />
+    <TabContent
+      v-for="(tab, index) in getTabManager().tabs"
+      :tab="tab"
+      :isActive="getTabManager().getSelectedIndex() == index"
+      v-bind:key="tab"
+    />
   </div>
 </template>
 
@@ -22,10 +26,6 @@ import { useStore } from "@/store";
 
 @Options({
   components: { Tab, TabContent },
-  props: {
-    tabName: String,
-  },
-  computed: {},
 })
 export default class TabPanel extends Vue {
   store = setup(() => useStore());

@@ -19,6 +19,12 @@ export const store = createStore<State>({
     OPEN_FILE(state) {
       state.triaMLApp.openFile();
     },
+    SAVE_FILE(state) {
+      state.triaMLApp.saveFile();
+    },
+    SAVE_FILE_AS(state) {
+      state.triaMLApp.saveFileAs();
+    },
     SET_SELECTED_INDEX(state, param) {
       state.triaMLApp.tabManager.setSelectedIndex(param.index);
     },
@@ -32,6 +38,12 @@ export const store = createStore<State>({
     },
     OPEN_FILE({ commit }) {
       commit('OPEN_FILE');
+    },
+    SAVE_FILE({ commit }) {
+      commit('SAVE_FILE');
+    },
+    SAVE_FILE_AS({ commit }) {
+      commit('SAVE_FILE_AS');
     },
     SET_SELECTED_INDEX({ commit } , param) {
       commit('SET_SELECTED_INDEX', param);
