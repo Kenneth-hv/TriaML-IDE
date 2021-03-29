@@ -4,7 +4,6 @@
   padding: 0;
   border: 0;
   vertical-align: baseline;
-  overflow: visible;
 }
 html {
   box-sizing: border-box;
@@ -48,6 +47,7 @@ body {
   height: 100%;
   margin: 0;
   user-select: none;
+  overflow: hidden;
 }
 
 body {
@@ -100,7 +100,6 @@ body {
   left: 0px;
   right: 0px;
   width: 100%;
-  overflow-y: auto;
   background: #5c5c5c;
 
   z-index: 1;
@@ -203,10 +202,6 @@ body {
   display: none;
   grid-row: 2;
   background-color: rgb(32, 32, 32);
-  height: 100%;
-  width: 100%;
-  overflow: auto;
-  white-space: nowrap;
 }
 
 .tab-content.active {
@@ -215,33 +210,15 @@ body {
 
 /* Text Editor */ 
 
-.editor-grid {
-  display: grid;
-  grid-template-columns: 40px auto;
-  height: 100%;
+.editor {
+  height: calc(100vh - 64px);
+  width: calc(100vw - 42px);
+  z-index: 10;
 }
 
-.code-editor {
-  grid-row: 1;
-  grid-column: 2;
-  padding: 5px;
-  min-height: 100%;
-  min-width: 100%;
-  outline: 0px solid transparent;
+/* monaco-editor cursor fix */
+.editor .view-line, .editor .view-line * {
   cursor: text;
-  font-family: "Consolas";
-  font-size: 16px;
-
-  border: none;
-  overflow-x: auto;
-  overflow-wrap: unset;
-  text-decoration: none;
-  resize: none;
-  box-shadow: none;
-
-  /* export to themes*/ 
-  background-color: #222;
-  color: #fff
 }
 
 /* Window Title Bar */
