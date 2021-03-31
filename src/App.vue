@@ -1,4 +1,5 @@
 <template>
+  <Title :title="this.title"/>
   <body>
     <Titlebar />
 
@@ -10,16 +11,21 @@
 </template>
 
 <script lang="ts">
+import Title from "./components/Title.vue";
 import Titlebar from "./components/titlebar/Titlebar.vue";
 import Toolbar from "./components/toolbar/Toolbar.vue";
 import TabPanel from "./components/tabPanel/TabPanel.vue";
 
-import { Options, Vue } from 'vue-class-component';
+import { Options, Vue, setup } from "vue-class-component";
+import { useStore } from "@/store";
 
 @Options({
-  components: { Titlebar, Toolbar, TabPanel },
+  components: { Title, Titlebar, Toolbar, TabPanel },
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+  store = setup(() => useStore());
+  title = "TriaML";
+}
 </script>
 
 <style lang="scss">

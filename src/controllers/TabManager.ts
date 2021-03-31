@@ -4,6 +4,7 @@ import { remote } from "electron";
 export default class TabManager {
     tabs: Tab[] = [];
     selectedIndex: number = -1;
+    title: string = "TriaML";
     readonly fileFormat = [{
         name: "Triangle Source File",
         extensions: ["tri"]
