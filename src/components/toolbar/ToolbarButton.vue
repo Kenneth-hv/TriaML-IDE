@@ -1,6 +1,6 @@
 <template>
   <div class="toolbar-button">
-    <img class="toolbar-item-icon" :src="require(`@/assets/${iconName}.svg`)" />
+    <img :src="require(`@/assets/${iconName}.svg`)" />
   </div>
 </template>
 

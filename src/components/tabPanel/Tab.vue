@@ -1,12 +1,17 @@
 <template>
   <!-- fix this -->
   <div v-if="isActive" class="tab active">
-    {{ tabName }}
-    <img :src="require('@/assets/close_tab.svg')" @click="closeTab()" v-on:click.stop/>
+    <p>{{ tabName }}</p>
+    <img
+      :src="require('@/assets/close_tab.svg')"
+      @click="closeTab()"
+      v-on:click.stop
+    />
   </div>
-  <div v-else class="tab">{{ tabName }}</div>
+  <div v-else class="tab">
+    <p>{{ tabName }}</p>
+  </div>
 </template>
-
 
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component";
@@ -24,7 +29,7 @@ export default class Tab extends Vue {
   isActive!: boolean;
 
   closeTab() {
-    this.store.commit('ClOSE_SELECTED_TAB');
+    this.store.commit("ClOSE_SELECTED_TAB");
   }
 }
 </script>

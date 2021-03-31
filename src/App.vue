@@ -22,7 +22,7 @@ import { Options, Vue } from 'vue-class-component';
 export default class App extends Vue {}
 </script>
 
-<style>
-@import "./assets/style.css";
-@import "./assets/theme-dark.css";
+<style lang="scss">
+@import "./assets/styles/dark.scss";
+@import "./assets/styles/style.scss";
 </style>

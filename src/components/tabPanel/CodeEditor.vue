@@ -1,5 +1,5 @@
 <template>
-  <div ref="editor" class="editor"></div>
+  <div ref="editor" class="editor" :class="{ active: isActive }"></div>
 </template>
 
 <script lang="ts">
@@ -12,11 +12,13 @@ import * as monaco from "monaco-editor";
   components: { CodeEditor },
   props: {
     tab: Tab,
+    isActive: Boolean,
   },
 })
 export default class CodeEditor extends Vue {
   store = setup(() => useStore());
   tab!: Tab;
+  isActive!: Boolean;
 
   mounted() {
     let tab = this.tab;
@@ -39,9 +41,9 @@ export default class CodeEditor extends Vue {
         "type",
         "var",
         "while",
-        "putint"
+        "putint",
       ],
-      
+
       typeKeywords: [
         "Integer literal",
         "Character literal",
@@ -51,7 +53,6 @@ export default class CodeEditor extends Vue {
         "String",
         "Boolean",
       ],
-
 
       brackets: [
         { open: "{", close: "}", token: "delimiter.curly" },
@@ -69,7 +70,8 @@ export default class CodeEditor extends Vue {
           [/[{}[]()]/, "@brackets"],
 
           [/@[a-zA-Z]\w*/, "tag"],
-          [/[a-zA-Z]\w*/,
+          [
+            /[a-zA-Z]\w*/,
             {
               cases: {
                 "@keywords": "keyword",
@@ -82,7 +84,7 @@ export default class CodeEditor extends Vue {
         // Deal with white space, including single and multi-line comments
         whitespace: [
           [/\s+/, "white"],
-          [/(^!.*$)/, "comment"]
+          [/(^!.*$)/, "comment"],
         ],
 
         // Recognize hex, negatives, decimals, imaginaries, longs, and scientific notation
@@ -119,11 +121,24 @@ export default class CodeEditor extends Vue {
 
     monaco.languages.setMonarchTokensProvider("triangle", syntax);
     let container = this.$refs["editor"] as HTMLElement;
+
+    let theme = {
+      base: "vs-dark",
+      inherit: true,
+      colors: {
+        "editor.background": "#00000000",
+      },
+      rules: [],
+    };
+    monaco.editor.defineTheme("theme", theme as any);
     let editor = monaco.editor.create(container, {
       value: tab.fileContent,
       language: "triangle",
-      theme: "vs-dark",
+      theme: "theme",
       automaticLayout: true,
+      minimap: {
+        enabled: false,
+      },
     });
 
     editor.onDidChangeModelContent(function () {

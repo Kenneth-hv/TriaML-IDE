@@ -1,5 +1,13 @@
 import TabManager from "./TabManager";
 
+export enum Tool {
+    CODE_EDITOR,
+    TERMINAL,
+    DISASSEMBLER,
+    AST,
+    TABLE
+}
+
 export default class TriaMLApp {
     tabManager: TabManager = new TabManager();
     config = {
@@ -8,6 +16,8 @@ export default class TriaMLApp {
         tam: "C:/Compile/TAM.exe",
         dasm: "C:/Compile/Dasm.exe"
     }
+
+    private _selectedTool: Tool = Tool.CODE_EDITOR;
 
     constructor() { }
 
@@ -30,6 +40,13 @@ export default class TriaMLApp {
 
     showData() {
         console.log(this);
+    }
+
+    public get selectedTool(): Tool {
+        return this._selectedTool;
+    }
+    public set selectedTool(tool: Tool) {
+        this._selectedTool = tool;
     }
 
 }

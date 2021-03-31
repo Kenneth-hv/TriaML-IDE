@@ -1,6 +1,6 @@
 //"use strict";
 
-import { app, protocol, BrowserWindow, ipcMain } from "electron";
+import { app, protocol, BrowserWindow, Menu, MenuItem, webFrame, ipcMain  } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 
@@ -11,6 +11,21 @@ protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } },
 ]);
 
+// const menu = new Menu()
+// menu.append(new MenuItem({
+//   label: 'View',
+//   submenu: [{
+//     role: 'zoomIn',
+//     accelerator: 'Ctrl+\+',
+//   }, {
+//     role: 'zoomOut',
+//     accelerator: 'Ctrl+-',
+//   }
+//   ]
+// }))
+
+// Menu.setApplicationMenu(menu)
+
 async function createWindow() {
   // Create the browser window.
   const win = new BrowserWindow({
@@ -19,15 +34,12 @@ async function createWindow() {
     minWidth: 512,
     minHeight: 410,
     frame: false,
-    backgroundColor: "#666666",
+    backgroundColor: "#2b2b2b",
     icon: "./src/assets/logo.png",
     webPreferences: {
       enableRemoteModule: true,
       devTools: true,
-
-      // Use pluginOptions.nodeIntegration, leave this alone
-      // See nklayman.github.io/vue-cli-plugin-electron-builder/guide/security.html#node-integration for more info
-      nodeIntegration: !!process.env.ELECTRON_NODE_INTEGRATION
+       nodeIntegration: !!process.env.ELECTRON_NODE_INTEGRATION
     },
   });
 
@@ -86,3 +98,12 @@ if (isDevelopment) {
     });
   }
 }
+
+ipcMain.on("ZOOM_IN", () => {
+  console.log("hi");
+  // webFrame.setZoomLevel(webFrame.getZoomLevel() + 1);
+});
+
+ipcMain.on("ZOOM_OUT", () => {
+  // webFrame.setZoomLevel(webFrame.getZoomLevel() - 1);
+});
