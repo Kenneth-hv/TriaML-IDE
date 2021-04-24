@@ -207,12 +207,20 @@ body {
       margin: auto 0 auto auto;
       height: 12px;
       cursor: pointer;
-      opacity: 0.5;
+      opacity: 0;
 
       @if $white-icons {
         filter: invert(1);
       }
 
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &.active img {
+      opacity: 0.5;
+      
       &:hover {
         opacity: 0.8;
       }
@@ -252,10 +260,11 @@ body {
 
 /* Terminal */
 
-.terminal {
+.terminal-view {
   display: none;
   height: calc(100vh - 64px);
   width: calc(100vw - 42px);
+  padding: 4px;
 
   &.active {
     display: block;

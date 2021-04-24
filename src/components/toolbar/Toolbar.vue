@@ -1,7 +1,7 @@
 <template>
   <div id="toolbar">
     <ToolbarButton iconName="run" />
-    <ToolbarButton iconName="debug" />
+    <ToolbarButton iconName="debug" @click="compile()"/>
     <div class="toolbar-space"></div>
     <ToolbarButton
       iconName="tri"
@@ -51,6 +51,11 @@ export default class Toolbar extends Vue {
 
   setSelectedTool(tool: Tool) {
     this.store.dispatch("SET_SELECTED_TOOL", tool);
+  }
+
+  compile() {
+    this.store.dispatch("COMPILE");
+    this.store.dispatch("SET_SELECTED_TOOL", Tool.TERMINAL);
   }
 }
 </script>

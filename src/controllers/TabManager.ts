@@ -55,9 +55,16 @@ export default class TabManager {
         this.saveCurrentTab(true);
     }
 
-    closeTab() {
-        this.tabs.splice(this.selectedIndex, 1);
-        this.selectedIndex = Math.min(this.selectedIndex, this.tabs.length - 1);
+    closeTab(tabId: number) {
+        this.tabs.forEach((tab, index) => {
+            if (tab.id == tabId) {
+                tab.close();
+                this.tabs.splice(index, 1);
+                if (index <= this.selectedIndex)
+                    this.selectedIndex--;
+                return;
+            }
+        });
     }
 
     getSelectedIndex(): number {
@@ -66,5 +73,12 @@ export default class TabManager {
 
     setSelectedIndex(index: number) {
         this.selectedIndex = index;
+    }
+
+    compile() {
+        if (this.selectedIndex > -1) {
+            const tab = this.tabs[this.selectedIndex];
+            tab.compile();
+        }
     }
 }

@@ -1,34 +1,24 @@
 //"use strict";
 
-import { app, protocol, BrowserWindow, Menu, MenuItem, webFrame, ipcMain  } from "electron";
+import { app, protocol, BrowserWindow, Menu, MenuItem, webFrame, ipcMain } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
+import os from "os";
+import pty from 'node-pty';
+
+var window: BrowserWindow;
 
 const isDevelopment = process.env.NODE_ENV !== "production";
+const shell = os.platform() == "win32" ? "powershell.exe" : "bash";
 
 // Scheme must be registered before the app is ready
 protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } },
 ]);
 
-// const menu = new Menu()
-// menu.append(new MenuItem({
-//   label: 'View',
-//   submenu: [{
-//     role: 'zoomIn',
-//     accelerator: 'Ctrl+\+',
-//   }, {
-//     role: 'zoomOut',
-//     accelerator: 'Ctrl+-',
-//   }
-//   ]
-// }))
-
-// Menu.setApplicationMenu(menu)
-
 async function createWindow() {
   // Create the browser window.
-  const win = new BrowserWindow({
+  window = new BrowserWindow({
     width: 800,
     height: 600,
     minWidth: 512,
@@ -39,18 +29,18 @@ async function createWindow() {
     webPreferences: {
       enableRemoteModule: true,
       devTools: true,
-       nodeIntegration: !!process.env.ELECTRON_NODE_INTEGRATION
+      nodeIntegration: !!process.env.ELECTRON_NODE_INTEGRATION
     },
   });
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
-    await win.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
+    await window.loadURL(process.env.WEBPACK_DEV_SERVER_URL);
     //if (!process.env.IS_TEST) win.webContents.openDevTools();
   } else {
     createProtocol("app");
     // Load the index.html when not in development
-    win.loadURL("app://./index.html");
+    window.loadURL("app://./index.html");
   }
 }
 
@@ -82,6 +72,7 @@ app.on("ready", async () => {
     }
   }
   createWindow();
+
 });
 
 // Exit cleanly on request from parent process in development mode.
@@ -106,4 +97,30 @@ ipcMain.on("ZOOM_IN", () => {
 
 ipcMain.on("ZOOM_OUT", () => {
   // webFrame.setZoomLevel(webFrame.getZoomLevel() - 1);
+});
+
+// NODE PTY TERMINAL MANAGER
+var terminals: any = {};
+
+ipcMain.on("TERMINAL_INIT", (event, id: number) => {
+  terminals[id] = require('node-pty').spawn(shell, [], {
+    name: 'xterm-color',
+    cols: 80,
+    rows: 30,
+    cwd: process.env.HOME,
+    env: process.env as { [key: string]: string; }
+  });
+
+  terminals[id].on('data', (data: any) => {
+    window.webContents.send("TERMINAL_OUTPUT_ID_" + id.toString(), data,);
+  })
+});
+
+ipcMain.on("TERMINAL_INPUT", (event, data, id) => {
+  terminals[id].write(data);
+});
+
+ipcMain.on("TERMINAL_KILL", (event, id) => {
+  terminals[id].kill();
+  terminals[id] = null;
 });

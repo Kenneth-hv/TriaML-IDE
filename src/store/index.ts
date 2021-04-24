@@ -27,14 +27,17 @@ export const store = createStore<State>({
       state.triaMLApp.saveFileAs();
     },
     SET_SELECTED_INDEX(state, param) {
-      state.triaMLApp.tabManager.setSelectedIndex(param.index);
+      state.triaMLApp.tabManager.setSelectedIndex(param);
     },
-    ClOSE_SELECTED_TAB(state) {
-      state.triaMLApp.tabManager.closeTab();
+    ClOSE_TAB(state, param) {
+      state.triaMLApp.tabManager.closeTab(param);
     },
     SET_SELECTED_TOOL(state, param) {
       state.triaMLApp.selectedTool = param;
-    }
+    },
+    COMPILE(state) {
+      state.triaMLApp.tabManager.compile();
+    },
   },
   actions: {
     NEW_FILE({ commit }) {
@@ -52,12 +55,15 @@ export const store = createStore<State>({
     SET_SELECTED_INDEX({ commit }, param) {
       commit('SET_SELECTED_INDEX', param);
     },
-    ClOSE_SELECTED_TAB({ commit }) {
-      commit('ClOSE_SELECTED_TAB');
+    ClOSE_TAB({ commit }, param) {
+      commit('ClOSE_TAB', param);
     },
     SET_SELECTED_TOOL({ commit }, param) {
       commit('SET_SELECTED_TOOL', param);
-    }
+    },
+    COMPILE({ commit }) {
+      commit('COMPILE');
+    },
   },
   modules: {
   }

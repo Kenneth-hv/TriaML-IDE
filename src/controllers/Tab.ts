@@ -1,3 +1,4 @@
+import { ipcRenderer } from "electron";
 import FileManager from "./FileManager";
 
 export default class Tab {
@@ -17,6 +18,7 @@ export default class Tab {
             this.fileContent = "";
             this.fileLocation = "";
         }
+        ipcRenderer.send("TERMINAL_INIT", this.id);
     }
 
     //Puede no ser necesario//
@@ -34,7 +36,23 @@ export default class Tab {
         if (this.fileLocation == "") {
             return "New File"
         } else {
-            return this.fileLocation.substr(this.fileLocation.lastIndexOf('\\') + 1);
+            const fileName = this.fileLocation;
+            return fileName.substr(Math.max(fileName.lastIndexOf('/'), fileName.lastIndexOf('\\')) + 1);
         }
+    }
+
+    compile() {
+        const triDir = 'C:/Compile/Triangle.exe'
+        let command = triDir + " " + this.fileLocation;
+
+        if (process.platform == "win32"){
+            command = 'cd "C:/OCaml64/bin/" && bash --login -c "' + command + '"'
+        }
+
+        ipcRenderer.send("TERMINAL_INPUT", command + "\r", this.id);
+    }
+
+    close () {
+        ipcRenderer.send("TERMINAL_KILL", this.id);
     }
 }

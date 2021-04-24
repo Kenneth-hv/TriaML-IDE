@@ -1,5 +1,10 @@
 {
   "name": "triaml-ide",
+  "productName": "TriaML IDE",
+  "author": {
+    "name": "KEED"
+  },
+  "description": "A Triangle IDE for OCaml written compiler.",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,13 +15,16 @@
     "serve": "vue-cli-service electron:serve",
     "postinstall": "electron-builder install-app-deps",
     "postuninstall": "electron-builder install-app-deps",
-    "start": "npm run serve"
+    "start": "npm run serve",
+    "electron-rebuild": "electron-rebuild"
   },
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.6.5",
+    "electron-rebuild": "^2.3.5",
     "monaco-editor": "^0.23.0",
     "monaco-editor-webpack-plugin": "^3.0.1",
+    "node-pty": "^0.10.1",
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0",
     "vue-meta": "^2.4.0",
@@ -42,6 +50,7 @@
     "electron-devtools-installer": "^3.1.1",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0",
+    "node-loader": "^2.0.0",
     "node-sass": "^5.0.0",
     "sass-loader": "^10.1.1",
     "typescript": "~4.1.5",

@@ -6,8 +6,9 @@
         v-for="(tab, index) in getTabManager().tabs"
         :tabName="tab.getFileName()"
         :isActive="getTabManager().getSelectedIndex() == index"
+        :tabId="tab.id"
         v-bind:key="tab"
-        @click="setSeletedIndex({ index })"
+        @click="setSeletedIndex(index)"
       />
     </div>
     <TabContent
