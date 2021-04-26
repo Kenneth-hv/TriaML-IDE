@@ -1,5 +1,5 @@
 <template>
-  <Title :title="this.title"/>
+  <Title :title="this.title" />
   <body>
     <Titlebar />
 
@@ -15,7 +15,7 @@ import Title from "./components/Title.vue";
 import Titlebar from "./components/titlebar/Titlebar.vue";
 import Toolbar from "./components/toolbar/Toolbar.vue";
 import TabPanel from "./components/tabPanel/TabPanel.vue";
-
+import { ipcRenderer } from "electron";
 import { Options, Vue, setup } from "vue-class-component";
 import { useStore } from "@/store";
 
@@ -25,6 +25,16 @@ import { useStore } from "@/store";
 export default class App extends Vue {
   store = setup(() => useStore());
   title = "TriaML";
+
+  mounted() {
+    ipcRenderer.on("SET_WINDOW_MAXIMIZED", (_event, data) => {
+      if (data) {
+        document.body.classList.add("maximized");
+      } else {
+        document.body.classList.remove("maximized");
+      }
+    });
+  }
 }
 </script>
 

@@ -5,23 +5,23 @@
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component";
 import { useStore } from "@/store";
-import Tab from "@/controllers/Tab";
+import TabFile from "@/controllers/TabFile";
 import * as monaco from "monaco-editor";
 
 @Options({
   components: { CodeEditor },
   props: {
-    tab: Tab,
+    tabFile: TabFile,
     isActive: Boolean,
   },
 })
 export default class CodeEditor extends Vue {
   store = setup(() => useStore());
-  tab!: Tab;
+  tabFile!: TabFile;
   isActive!: Boolean;
 
   mounted() {
-    let tab = this.tab;
+    let tabFile = this.tabFile;
 
     var syntax = {
       keywords: [
@@ -132,7 +132,7 @@ export default class CodeEditor extends Vue {
     };
     monaco.editor.defineTheme("theme", theme as any);
     let editor = monaco.editor.create(container, {
-      value: tab.fileContent,
+      value: tabFile.fileContent,
       language: "triangle",
       theme: "theme",
       automaticLayout: true,
@@ -141,8 +141,8 @@ export default class CodeEditor extends Vue {
       },
     });
 
-    editor.onDidChangeModelContent(function () {
-      tab.fileContent = editor.getValue();
+    editor.onDidChangeModelContent(() => {
+      tabFile.fileContent = editor.getValue();
     });
   }
 }

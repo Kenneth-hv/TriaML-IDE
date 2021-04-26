@@ -1,7 +1,6 @@
 import { InjectionKey } from 'vue'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
 import TriaMLApp from '@/controllers/TriaMLApp'
-import { Tool } from '@/controllers/TriaMLApp'
 
 export interface State {
   triaMLApp: TriaMLApp
@@ -27,16 +26,16 @@ export const store = createStore<State>({
       state.triaMLApp.saveFileAs();
     },
     SET_SELECTED_INDEX(state, param) {
-      state.triaMLApp.tabManager.setSelectedIndex(param);
+      state.triaMLApp.tabFileManager.selectedIndex = param;
     },
     ClOSE_TAB(state, param) {
-      state.triaMLApp.tabManager.closeTab(param);
+      state.triaMLApp.tabFileManager.closeTab(param);
     },
     SET_SELECTED_TOOL(state, param) {
       state.triaMLApp.selectedTool = param;
     },
     COMPILE(state) {
-      state.triaMLApp.tabManager.compile();
+      state.triaMLApp.tabFileManager.compile();
     },
   },
   actions: {

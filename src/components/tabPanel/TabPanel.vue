@@ -3,19 +3,19 @@
     <img :src="require('@/assets/logo_black.svg')" />
     <div class="tab-group">
       <Tab
-        v-for="(tab, index) in getTabManager().tabs"
-        :tabName="tab.getFileName()"
-        :isActive="getTabManager().getSelectedIndex() == index"
-        :tabId="tab.id"
-        v-bind:key="tab"
+        v-for="(tabFile, index) in getTabManager().tabFiles"
+        :tabName="tabFile.fileName"
+        :isActive="getTabManager().selectedIndex == index"
+        :tabId="tabFile.id"
+        v-bind:key="tabFile"
         @click="setSeletedIndex(index)"
       />
     </div>
     <TabContent
-      v-for="(tab, index) in getTabManager().tabs"
-      :tab="tab"
-      :isActive="getTabManager().getSelectedIndex() == index"
-      v-bind:key="tab"
+      v-for="(tabFile, index) in getTabManager().tabFiles"
+      :tabFile="tabFile"
+      :isActive="getTabManager().selectedIndex == index"
+      v-bind:key="tabFile"
     />
   </div>
 </template>
@@ -34,7 +34,7 @@ export default class TabPanel extends Vue {
   tabName!: string;
 
   getTabManager() {
-    return this.store.state.triaMLApp.tabManager;
+    return this.store.state.triaMLApp.tabFileManager;
   }
 
   setSeletedIndex(index: number) {

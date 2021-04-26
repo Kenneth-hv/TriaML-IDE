@@ -1,4 +1,4 @@
-import TabManager from "./TabManager";
+import TabFileManager from "./TabFileManager";
 
 export enum Tool {
     CODE_EDITOR,
@@ -9,37 +9,16 @@ export enum Tool {
 }
 
 export default class TriaMLApp {
-    tabManager: TabManager = new TabManager();
-    config = {
-        cygwin: "C:/OCaml64/bin/bash.exe",
-        triangleCompiler: "C:/Compile/Triangle.exe",
-        tam: "C:/Compile/TAM.exe",
-        dasm: "C:/Compile/Dasm.exe"
+    private _tabFileManager: TabFileManager;
+    private _selectedTool: Tool;
+
+    constructor() {
+        this._tabFileManager = new TabFileManager();
+        this._selectedTool = Tool.CODE_EDITOR;
     }
 
-    private _selectedTool: Tool = Tool.CODE_EDITOR;
-
-    constructor() { }
-
-    newFile() {
-        this.tabManager.newTab();
-    }
-
-    openFile() {
-        this.tabManager.openTab();
-    }
-
-    saveFile() {
-        this.tabManager.saveCurrentTab();
-    }
-
-    saveFileAs() {
-        this.tabManager.saveCurrentTabAs();
-    }
-    // TODO closetab
-
-    showData() {
-        console.log(this);
+    public get tabFileManager(): TabFileManager {
+        return this._tabFileManager;
     }
 
     public get selectedTool(): Tool {
@@ -49,4 +28,23 @@ export default class TriaMLApp {
         this._selectedTool = tool;
     }
 
+    public newFile() {
+        this._tabFileManager.newTabFile();
+    }
+
+    public openFile() {
+        this._tabFileManager.openTab();
+    }
+
+    public saveFile() {
+        this._tabFileManager.saveCurrentTab();
+    }
+
+    public saveFileAs() {
+        this._tabFileManager.saveCurrentTabAs();
+    }
+
+    public showData() {
+        console.log(this);
+    }
 }
