@@ -42,6 +42,14 @@ async function createWindow() {
     // Load the index.html when not in development
     window.loadURL("app://./index.html");
   }
+
+  window.on('unmaximize', () => {
+    window.webContents.send("SET_WINDOW_MAXIMIZED", false);
+  });
+
+  window.on('maximize', () => {
+    window.webContents.send("SET_WINDOW_MAXIMIZED", true);
+  });
 }
 
 // Quit when all windows are closed.
@@ -90,6 +98,8 @@ if (isDevelopment) {
   }
 }
 
+
+
 ipcMain.on("ZOOM_IN", () => {
   console.log("hi");
   // webFrame.setZoomLevel(webFrame.getZoomLevel() + 1);
@@ -102,11 +112,11 @@ ipcMain.on("ZOOM_OUT", () => {
 // NODE PTY TERMINAL MANAGER
 var terminals: any = {};
 
-ipcMain.on("TERMINAL_INIT", (event, id: number) => {
+ipcMain.on("TERMINAL_INIT", (_event, id: number) => {
   terminals[id] = require('node-pty').spawn(shell, [], {
     name: 'xterm-color',
-    cols: 80,
-    rows: 30,
+    cols: 100,
+    rows: 60,
     cwd: process.env.HOME,
     env: process.env as { [key: string]: string; }
   });
@@ -116,11 +126,11 @@ ipcMain.on("TERMINAL_INIT", (event, id: number) => {
   })
 });
 
-ipcMain.on("TERMINAL_INPUT", (event, data, id) => {
+ipcMain.on("TERMINAL_INPUT", (_event, data, id) => {
   terminals[id].write(data);
 });
 
-ipcMain.on("TERMINAL_KILL", (event, id) => {
+ipcMain.on("TERMINAL_KILL", (_event, id) => {
   terminals[id].kill();
   terminals[id] = null;
 });
