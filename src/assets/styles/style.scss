@@ -349,8 +349,8 @@ body {
 
 .menu-list {
   position: absolute;
-  min-width: 150px;
   z-index: 999;
+  width: max-content;
   display: none;
   box-shadow: 0px 1px 1px black;
   background-color: $color-menu-background;
@@ -358,6 +358,7 @@ body {
   >.button {
     margin: 5px 0px;
     padding: 3px 15px;
+    padding-right: 40px;
     height: 24px;
     cursor: pointer;
   }

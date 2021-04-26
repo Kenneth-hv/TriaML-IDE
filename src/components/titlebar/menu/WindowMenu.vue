@@ -1,43 +1,73 @@
 <template>
-  <div id="window-menu" tabindex="0" :class=" { active : this.active } " @click="this.active = !this.active" @blur="this.active = false">
-    <div class="dropdown" :class="{ selected : this.selected == 0 }" @mouseover="selectDropdown(0)">
-      <div class="button">File</div>
+  <div
+    id="window-menu"
+    tabindex="0"
+    :class="{ active: this.active }"
+    @click="this.active = !this.active"
+    @blur="this.active = false"
+  >
+    <div
+      class="dropdown"
+      :class="{ selected: this.selected == 0 }"
+      @mouseover="selectDropdown(0)"
+    >
+      <div class="button">{{ $t("menu.file") }}</div>
       <div class="menu-list">
-        <div class="button" @click="newFile()">New File</div>
+        <div class="button" @click="newFile()">
+          {{ $t("menu.file.newfile") }}
+        </div>
         <div class="spacer"></div>
-        <div class="button" @click="openFile()">Open File</div>
+        <div class="button" @click="openFile()">
+          {{ $t("menu.file.openfile") }}
+        </div>
         <div class="spacer"></div>
-        <div class="button" @click="saveFile()">Save</div>
-        <div class="button" @click="saveFileAs()">Save As</div>
+        <div class="button" @click="saveFile()">
+          {{ $t("menu.file.savefile") }}
+        </div>
+        <div class="button" @click="saveFileAs()">
+          {{ $t("menu.file.savefileas") }}
+        </div>
         <div class="spacer"></div>
-        <div class="button">Preferences</div>
+        <div class="button">{{ $t("menu.file.preferences") }}</div>
         <div class="spacer"></div>
-        <div class="button">Quit</div>
+        <div class="button">{{ $t("menu.file.quit") }}</div>
       </div>
     </div>
-    <div class="dropdown" :class="{ selected : this.selected == 1 }" @mouseover="selectDropdown(1)">
-      <div class="button">Edit</div>
+    <div
+      class="dropdown"
+      :class="{ selected: this.selected == 1 }"
+      @mouseover="selectDropdown(1)"
+    >
+      <div class="button">{{ $t("menu.edit") }}</div>
       <div class="menu-list">
-        <div class="button">Undo</div>
-        <div class="button">Redo</div>
+        <div class="button">{{ $t("menu.edit.undo") }}</div>
+        <div class="button">{{ $t("menu.edit.redo") }}</div>
         <div class="spacer"></div>
-        <div class="button">Cut</div>
-        <div class="button">Copy</div>
-        <div class="button">Paste</div>
+        <div class="button">{{ $t("menu.edit.cut") }}</div>
+        <div class="button">{{ $t("menu.edit.copy") }}</div>
+        <div class="button">{{ $t("menu.edit.paste") }}</div>
       </div>
     </div>
-    <div class="dropdown" :class="{ selected : this.selected == 2 }" @mouseover="selectDropdown(2)">
-      <div class="button">View</div>
+    <div
+      class="dropdown"
+      :class="{ selected: this.selected == 2 }"
+      @mouseover="selectDropdown(2)"
+    >
+      <div class="button">{{ $t("menu.view") }}</div>
       <div class="menu-list">
-        <div class="button" @click="zoomIn()">Zoom In</div>
-        <div class="button" @click="zoomOut()">Zoom Out</div>
-        <div class="button" @click="zoomDefault()">Actual Zoom</div>
+        <div class="button" @click="zoomIn()">{{ $t("menu.view.zoomin") }}</div>
+        <div class="button" @click="zoomOut()">{{ $t("menu.view.zoomout") }}</div>
+        <div class="button" @click="zoomDefault()">{{ $t("menu.view.restorezoom") }}</div>
       </div>
     </div>
-    <div class="dropdown" :class="{ selected : this.selected == 3 }" @mouseover="selectDropdown(3)">
-      <div class="button">Help</div>
+    <div
+      class="dropdown"
+      :class="{ selected: this.selected == 3 }"
+      @mouseover="selectDropdown(3)"
+    >
+      <div class="button">{{ $t("menu.help") }}</div>
       <div class="menu-list">
-        <div class="button">About</div>
+        <div class="button">{{ $t("menu.help.about") }}</div>
       </div>
     </div>
   </div>

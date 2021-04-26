@@ -6,7 +6,7 @@ import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 import os from "os";
 import pty from 'node-pty';
 
-var window: BrowserWindow;
+let window: BrowserWindow;
 
 const isDevelopment = process.env.NODE_ENV !== "production";
 const shell = os.platform() == "win32" ? "powershell.exe" : "bash";
@@ -110,7 +110,7 @@ ipcMain.on("ZOOM_OUT", () => {
 });
 
 // NODE PTY TERMINAL MANAGER
-var terminals: any = {};
+const terminals: any = {};
 
 ipcMain.on("TERMINAL_INIT", (_event, id: number) => {
   terminals[id] = require('node-pty').spawn(shell, [], {

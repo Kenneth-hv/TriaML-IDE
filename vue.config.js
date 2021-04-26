@@ -2,7 +2,18 @@ module.exports = {
   pluginOptions: {
     electronBuilder: {
       nodeIntegration: true,
-      externals:['node-pty'] // this excludes the node-pty from the front end
+      externals: [
+        'node-pty'
+      ]
+    },
+    i18n: {
+      locale: 'en',
+      fallbackLocale: 'en',
+      localeDir: 'lang',
+      enableLegacy: true,
+      runtimeOnly: false,
+      compositionOnly: true,
+      fullInstall: true
     }
   },
 }
