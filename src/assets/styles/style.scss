@@ -194,6 +194,11 @@ body {
     font-size: 12px;
     display: inline-flex;
     background-color: $color-tab;
+    cursor: pointer;
+
+    * {
+      cursor: pointer;
+    }
 
     p {
       margin-right: 7px;
@@ -220,7 +225,7 @@ body {
 
     &.active img {
       opacity: 0.5;
-      
+
       &:hover {
         opacity: 0.8;
       }
@@ -265,10 +270,15 @@ body {
   height: calc(100vh - 64px);
   width: calc(100vw - 42px);
   padding: 4px;
+  position: relative;
 
   &.active {
     display: block;
   }
+}
+
+.xterm-viewport {
+  overflow: hidden;
 }
 
 /* Window Title Bar */
@@ -349,6 +359,7 @@ body {
     margin: 5px 0px;
     padding: 3px 15px;
     height: 24px;
+    cursor: pointer;
   }
 
   >.button:hover {
