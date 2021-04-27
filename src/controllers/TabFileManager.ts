@@ -24,12 +24,23 @@ export default class TabFileManager {
         this._selectedIndex = index;
     }
 
+    public getTabFileIndex(tabFileId: number): number {
+        for (let index = 0; index < this._tabFiles.length; index++){
+            const tabFile = this._tabFiles[index];
+            if (tabFile.id == tabFileId) {
+                return index;
+            }
+        }
+
+        return -1;
+    }
+
     public newTabFile() {
         this._tabFiles.push(new TabFile());
         this._selectedIndex = this._tabFiles.length - 1;
     }
 
-    public openTab() {
+    public openTab(): boolean {
         const selectedFile = remote.dialog.showOpenDialogSync(remote.getCurrentWindow(), { filters: this._fileFormat, properties: ['openFile'] });
         if (selectedFile) {
             // Prefer '/' over '\'
@@ -50,11 +61,21 @@ export default class TabFileManager {
                 this._tabFiles.push(new TabFile(fileLocation));
                 this._selectedIndex = this._tabFiles.length - 1;
             }
+            return true;
         }
+        return false;
     }
 
     public saveCurrentTab(saveAs?: boolean) {
-        if (this._selectedIndex > -1) {
+        this.saveTab(this._tabFiles[this._selectedIndex].id, saveAs);
+    }
+
+    public saveCurrentTabAs() {
+        this.saveCurrentTab(true);
+    }
+
+    public saveTab(tabFileId: number, saveAs?: boolean) {
+        if (tabFileId && tabFileId > -1) {
             const tabFile = this._tabFiles[this._selectedIndex];
             if (saveAs || !tabFile.filePath) {
                 const selectedFile = remote.dialog.showSaveDialogSync(remote.getCurrentWindow(), { filters: this._fileFormat, properties: ['showOverwriteConfirmation'] });
@@ -68,31 +89,60 @@ export default class TabFileManager {
         }
     }
 
-    public saveCurrentTabAs() {
-        this.saveCurrentTab(true);
-    }
-
     public closeTab(tabFileId: number) {
-        this._tabFiles.forEach((tabFile, index) => {
-            if (tabFile.id == tabFileId) {
-                tabFile.close();
-                this._tabFiles.splice(index, 1);
-                if (index <= this._selectedIndex) {
-                    this._selectedIndex--;
-                    if (this._tabFiles.length > 0 && this._selectedIndex == -1) {
-                        this._selectedIndex = 0;
-                    }
+        const tabFileIndex = this.getTabFileIndex(tabFileId);
+        const tabFile = this._tabFiles[tabFileIndex];
+
+        // If file is not saved promt the 'File not save' dialog
+        if (!tabFile.isSaved) {
+            const savePromptResult = remote.dialog.showMessageBoxSync(
+                remote.getCurrentWindow(),
+                {
+                    message: "File not saved",
+                    detail: "Would you like to save " + tabFile.fileName + "?",
+                    type: "warning",
+                    buttons: ["Save", "Don't Save", "Cancel"],
+                    defaultId: 0,
+                    cancelId: 2,
+                    noLink: true
                 }
+            );
+
+            if (savePromptResult == 0) {
+                this.saveTab(tabFileId);
+                if (!tabFile.isSaved) {
+                    return;
+                }
+            }
+
+            if (savePromptResult == 2) {
                 return;
             }
-        });
+        }
+        this.disposeTab(tabFileIndex);
     }
 
-    // NOT FINISHED
+    private disposeTab(index: number) {
+        this._tabFiles.splice(index, 1);
+        if (index <= this._selectedIndex) {
+            this._selectedIndex--;
+            if (this._tabFiles.length > 0 && this._selectedIndex == -1) {
+                this._selectedIndex = 0;
+            }
+        }
+    }
+
     public compile() {
         if (this._selectedIndex > -1) {
             const tab = this._tabFiles[this._selectedIndex];
             tab.compile();
+        }
+    }
+
+    public run() {
+        if (this._selectedIndex > -1) {
+            const tab = this._tabFiles[this._selectedIndex];
+            tab.run();
         }
     }
 

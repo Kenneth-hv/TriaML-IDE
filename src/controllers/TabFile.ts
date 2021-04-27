@@ -1,4 +1,4 @@
-import { ipcRenderer } from "electron";
+import { remote } from "electron";
 import FileManager from "./FileManager";
 import TerminalProcess from "./TerminalProcess";
 import TerminalCommands from "./TerminalCommands"
@@ -9,18 +9,19 @@ export default class TabFile {
     private _filePath: string;
     private _fileContent: string;
     private _isSaved: boolean;
+    private _isCompiled: boolean;
     private _terminalProcess: TerminalProcess;
 
     constructor(fileLocation?: string) {
         if (fileLocation) {
             this._fileContent = FileManager.openFile(fileLocation);
-            this._isSaved = true;
             this._filePath = fileLocation;
         } else {
-            this._isSaved = false;
             this._fileContent = "";
             this._filePath = "";
         }
+        this._isSaved = true;
+        this._isCompiled = false;
         this._terminalProcess = new TerminalProcess(this._id);
     }
 
@@ -67,6 +68,10 @@ export default class TabFile {
         return this._isSaved;
     }
 
+    get isCompiled(): boolean {
+        return this._isCompiled;
+    }
+
     get terminalProcess(): TerminalProcess {
         return this._terminalProcess;
     }
@@ -85,10 +90,16 @@ export default class TabFile {
     }
 
     public run() {
-        this._terminalProcess.sendCommand(TerminalCommands.run(this._filePath));
+        // If not compiled show must compile before run
+        // if (this._isCompiled)
+        this._terminalProcess.sendCommand(TerminalCommands.run(this.fileFolderPath));
     }
 
-    public close() {
+    public close(): boolean {
+        if (!this._isSaved) {
+            return false;
+        }
         this._terminalProcess.kill();
+        return true;
     }
 }

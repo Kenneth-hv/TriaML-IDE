@@ -30,10 +30,13 @@ export default class TriaMLApp {
 
     public newFile() {
         this._tabFileManager.newTabFile();
+        this._selectedTool = Tool.CODE_EDITOR;
     }
 
     public openFile() {
-        this._tabFileManager.openTab();
+        if (this._tabFileManager.openTab()) {
+            this._selectedTool = Tool.CODE_EDITOR;
+        }
     }
 
     public saveFile() {

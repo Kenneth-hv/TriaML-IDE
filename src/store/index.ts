@@ -34,6 +34,9 @@ export const store = createStore<State>({
     SET_SELECTED_TOOL(state, param) {
       state.triaMLApp.selectedTool = param;
     },
+    RUN(state) {
+      state.triaMLApp.tabFileManager.run();
+    },
     COMPILE(state) {
       state.triaMLApp.tabFileManager.compile();
     },
@@ -62,6 +65,9 @@ export const store = createStore<State>({
     },
     COMPILE({ commit }) {
       commit('COMPILE');
+    },
+    RUN({ commit }) {
+      commit('RUN');
     },
   },
   modules: {
