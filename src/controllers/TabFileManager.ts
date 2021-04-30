@@ -25,7 +25,7 @@ export default class TabFileManager {
     }
 
     public getTabFileIndex(tabFileId: number): number {
-        for (let index = 0; index < this._tabFiles.length; index++){
+        for (let index = 0; index < this._tabFiles.length; index++) {
             const tabFile = this._tabFiles[index];
             if (tabFile.id == tabFileId) {
                 return index;
@@ -66,27 +66,29 @@ export default class TabFileManager {
         return false;
     }
 
-    public saveCurrentTab(saveAs?: boolean) {
-        this.saveTab(this._tabFiles[this._selectedIndex].id, saveAs);
+    public saveCurrentTab(saveAs?: boolean): boolean {
+        return this.saveTab(this._selectedIndex, saveAs);
     }
 
     public saveCurrentTabAs() {
-        this.saveCurrentTab(true);
+        return this.saveCurrentTab(true);
     }
 
-    public saveTab(tabFileId: number, saveAs?: boolean) {
-        if (tabFileId && tabFileId > -1) {
-            const tabFile = this._tabFiles[this._selectedIndex];
-            if (saveAs || !tabFile.filePath) {
-                const selectedFile = remote.dialog.showSaveDialogSync(remote.getCurrentWindow(), { filters: this._fileFormat, properties: ['showOverwriteConfirmation'] });
-                if (selectedFile) {
-                    tabFile.filePath = selectedFile;
-                    tabFile.saveFileContent();
-                }
-            } else {
+    public saveTab(tabFileIndex: number, saveAs?: boolean): boolean {
+        const tabFile = this._tabFiles[tabFileIndex];
+        if (saveAs || !tabFile.filePath) {
+            const selectedFile = remote.dialog.showSaveDialogSync(remote.getCurrentWindow(), { filters: this._fileFormat, properties: ['showOverwriteConfirmation'] });
+            if (selectedFile) {
+                // Prefer '/' over '\'
+                tabFile.filePath = selectedFile[0].replaceAll('\\', '/');
                 tabFile.saveFileContent();
+                return true;
             }
+        } else {
+            tabFile.saveFileContent();
+            return true;
         }
+        return false;
     }
 
     public closeTab(tabFileId: number) {
@@ -134,8 +136,10 @@ export default class TabFileManager {
 
     public compile() {
         if (this._selectedIndex > -1) {
-            const tab = this._tabFiles[this._selectedIndex];
-            tab.compile();
+            if (this.saveCurrentTab()) {
+                const tab = this._tabFiles[this._selectedIndex];
+                tab.compile();
+            }
         }
     }
 

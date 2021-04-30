@@ -21,6 +21,7 @@
   "main": "background.js",
   "dependencies": {
     "core-js": "^3.6.5",
+    "electron-localshortcut": "^3.2.1",
     "electron-rebuild": "^2.3.5",
     "monaco-editor": "^0.23.0",
     "monaco-editor-webpack-plugin": "^3.0.1",
@@ -39,6 +40,7 @@
   "devDependencies": {
     "@intlify/vue-i18n-loader": "^2.1.0",
     "@types/electron-devtools-installer": "^2.2.0",
+    "@types/electron-localshortcut": "^3.1.0",
     "@typescript-eslint/eslint-plugin": "^4.18.0",
     "@typescript-eslint/parser": "^4.18.0",
     "@vue/cli-plugin-babel": "~4.5.0",

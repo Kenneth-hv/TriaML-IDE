@@ -1,10 +1,11 @@
 //"use strict";
 
-import { app, protocol, BrowserWindow, Menu, MenuItem, webFrame, ipcMain } from "electron";
+import { app, protocol, BrowserWindow, Menu, MenuItem, webFrame, ipcMain, globalShortcut, ipcRenderer } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
 import os from "os";
-import pty from 'node-pty';
+import type * as pty from 'node-pty';
+import electronLocalshortcut from "electron-localshortcut";
 
 let window: BrowserWindow;
 
@@ -50,6 +51,7 @@ async function createWindow() {
   window.on('maximize', () => {
     window.webContents.send("SET_WINDOW_MAXIMIZED", true);
   });
+
 }
 
 // Quit when all windows are closed.
@@ -80,7 +82,6 @@ app.on("ready", async () => {
     }
   }
   createWindow();
-
 });
 
 // Exit cleanly on request from parent process in development mode.
@@ -134,3 +135,17 @@ ipcMain.on("TERMINAL_KILL", (_event, id) => {
   terminals[id].kill();
   terminals[id] = null;
 });
+
+// Bind shortcuts
+
+ipcMain.on('BIND_SHORTCUT', (_event, shortcut: string) => {
+  // Replace Ctrl with CommandOrControl for MacOS support
+  shortcut.replace('Ctrl', 'CommandOrControl');
+
+  // Unregister shortcut for consistency 
+  electronLocalshortcut.unregister(window, shortcut);
+
+  electronLocalshortcut.register(window, shortcut, () => {
+    window.webContents.send('SC_' + shortcut);
+  });
+})

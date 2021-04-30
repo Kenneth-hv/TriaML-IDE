@@ -4,9 +4,8 @@
     <div class="tab-group">
       <Tab
         v-for="(tabFile, index) in getTabManager().tabFiles"
-        :tabName="tabFile.fileName"
+        :tabFile="tabFile"
         :isActive="getTabManager().selectedIndex == index"
-        :tabId="tabFile.id"
         v-bind:key="tabFile"
         @click="setSeletedIndex(index)"
       />

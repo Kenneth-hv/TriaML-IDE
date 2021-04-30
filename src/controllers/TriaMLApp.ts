@@ -1,4 +1,5 @@
 import TabFileManager from "./TabFileManager";
+import { ipcRenderer, webFrame } from "electron";
 
 export enum Tool {
     CODE_EDITOR,
@@ -49,5 +50,17 @@ export default class TriaMLApp {
 
     public showData() {
         console.log(this);
+    }
+
+    public zoomIn() {
+        webFrame.setZoomFactor(Math.min(webFrame.getZoomFactor() + 0.1, 1.3));
+    }
+
+    public zoomOut() {
+        webFrame.setZoomFactor(Math.max(webFrame.getZoomFactor() - 0.1, 0.7));
+    }
+    
+    public zoomDefault() {
+        webFrame.setZoomFactor(1);
     }
 }
