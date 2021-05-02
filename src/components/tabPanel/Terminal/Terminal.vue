@@ -35,8 +35,11 @@ export default class Terminal extends Vue {
     term.loadAddon(fitAddon);
     term.open(terminalView);
 
+    const self = this;
     window.setInterval(() => {
-      fitAddon.fit();
+      if (self.isActive) {
+        fitAddon.fit();
+      }
     }, 100);
 
     this.tabFile.terminalProcess.onData((_event, data) => {

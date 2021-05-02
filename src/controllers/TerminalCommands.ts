@@ -8,7 +8,7 @@ export default class TerminalCommands {
     private static compilerFlags = {
         "-o": "a.out",
         "-xe": "xe.xml",
-        "-xt": "xt.xml",
+        "-xt": "ast.xml",
         "-tpp": "tpp.xml",
         "-tpx": "tpx.xml",
         "-tph": "tph.xml",

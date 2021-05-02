@@ -1,7 +1,7 @@
-import { remote } from "electron";
 import FileManager from "./FileManager";
 import TerminalProcess from "./TerminalProcess";
 import TerminalCommands from "./TerminalCommands"
+import convert from "xml-js"
 
 export default class TabFile {
     private static _idcount: number = 0;
@@ -11,6 +11,7 @@ export default class TabFile {
     private _isSaved: boolean;
     private _isCompiled: boolean;
     private _terminalProcess: TerminalProcess;
+    public ast = {};
 
     constructor(fileLocation?: string) {
         if (fileLocation) {
@@ -92,7 +93,15 @@ export default class TabFile {
     public run() {
         // If not compiled show must compile before run
         // if (this._isCompiled)
-        this._terminalProcess.sendCommand(TerminalCommands.run(this.fileFolderPath));
+        // this._terminalProcess.sendCommand(TerminalCommands.run(this.fileFolderPath));
+        this.loadAST();
+    }
+
+    private loadAST() {
+        const astxml = FileManager.openFile(`${this.fileFolderPath}/ast.xml`);
+        this.ast = convert.xml2js(astxml);
+        console.log(JSON.stringify(this.ast));
+        
     }
 
     public close(): boolean {

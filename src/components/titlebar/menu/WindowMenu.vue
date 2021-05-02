@@ -45,7 +45,6 @@ export default class WindowMenu extends Vue {
   mounted() {
     this.menu.forEach((menu) => {
       menu.items.forEach((menu_item) => {
-        console.log(menu_item);
         if (menu_item.shortcut) {
           // Bind shorcut to the IPC SC_<shortcut>
           ipcRenderer.send("BIND_SHORTCUT", menu_item.shortcut);

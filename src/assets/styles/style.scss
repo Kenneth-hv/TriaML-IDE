@@ -150,7 +150,6 @@ body {
   }
 }
 
-
 /* Tab Panel */
 
 .tab-panel {
@@ -159,7 +158,7 @@ body {
   grid-template-rows: 32px auto;
   background-color: $color-tab-panel;
 
-  >img {
+  > img {
     height: 300px;
     opacity: 0.5;
     position: absolute;
@@ -281,6 +280,53 @@ body {
   overflow: hidden;
 }
 
+/* ASTView */
+
+.ast-view {
+  display: none;
+  height: calc(100vh - 64px);
+  width: calc(100vw - 42px);
+  padding: 4px;
+  position: relative;
+  overflow: auto;
+
+  &.active {
+    display: block;
+  }
+}
+
+.ast-node {
+  .ast-item {
+    display: none;
+    margin-left: 20px;
+  }
+
+  span,
+  span::before {
+    cursor: pointer;
+  }
+
+  span::before {
+    content: "\25B6";
+    color: white;
+    margin-right: 6px;
+  }
+
+  &.leaf span,
+  &.leaf span::before {
+    cursor: default;
+  }
+
+  
+  &.leaf span::before {
+    content: '';
+  }
+
+  &.extended > .ast-item {
+    display: block;
+  }
+}
+
 /* Window Title Bar */
 
 #titlebar {
@@ -293,7 +339,6 @@ body {
   background-color: $color-titlebar-background;
   color: $color-titlebar-font;
 }
-
 
 /* Window Icon */
 
@@ -319,13 +364,12 @@ body {
   -webkit-app-region: no-drag;
 }
 
-
-#window-menu>.dropdown {
+#window-menu > .dropdown {
   grid-row: 1;
   position: relative;
 }
 
-#window-menu>.dropdown>.button {
+#window-menu > .dropdown > .button {
   display: flex;
   align-items: center;
   width: 100%;
@@ -337,12 +381,10 @@ body {
 
 /* Menu List */
 
-.dropdown>.button:hover {
+.dropdown > .button:hover {
   @if $white-icons {
     background-color: #ffffff20;
-  }
-
-  @else {
+  } @else {
     background-color: #00000020;
   }
 }
@@ -355,7 +397,7 @@ body {
   box-shadow: 0px 1px 1px black;
   background-color: $color-menu-background;
 
-  >.button {
+  > .button {
     margin: 5px 0px;
     padding: 3px 15px;
     padding-right: 40px;
@@ -367,19 +409,17 @@ body {
     }
   }
 
-  >.button:hover {
+  > .button:hover {
     background: $color-menu-highlight;
   }
 
-  >.spacer {
+  > .spacer {
     margin: 5px 5px;
     height: 1px;
 
     @if $white-icons {
       background-color: #ffffff20;
-    }
-
-    @else {
+    } @else {
       background-color: #00000020;
     }
   }
@@ -433,11 +473,11 @@ body {
 }
 
 @media (-webkit-device-pixel-ratio: 1.5),
-(device-pixel-ratio: 1.5),
-(-webkit-device-pixel-ratio: 2),
-(device-pixel-ratio: 2),
-(-webkit-device-pixel-ratio: 3),
-(device-pixel-ratio: 3) {
+  (device-pixel-ratio: 1.5),
+  (-webkit-device-pixel-ratio: 2),
+  (device-pixel-ratio: 2),
+  (-webkit-device-pixel-ratio: 3),
+  (device-pixel-ratio: 3) {
   #window-controls .icon {
     width: 10px;
     height: 10px;
@@ -447,9 +487,7 @@ body {
 #window-controls .icon {
   @if $white-icons {
     filter: none;
-  }
-
-  @else {
+  } @else {
     filter: invert(1);
   }
 }
@@ -461,9 +499,7 @@ body {
 #window-controls .button:hover {
   @if $white-icons {
     background: rgba(255, 255, 255, 0.1);
-  }
-
-  @else {
+  } @else {
     background: rgba(0, 0, 0, 0.1);
   }
 }
@@ -471,9 +507,7 @@ body {
 #window-controls .button:active {
   @if $white-icons {
     background: rgba(255, 255, 255, 0.2);
-  }
-
-  @else {
+  } @else {
     background: rgba(0, 0, 0, 0.2);
   }
 }
@@ -489,9 +523,7 @@ body {
 #close-button:active .icon {
   @if $white-icons {
     filter: invert(1);
-  }
-
-  @else {
+  } @else {
     filter: none;
   }
 }
