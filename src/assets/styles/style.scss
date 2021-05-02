@@ -122,6 +122,7 @@ body {
     display: flex;
     width: 42px;
     height: 42px;
+    cursor: pointer;
 
     &.active {
       background-color: $color-tab-active;
@@ -136,6 +137,7 @@ body {
       height: 40px;
       margin-left: auto;
       margin-right: auto;
+      cursor: pointer;
 
       @if $white-icons {
         filter: invert(1);
@@ -324,6 +326,29 @@ body {
 
   &.extended > .ast-item {
     display: block;
+  }
+}
+
+/* TAM Code Display */
+
+.tamcode-view {
+  display: none;
+  height: calc(100vh - 64px);
+  width: calc(100vw - 42px);
+  padding: 4px;
+  position: relative;
+  overflow: auto;
+
+  &.active {
+    display: block;
+  }
+
+  p {
+    font-family: monospace;
+    font-size: 1.2em;
+    font-weight: bold;
+    user-select: text;
+    cursor: text;
   }
 }
 

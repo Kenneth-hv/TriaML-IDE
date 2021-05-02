@@ -140,12 +140,12 @@ ipcMain.on("TERMINAL_KILL", (_event, id) => {
 
 ipcMain.on('BIND_SHORTCUT', (_event, shortcut: string) => {
   // Replace Ctrl with CommandOrControl for MacOS support
-  shortcut.replace('Ctrl', 'CommandOrControl');
+  const fullShortcut = shortcut.replace('Ctrl', 'CommandOrControl');
 
   // Unregister shortcut for consistency 
-  electronLocalshortcut.unregister(window, shortcut);
+  electronLocalshortcut.unregister(window, fullShortcut);
 
-  electronLocalshortcut.register(window, shortcut, () => {
+  electronLocalshortcut.register(window, fullShortcut, () => {
     window.webContents.send('SC_' + shortcut);
   });
 })

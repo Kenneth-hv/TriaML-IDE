@@ -1,5 +1,6 @@
 import TabFile from "./TabFile";
 import { remote } from "electron";
+import { Tool } from "./TriaMLApp";
 
 export default class TabFileManager {
     private _tabFiles: TabFile[] = [];
@@ -80,7 +81,7 @@ export default class TabFileManager {
             const selectedFile = remote.dialog.showSaveDialogSync(remote.getCurrentWindow(), { filters: this._fileFormat, properties: ['showOverwriteConfirmation'] });
             if (selectedFile) {
                 // Prefer '/' over '\'
-                tabFile.filePath = selectedFile[0].replaceAll('\\', '/');
+                tabFile.filePath = selectedFile.replaceAll('\\', '/');
                 tabFile.saveFileContent();
                 return true;
             }
@@ -137,16 +138,35 @@ export default class TabFileManager {
     public compile() {
         if (this._selectedIndex > -1) {
             if (this.saveCurrentTab()) {
-                const tab = this._tabFiles[this._selectedIndex];
-                tab.compile();
+                const tabFile = this._tabFiles[this._selectedIndex];
+                tabFile.compile();
             }
         }
     }
 
     public run() {
         if (this._selectedIndex > -1) {
-            const tab = this._tabFiles[this._selectedIndex];
-            tab.run();
+            const tabFile = this._tabFiles[this._selectedIndex];
+            tabFile.run();
+        }
+    }
+
+    public updateTool(tool: Tool) {
+        if (this._selectedIndex > -1) {
+            const tabFile = this._tabFiles[this._selectedIndex];
+            switch (tool) {
+                case Tool.DISASSEMBLER:
+                    tabFile.loadTAMCode();
+                    break;
+                case Tool.AST:
+                    tabFile.loadAST();
+                    break;
+                case Tool.TABLE:
+                    tabFile.loadTable();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 

@@ -11,7 +11,10 @@ export default class TabFile {
     private _isSaved: boolean;
     private _isCompiled: boolean;
     private _terminalProcess: TerminalProcess;
-    public ast = {};
+    private _tamCode = "";
+    private _ast = {};
+    private _table = {};
+
 
     constructor(fileLocation?: string) {
         if (fileLocation) {
@@ -77,31 +80,55 @@ export default class TabFile {
         return this._terminalProcess;
     }
 
+    get tamCode(): string {
+        return this._tamCode;
+    }
+    
+    get ast(): any {
+        return this._ast;
+    }
+
+    get table(): any {
+        return this._table;
+    }
+
     public saveFileContent() {
         FileManager.saveFile(this._filePath, this._fileContent);
         this._isSaved = true;
     }
 
     public compile() {
-        this._terminalProcess.sendCommand(TerminalCommands.compile(this.fileFolderPath, this._filePath));
+        this._terminalProcess.sendCommand(TerminalCommands.createCompileCommand(this.fileFolderPath, this.fileName));
+        this.disassemble();
+        this.loadAST();
+        this.loadTable();
     }
 
     public disassemble() {
-        this._terminalProcess.sendCommand(TerminalCommands.disassemble(this.fileFolderPath));
+        this._terminalProcess.sendCommand(TerminalCommands.createDisassemblerCommand(this.fileFolderPath, this.fileName));
+        this.loadTAMCode();
     }
 
     public run() {
-        // If not compiled show must compile before run
-        // if (this._isCompiled)
-        // this._terminalProcess.sendCommand(TerminalCommands.run(this.fileFolderPath));
-        this.loadAST();
+        this.compile();
+        this._terminalProcess.sendCommand(TerminalCommands.createRunCommand(this.fileFolderPath, this.fileName));
     }
 
-    private loadAST() {
-        const astxml = FileManager.openFile(`${this.fileFolderPath}/ast.xml`);
-        this.ast = convert.xml2js(astxml);
-        console.log(JSON.stringify(this.ast));
-        
+    public loadTAMCode() {
+        const dasmOuputFile = `${this.fileFolderPath}/.triaml/${this.fileName}/${TerminalCommands.DASM_OUTPUT}`
+        this._tamCode = FileManager.openFile(dasmOuputFile);
+    }
+
+    public loadAST() {
+        const astFile = `${this.fileFolderPath}/.triaml/${this.fileName}/${TerminalCommands.AST_OUTPUT}`
+        const astXml = FileManager.openFile(astFile);
+        this._ast = convert.xml2js(astXml);
+    }
+
+    public loadTable() {
+        const tableFile = `${this.fileFolderPath}/.triaml/${this.fileName}/${TerminalCommands.AST_OUTPUT}`
+        const tableXml = FileManager.openFile(tableFile);
+        this._table = convert.xml2js(tableXml);
     }
 
     public close(): boolean {

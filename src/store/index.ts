@@ -35,10 +35,10 @@ export const store = createStore<State>({
       state.triaMLApp.selectedTool = param;
     },
     RUN(state) {
-      state.triaMLApp.tabFileManager.run();
+      state.triaMLApp.run();
     },
     COMPILE(state) {
-      state.triaMLApp.tabFileManager.compile();
+      state.triaMLApp.compile();
     },
   },
   actions: {

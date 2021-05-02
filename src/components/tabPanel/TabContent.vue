@@ -8,6 +8,10 @@
       :isActive="getSelectedTool() == tools.TERMINAL"
       :tabFile="this.tabFile"
     />
+    <TAMCodeView
+      :isActive="getSelectedTool() == tools.DISASSEMBLER"
+      :tabFile="this.tabFile"
+    />
     <ASTView
       :isActive="getSelectedTool() == tools.AST"
       :tabFile="this.tabFile"
@@ -22,10 +26,11 @@ import TabFile from "@/controllers/TabFile";
 import CodeEditor from "./Editor/CodeEditor.vue";
 import Terminal from "./Terminal/Terminal.vue";
 import ASTView from "./ASTView/ASTView.vue";
+import TAMCodeView from "./TAMCodeView/TAMCodeView.vue";
 import { Tool } from "@/controllers/TriaMLApp";
 
 @Options({
-  components: { CodeEditor, Terminal, ASTView },
+  components: { CodeEditor, Terminal, ASTView, TAMCodeView },
   props: {
     tabFile: TabFile,
     isActive: Boolean,

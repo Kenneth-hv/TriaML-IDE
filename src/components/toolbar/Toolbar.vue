@@ -61,12 +61,10 @@ export default class Toolbar extends Vue {
 
   run() {
     this.store.dispatch("RUN");
-    this.store.dispatch("SET_SELECTED_TOOL", Tool.TERMINAL);
   }
 
   compile() {
     this.store.dispatch("COMPILE");
-    this.store.dispatch("SET_SELECTED_TOOL", Tool.TERMINAL);
   }
 }
 </script>

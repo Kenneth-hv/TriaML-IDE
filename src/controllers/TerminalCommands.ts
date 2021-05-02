@@ -5,20 +5,24 @@ export default class TerminalCommands {
     static TRIANGLE_ABSTRACT_MACHINE = 'C:/Compile/TAM.exe'
     static CYGWIN_BASH = 'C:/OCaml64/bin/bash'
 
-    private static compilerFlags = {
-        "-o": "a.out",
-        "-xe": "xe.xml",
-        "-xt": "ast.xml",
-        "-tpp": "tpp.xml",
-        "-tpx": "tpx.xml",
-        "-tph": "tph.xml",
-        "-xd": "xd.xml"
+    static DASM_OUTPUT = "dasm.dout";
+    static COMPILER_OUTPUT = "a.out";
+    static AST_OUTPUT = "ast.xml";
+
+    // NOT BEING USED BY THE COMPILER BUT IT'S THE DEFAULT OUTPUT
+    static TABLE_OUTPUT = "table.xml";
+
+    private static COMPILER_FLAGS = {
+        "-o": TerminalCommands.COMPILER_OUTPUT,
+        "-xd": TerminalCommands.AST_OUTPUT,
+        // TODO "-xe": "xe.xml",
     }
 
-    public static compile(path: string, triangleFile: string) {
-        let compileCommand = `cd ${path}; ${TerminalCommands.TRIANGLE_COMPILER} ${triangleFile}`;
+    public static createCompileCommand(path: string, triangleFileName: string) {
+        const workspace = `${path}/.triaml/${triangleFileName}`;
+        let compileCommand = `mkdir -p ${workspace}; cd ${workspace}; ${TerminalCommands.TRIANGLE_COMPILER} ${path}/${triangleFileName}`;
 
-        for (const [flag, arg] of Object.entries(TerminalCommands.compilerFlags)) {
+        for (const [flag, arg] of Object.entries(TerminalCommands.COMPILER_FLAGS)) {
             compileCommand += ` ${flag} ${arg}`
         }
 
@@ -29,9 +33,10 @@ export default class TerminalCommands {
         return compileCommand;
     }
 
-    public static disassemble(path: string) {
-        const compilerOutputFile = `${path}/a.out`
-        let disassembleCommand = `cd ${path}; ${TerminalCommands.TRIANGLE_COMPILER} ${compilerOutputFile}`;
+    public static createDisassemblerCommand(path: string, triangleFileName: string) {
+        const workspace = `${path}/.triaml/${triangleFileName}`;
+        const compilerOutputFile = `${workspace}/${this.COMPILER_OUTPUT}`
+        let disassembleCommand = `mkdir -p ${workspace}; cd ${workspace}; ${TerminalCommands.TRIANGLE_DISASSEMBLER} ${compilerOutputFile} > ${this.DASM_OUTPUT}`;
 
         if (process.platform == 'win32') {
             disassembleCommand = TerminalCommands.useCygwin(disassembleCommand);
@@ -40,9 +45,10 @@ export default class TerminalCommands {
         return disassembleCommand;
     }
 
-    public static run(path: string) {
-        const compilerOutputFile = `cd ${path}; ${path}/a.out`
-        let runCommand = `${TerminalCommands.TRIANGLE_ABSTRACT_MACHINE} ${compilerOutputFile}`;
+    public static createRunCommand(path: string, triangleFileName: string) {
+        const workspace = `${path}/.triaml/${triangleFileName}`;
+        const compilerOutputFile = `${workspace}/${this.COMPILER_OUTPUT}`
+        let runCommand = `mkdir -p ${workspace}; cd ${workspace}; ${TerminalCommands.TRIANGLE_ABSTRACT_MACHINE} ${compilerOutputFile}`;
 
         if (process.platform == 'win32') {
             runCommand = TerminalCommands.useCygwin(runCommand);

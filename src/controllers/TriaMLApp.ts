@@ -26,6 +26,7 @@ export default class TriaMLApp {
         return this._selectedTool;
     }
     public set selectedTool(tool: Tool) {
+        this.tabFileManager.updateTool(tool);
         this._selectedTool = tool;
     }
 
@@ -62,5 +63,15 @@ export default class TriaMLApp {
     
     public zoomDefault() {
         webFrame.setZoomFactor(1);
+    }
+
+    public run() {
+        this.selectedTool = Tool.TERMINAL;
+        this._tabFileManager.run();
+    }
+
+    public compile() {
+        this.selectedTool = Tool.TERMINAL;
+        this._tabFileManager.compile();
     }
 }
