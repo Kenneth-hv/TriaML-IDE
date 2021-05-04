@@ -10,7 +10,7 @@ export default class TerminalCommands {
     static AST_OUTPUT = "ast.xml";
 
     // NOT BEING USED BY THE COMPILER BUT IT'S THE DEFAULT OUTPUT
-    static TABLE_OUTPUT = "table.xml";
+    static TABLE_OUTPUT = "tabla.xml";
 
     private static COMPILER_FLAGS = {
         "-o": TerminalCommands.COMPILER_OUTPUT,

@@ -13,7 +13,7 @@ export default class TabFile {
     private _terminalProcess: TerminalProcess;
     private _tamCode = "";
     private _ast = {};
-    private _table = {};
+    private _table: Array<{ id: string, level: string }> = [];
 
 
     constructor(fileLocation?: string) {
@@ -83,7 +83,7 @@ export default class TabFile {
     get tamCode(): string {
         return this._tamCode;
     }
-    
+
     get ast(): any {
         return this._ast;
     }
@@ -110,7 +110,6 @@ export default class TabFile {
     }
 
     public run() {
-        this.compile();
         this._terminalProcess.sendCommand(TerminalCommands.createRunCommand(this.fileFolderPath, this.fileName));
     }
 
@@ -126,9 +125,23 @@ export default class TabFile {
     }
 
     public loadTable() {
-        const tableFile = `${this.fileFolderPath}/.triaml/${this.fileName}/${TerminalCommands.AST_OUTPUT}`
+        const tableFile = `${this.fileFolderPath}/.triaml/${this.fileName}/${TerminalCommands.TABLE_OUTPUT}`
         const tableXml = FileManager.openFile(tableFile);
-        this._table = convert.xml2js(tableXml);
+        const table = convert.xml2js(tableXml);
+        this._table = this.parseTable(table).reverse();
+    }
+
+    private parseTable(table: any): Array<{ id: string, level: string }> {
+        let elements: Array<{ id: string, level: string }> = [];
+        for (const i in table.elements) {
+            const element = table.elements[i];
+            if (element.name == "Declaration") {
+                elements.push(element.attributes);
+            } else {
+                elements = elements.concat(this.parseTable(element));
+            }
+        }
+        return elements;
     }
 
     public close(): boolean {

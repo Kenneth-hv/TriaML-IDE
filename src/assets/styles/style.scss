@@ -270,16 +270,19 @@ body {
   display: none;
   height: calc(100vh - 64px);
   width: calc(100vw - 42px);
-  padding: 4px;
   position: relative;
 
   &.active {
     display: block;
   }
+
+  * {
+    font-family: monospace;
+  }
 }
 
-.xterm-viewport {
-  overflow: hidden;
+.xterm-screen canvas {
+  padding: 4px;
 }
 
 /* ASTView */
@@ -288,44 +291,39 @@ body {
   display: none;
   height: calc(100vh - 64px);
   width: calc(100vw - 42px);
-  padding: 4px;
   position: relative;
   overflow: auto;
+  font-family: monospace;
+  font-size: 1.2em;
 
   &.active {
     display: block;
   }
+
+  .leafnode {
+    color: #acacac;
+  }
 }
 
 .ast-node {
+  padding: 6px;
+
   .ast-item {
     display: none;
     margin-left: 20px;
   }
 
-  span,
-  span::before {
+  > span {
     cursor: pointer;
-  }
-
-  span::before {
-    content: "\25B6";
-    color: white;
-    margin-right: 6px;
-  }
-
-  &.leaf span,
-  &.leaf span::before {
-    cursor: default;
-  }
-
-  
-  &.leaf span::before {
-    content: '';
+    font-weight: bold;
   }
 
   &.extended > .ast-item {
     display: block;
+  }
+
+  &.hover {
+    background-color: #ffffff09;
   }
 }
 
@@ -349,6 +347,35 @@ body {
     font-weight: bold;
     user-select: text;
     cursor: text;
+  }
+}
+
+/* Table View */
+
+.table-view {
+  display: none;
+  height: calc(100vh - 64px);
+  width: calc(100vw - 42px);
+  padding: 4px;
+  overflow: auto;
+
+  &.active {
+    display: block;
+  }
+
+  table {
+    th,
+    td {
+      padding: 5px 10px;
+      text-align: left;
+    }
+  }
+
+  tr:nth-child(even) {
+    background-color: #fff1;
+  }
+  tr:nth-child(odd) {
+    background-color: #fff2;
   }
 }
 
