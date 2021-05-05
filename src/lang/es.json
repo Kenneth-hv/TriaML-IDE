@@ -1,0 +1,21 @@
+{
+  "menu.file": "Archivo",
+  "menu.file.newfile": "Nuevo Archivo",
+  "menu.file.openfile": "Abrir Archivo",
+  "menu.file.savefile": "Guardar Archivo",
+  "menu.file.savefileas": "Guardar Archivo Como",
+  "menu.file.preferences": "Preferencias",
+  "menu.file.quit": "Salir",
+  "menu.edit": "Editar",
+  "menu.edit.undo": "Deshacer",
+  "menu.edit.redo": "Rehacer",
+  "menu.edit.cut": "Cortar",
+  "menu.edit.copy": "Copiar",
+  "menu.edit.paste": "Pegar",
+  "menu.view": "Vista",
+  "menu.view.zoomin": "Acercar",
+  "menu.view.zoomout": "Alejar",
+  "menu.view.restorezoom": "Restaurar",
+  "menu.help": "Ayuda",
+  "menu.help.about": "Acerca de"
+}

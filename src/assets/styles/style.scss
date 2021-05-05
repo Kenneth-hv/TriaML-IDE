@@ -1,0 +1,579 @@
+/* Basic styling */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  box-sizing: border-box;
+  outline: none;
+  box-shadow: none;
+}
+
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::after,
+*::before {
+  -webkit-user-select: none;
+  user-select: none;
+  /*removes uncompatibility warning*/
+  -webkit-user-drag: none;
+  cursor: default;
+  box-sizing: inherit;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* html body */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  user-select: none;
+  overflow: hidden;
+}
+
+body {
+  font-family: "Segoe UI", sans-serif;
+  color: $color-font;
+  background-color: $color-body-background;
+}
+
+.drag-region {
+  -webkit-app-region: drag;
+}
+
+.floating-resize-region {
+  background-color: #00000000;
+  position: absolute;
+  z-index: 100;
+  -webkit-app-region: no-drag;
+}
+
+.maximized .floating-resize-region {
+  display: none;
+}
+
+#frr-1 {
+  width: 100%;
+  height: 5px;
+}
+
+#frr-2 {
+  width: 5px;
+  height: 32px;
+}
+
+#frr-3 {
+  width: 5px;
+  height: 32px;
+  right: 0;
+}
+
+/* Styling of window frame and titlebar */
+
+#main {
+  position: absolute;
+  top: 32px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 42px auto;
+}
+
+/* Tool bar */
+
+#toolbar {
+  grid-column: 1;
+  z-index: 3;
+  background-color: $color-toolbar;
+
+  .toolbar-space {
+    width: 42px;
+    height: 42px;
+  }
+
+  .toolbar-button {
+    display: flex;
+    width: 42px;
+    height: 42px;
+    cursor: pointer;
+
+    &.active {
+      background-color: $color-tab-active;
+
+      img {
+        opacity: 1;
+      }
+    }
+
+    img {
+      opacity: 0.5;
+      height: 40px;
+      margin-left: auto;
+      margin-right: auto;
+      cursor: pointer;
+
+      @if $white-icons {
+        filter: invert(1);
+      }
+    }
+  }
+
+  .toolbar-button:hover {
+    img {
+      opacity: 0.7;
+    }
+  }
+}
+
+/* Tab Panel */
+
+.tab-panel {
+  grid-column: 2;
+  display: grid;
+  grid-template-rows: 32px auto;
+  background-color: $color-tab-panel;
+
+  > img {
+    height: 300px;
+    opacity: 0.5;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    @if not $white-icons {
+      filter: invert(1);
+    }
+  }
+}
+
+.tab-group {
+  grid-row: 1;
+  width: 100%;
+  white-space: nowrap;
+  overflow-x: overlay;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
+  .tab {
+    grid-row: 1;
+    margin-right: 1px;
+    height: 32px;
+    min-width: 100px;
+    max-width: 200px;
+    padding: 7px 10px;
+    font-size: 12px;
+    display: inline-flex;
+    background-color: $color-tab;
+    cursor: pointer;
+
+    * {
+      cursor: pointer;
+    }
+
+    p {
+      margin-right: 7px;
+    }
+
+    &.active {
+      background-color: $color-tab-active;
+    }
+
+    img {
+      margin: auto 0 auto auto;
+      height: 10px;
+      cursor: pointer;
+      opacity: 0;
+
+      @if $white-icons {
+        filter: invert(1);
+      }
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &.active img {
+      opacity: 0.5;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+  }
+}
+
+.tab-content {
+  display: none;
+  grid-row: 2;
+  background-color: $color-tab-panel-content;
+  z-index: 2;
+
+  &.active {
+    display: block;
+  }
+}
+
+/* Text Editor */
+
+.editor {
+  display: none;
+  height: calc(100vh - 64px);
+  width: calc(100vw - 42px);
+  z-index: 10;
+
+  &.active {
+    display: block;
+  }
+}
+
+/* monaco-editor cursor fix */
+.editor .view-line,
+.editor .view-line * {
+  cursor: text;
+}
+
+/* Terminal */
+
+.terminal-view {
+  display: none;
+  height: calc(100vh - 64px);
+  width: calc(100vw - 42px);
+  padding: 4px;
+  position: relative;
+
+  &.active {
+    display: block;
+  }
+}
+
+.xterm-viewport {
+  overflow: hidden;
+}
+
+/* ASTView */
+
+.ast-view {
+  display: none;
+  height: calc(100vh - 64px);
+  width: calc(100vw - 42px);
+  padding: 4px;
+  position: relative;
+  overflow: auto;
+
+  &.active {
+    display: block;
+  }
+}
+
+.ast-node {
+  .ast-item {
+    display: none;
+    margin-left: 20px;
+  }
+
+  span,
+  span::before {
+    cursor: pointer;
+  }
+
+  span::before {
+    content: "\25B6";
+    color: white;
+    margin-right: 6px;
+  }
+
+  &.leaf span,
+  &.leaf span::before {
+    cursor: default;
+  }
+
+  
+  &.leaf span::before {
+    content: '';
+  }
+
+  &.extended > .ast-item {
+    display: block;
+  }
+}
+
+/* TAM Code Display */
+
+.tamcode-view {
+  display: none;
+  height: calc(100vh - 64px);
+  width: calc(100vw - 42px);
+  padding: 4px;
+  position: relative;
+  overflow: auto;
+
+  &.active {
+    display: block;
+  }
+
+  p {
+    font-family: monospace;
+    font-size: 1.2em;
+    font-weight: bold;
+    user-select: text;
+    cursor: text;
+  }
+}
+
+/* Window Title Bar */
+
+#titlebar {
+  position: absolute;
+  width: 100%;
+  height: 32px;
+  display: grid;
+  z-index: 3;
+  grid-template-columns: 42px min-content auto 183px;
+  background-color: $color-titlebar-background;
+  color: $color-titlebar-font;
+}
+
+/* Window Icon */
+
+#window-icon {
+  grid-column: 1;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#window-icon img {
+  margin: auto;
+  height: 20px;
+}
+
+/* Window Menu */
+
+#window-menu {
+  grid-column: 2;
+  display: grid;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  -webkit-app-region: no-drag;
+}
+
+#window-menu > .dropdown {
+  grid-row: 1;
+  position: relative;
+}
+
+#window-menu > .dropdown > .button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+/* Menu List */
+
+.dropdown > .button:hover {
+  @if $white-icons {
+    background-color: #ffffff20;
+  } @else {
+    background-color: #00000020;
+  }
+}
+
+.menu-list {
+  position: absolute;
+  z-index: 999;
+  width: max-content;
+  display: none;
+  box-shadow: 0px 1px 1px black;
+  background-color: $color-menu-background;
+
+  > .button {
+    margin: 5px 0px;
+    padding: 3px 15px;
+    padding-right: 40px;
+    height: 24px;
+    cursor: pointer;
+
+    * {
+      cursor: pointer;
+    }
+  }
+
+  > .button:hover {
+    background: $color-menu-highlight;
+  }
+
+  > .spacer {
+    margin: 5px 5px;
+    height: 1px;
+
+    @if $white-icons {
+      background-color: #ffffff20;
+    } @else {
+      background-color: #00000020;
+    }
+  }
+}
+
+#window-menu.active .dropdown.selected .menu-list {
+  display: block;
+}
+
+/* Window Title */
+
+#window-title {
+  grid-column: 3;
+  display: flex;
+  align-items: center;
+  font-family: "Segoe UI", sans-serif;
+  font-size: 12px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#window-title span {
+  margin-left: auto;
+  margin-right: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Window Control | - | [] | X | */
+
+#window-controls {
+  display: grid;
+  grid-template-columns: repeat(3, 46px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+
+  -webkit-app-region: no-drag;
+}
+
+#window-controls .button {
+  grid-row: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+@media (-webkit-device-pixel-ratio: 1.5),
+  (device-pixel-ratio: 1.5),
+  (-webkit-device-pixel-ratio: 2),
+  (device-pixel-ratio: 2),
+  (-webkit-device-pixel-ratio: 3),
+  (device-pixel-ratio: 3) {
+  #window-controls .icon {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+#window-controls .icon {
+  @if $white-icons {
+    filter: none;
+  } @else {
+    filter: invert(1);
+  }
+}
+
+#window-controls .button {
+  user-select: none;
+}
+
+#window-controls .button:hover {
+  @if $white-icons {
+    background: rgba(255, 255, 255, 0.1);
+  } @else {
+    background: rgba(0, 0, 0, 0.1);
+  }
+}
+
+#window-controls .button:active {
+  @if $white-icons {
+    background: rgba(255, 255, 255, 0.2);
+  } @else {
+    background: rgba(0, 0, 0, 0.2);
+  }
+}
+
+#close-button:hover {
+  background: #e81123 !important;
+}
+
+#close-button:active {
+  background: #f1707a !important;
+}
+
+#close-button:active .icon {
+  @if $white-icons {
+    filter: invert(1);
+  } @else {
+    filter: none;
+  }
+}
+
+#min-button {
+  grid-column: 1;
+}
+
+#max-button,
+#restore-button {
+  grid-column: 2;
+}
+
+#close-button {
+  grid-column: 3;
+}
+
+#restore-button {
+  display: none !important;
+}
+
+.maximized #restore-button {
+  display: flex !important;
+}
+
+.maximized #max-button {
+  display: none;
+}

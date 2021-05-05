@@ -1,0 +1,87 @@
+{
+  "name": "triaml-ide",
+  "version": "0.2.0",
+  "private": true,
+  "description": "A Triangle IDE for OCaml written compiler.",
+  "author": {
+    "name": "Tecnológico de Costa Rica"
+  },
+  "scripts": {
+    "serve": "vue-cli-service electron:serve",
+    "build": "vue-cli-service electron:build",
+    "lint": "vue-cli-service lint",
+    "electron-rebuild": "electron-rebuild",
+    "i18n:report": "vue-cli-service i18n:report --src \"./src/**/*.?(js|vue)\" --locales \"./src/lang/**/*.json\"",
+    "postinstall": "electron-builder install-app-deps",
+    "postuninstall": "electron-builder install-app-deps",
+    "start": "npm run serve",
+    "vue:build": "vue-cli-service build",
+    "vue:serve": "vue-cli-service serve"
+  },
+  "main": "background.js",
+  "dependencies": {
+    "core-js": "^3.6.5",
+    "electron-localshortcut": "^3.2.1",
+    "electron-rebuild": "^2.3.5",
+    "monaco-editor": "^0.23.0",
+    "monaco-editor-webpack-plugin": "^3.0.1",
+    "node-pty": "^0.10.1",
+    "vue": "^3.0.0",
+    "vue-class-component": "^8.0.0-0",
+    "vue-i18n": "^9.1.0",
+    "vue-meta": "^2.4.0",
+    "vue-resize": "^1.0.1",
+    "vue-style-loader": "^4.1.3",
+    "vuex": "^4.0.0-0",
+    "vuex-electron": "^1.0.3",
+    "xml-js": "^1.6.11",
+    "xterm": "^4.11.0",
+    "xterm-addon-fit": "^0.5.0"
+  },
+  "devDependencies": {
+    "@intlify/vue-i18n-loader": "^2.1.0",
+    "@types/electron-devtools-installer": "^2.2.0",
+    "@types/electron-localshortcut": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "^4.18.0",
+    "@typescript-eslint/parser": "^4.18.0",
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-eslint": "~4.5.0",
+    "@vue/cli-plugin-typescript": "^4.5.12",
+    "@vue/cli-plugin-vuex": "^4.5.12",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0",
+    "@vue/eslint-config-typescript": "^7.0.0",
+    "babel-eslint": "^10.1.0",
+    "electron": "^11.0.0",
+    "electron-devtools-installer": "^3.1.1",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^7.0.0",
+    "node-loader": "^2.0.0",
+    "node-sass": "^5.0.0",
+    "sass-loader": "^10.1.1",
+    "typescript": "~4.1.5",
+    "vue-cli-plugin-electron-builder": "~2.0.0-rc.6",
+    "vue-cli-plugin-i18n": "~2.1.0"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/vue3-essential",
+      "eslint:recommended",
+      "@vue/typescript"
+    ],
+    "parserOptions": {
+      "parser": "@typescript-eslint/parser"
+    },
+    "rules": {}
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ],
+  "productName": "TriaML IDE"
+}
