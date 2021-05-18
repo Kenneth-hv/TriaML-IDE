@@ -1,4 +1,6 @@
 import { createI18n, LocaleMessages, VueMessageType } from 'vue-i18n'
+import { mappings } from "./lang/mappings";
+import Store from "electron-store";
 
 /**
  * Load locale messages
@@ -16,11 +18,16 @@ function loadLocaleMessages(): LocaleMessages<VueMessageType> {
       messages[locale] = locales(key).default
     }
   })
-  return messages
+  return messages;
 }
 
-export default createI18n({
-  locale: process.env.VUE_APP_I18N_LOCALE || 'en',
-  fallbackLocale: process.env.VUE_APP_I18N_FALLBACK_LOCALE || 'en',
-  messages: loadLocaleMessages()
-})
+const store = new Store();
+
+export default (() => {
+  const lang = store.get('config.display.language.selected') as string;
+  return createI18n({
+    locale: mappings[lang] || 'en',
+    fallbackLocale: 'en',
+    messages: loadLocaleMessages()
+  })
+})();

@@ -25,6 +25,18 @@ export const store = createStore<State>({
     SAVE_FILE_AS(state) {
       state.triaMLApp.saveFileAs();
     },
+    OPEN_PREFERENCES(state) {
+      state.triaMLApp.openPreferences();
+    },
+    CLOSE_PREFERENCES(state) {
+      state.triaMLApp.closePreferences();
+    },
+    OPEN_ABOUT(state) {
+      state.triaMLApp.openAbout();
+    },
+    CLOSE_ABOUT(state) {
+      state.triaMLApp.closeAbout();
+    },
     SET_SELECTED_INDEX(state, param) {
       state.triaMLApp.tabFileManager.selectedIndex = param;
     },
@@ -40,6 +52,15 @@ export const store = createStore<State>({
     COMPILE(state) {
       state.triaMLApp.compile();
     },
+    ZOOM_IN(state) {
+      state.triaMLApp.zoomIn();
+    },
+    ZOOM_OUT(state) {
+      state.triaMLApp.zoomOut();
+    },
+    ZOOM_DEFAULT(state) {
+      state.triaMLApp.zoomDefault();
+    }
   },
   actions: {
     NEW_FILE({ commit }) {
@@ -53,6 +74,18 @@ export const store = createStore<State>({
     },
     SAVE_FILE_AS({ commit }) {
       commit('SAVE_FILE_AS');
+    },
+    OPEN_PREFERENCES({ commit }) {
+      commit('OPEN_PREFERENCES');
+    },
+    CLOSE_PREFERENCES({ commit }) {
+      commit('CLOSE_PREFERENCES');
+    },
+    OPEN_ABOUT({ commit }) {
+      commit('OPEN_ABOUT');
+    },
+    CLOSE_ABOUT({ commit }) {
+      commit('CLOSE_ABOUT');
     },
     SET_SELECTED_INDEX({ commit }, param) {
       commit('SET_SELECTED_INDEX', param);
@@ -68,6 +101,15 @@ export const store = createStore<State>({
     },
     RUN({ commit }) {
       commit('RUN');
+    },
+    ZOOM_IN({ commit }) {
+      commit('ZOOM_IN');
+    },
+    ZOOM_OUT({ commit }) {
+      commit('ZOOM_OUT');
+    },
+    ZOOM_DEFAULT({ commit }) {
+      commit('ZOOM_DEFAULT');
     },
   },
   modules: {

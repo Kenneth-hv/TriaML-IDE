@@ -33,14 +33,13 @@ const menu_elements = [
       },
       {
         title: "menu.file.preferences",
-        command: "",
+        command: "OPEN_PREFERENCES",
       },
       {
         title: "spacer",
       },
       {
         title: "menu.file.quit",
-        command: "",
       },
     ],
   },
@@ -72,9 +71,13 @@ const menu_elements = [
     items: [
       {
         title: "menu.run.run",
+        command: "RUN",
+        shortcut: "Ctrl+X",
       },
       {
         title: "menu.run.compile",
+        command: "COMPILE",
+        shortcut: "Alt+R",
       },
     ],
   },
@@ -83,12 +86,15 @@ const menu_elements = [
     items: [
       {
         title: "menu.view.zoomin",
+        command: "ZOOM_IN"
       },
       {
         title: "menu.view.zoomout",
+        command: "ZOOM_OUT"
       },
       {
         title: "menu.view.restorezoom",
+        command: "ZOOM_DEFAULT"
       },
     ],
   },
@@ -97,6 +103,7 @@ const menu_elements = [
     items: [
       {
         title: "menu.help.about",
+        command: "OPEN_ABOUT"
       },
     ],
   },

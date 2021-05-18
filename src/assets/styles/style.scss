@@ -1,3 +1,19 @@
+$white-icons: true;
+
+:root {
+  --color-font: #cccccc;
+  --color-body-background: #111111;
+  --color-titlebar-background: #2b2b2b;
+  --color-titlebar-font: #cccccc;
+  --color-toolbar: #2b2b2b;
+  --color-tab-panel: #2b2b2b;
+  --color-tab: #292929;
+  --color-tab-active: #1e1e1e;
+  --color-tab-panel-content: #1e1e1e;
+  --color-menu-background: #202020;
+  --color-menu-highlight: #830000;
+}
+
 /* Basic styling */
 * {
   margin: 0;
@@ -58,8 +74,8 @@ body {
 
 body {
   font-family: "Segoe UI", sans-serif;
-  color: $color-font;
-  background-color: $color-body-background;
+  color: var(--color-font);
+  background-color: var(--color-body-background);
 }
 
 .drag-region {
@@ -111,7 +127,7 @@ body {
 #toolbar {
   grid-column: 1;
   z-index: 3;
-  background-color: $color-toolbar;
+  background-color: var(--color-toolbar);
 
   .toolbar-space {
     width: 42px;
@@ -125,7 +141,7 @@ body {
     cursor: pointer;
 
     &.active {
-      background-color: $color-tab-active;
+      background-color: var(--color-tab-active);
 
       img {
         opacity: 1;
@@ -158,7 +174,7 @@ body {
   grid-column: 2;
   display: grid;
   grid-template-rows: 32px auto;
-  background-color: $color-tab-panel;
+  background-color: var(--color-tab-panel);
 
   > img {
     height: 300px;
@@ -194,7 +210,7 @@ body {
     padding: 7px 10px;
     font-size: 12px;
     display: inline-flex;
-    background-color: $color-tab;
+    background-color: var(--color-tab);
     cursor: pointer;
 
     * {
@@ -206,7 +222,7 @@ body {
     }
 
     &.active {
-      background-color: $color-tab-active;
+      background-color: var(--color-tab-active);
     }
 
     img {
@@ -237,7 +253,7 @@ body {
 .tab-content {
   display: none;
   grid-row: 2;
-  background-color: $color-tab-panel-content;
+  background-color: var(--color-tab-panel-content);
   z-index: 2;
 
   &.active {
@@ -379,6 +395,114 @@ body {
   }
 }
 
+/* Pop-out Panels */
+
+.floating-panel-bg {
+  z-index: 2000;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(2px);
+  position: fixed;
+  display: flex;
+}
+
+.floating-panel {
+  position: relative;
+  background-color: var(--color-tab-panel);
+  margin: auto;
+  box-shadow: #0005 1px 1px 3px 2px;
+
+  .header {
+    background-color: var(--color-titlebar-background);
+    color: var(--color-titlebar-font);
+    position: absolute;
+    width: 100%;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .content {
+    padding: 0 6px;
+    max-height: calc(80vh - 64px);
+    margin: 32px 0px;
+    overflow-y: auto;
+  }
+
+  .footer {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    padding: 6px;
+
+    button {
+      background-color: #585858;
+      margin-left: 4px;
+      color: #fff;
+      height: 100%;
+      padding: 0.2em 0.8em;
+      cursor: pointer;
+      &:hover {
+        background-color: #888888;
+      }
+    }
+  }
+}
+
+.preferences {
+  width: 500px;
+  max-height: 100%;
+  .setting {
+    padding: 0 8px;
+    margin-bottom: 8px;
+
+    .string-setting {
+      input {
+        width: 100%;
+        margin: 2px;
+        padding: 4px;
+        cursor: text;
+        background-color: #585858;
+        color: white;
+      }
+    }
+
+    .select-setting {
+      select {
+        margin: 2px;
+        padding: 4px;
+        background-color: #585858;
+        color: white;
+      }
+    }
+  }
+}
+
+.about {
+  width: 420px;
+  display: flex;
+  align-items: flex-start;
+
+  img {
+    margin: auto 20px auto 10px;
+    width: 200px;
+  }
+
+  .about-info {
+    h5 {
+      margin-top: 12px;
+    }
+  }
+}
+
 /* Window Title Bar */
 
 #titlebar {
@@ -388,8 +512,8 @@ body {
   display: grid;
   z-index: 3;
   grid-template-columns: 42px min-content auto 183px;
-  background-color: $color-titlebar-background;
-  color: $color-titlebar-font;
+  background-color: var(--color-titlebar-background);
+  color: var(--color-titlebar-font);
 }
 
 /* Window Icon */
@@ -447,7 +571,7 @@ body {
   width: max-content;
   display: none;
   box-shadow: 0px 1px 1px black;
-  background-color: $color-menu-background;
+  background-color: var(--color-menu-background);
 
   > .button {
     margin: 5px 0px;
@@ -462,7 +586,7 @@ body {
   }
 
   > .button:hover {
-    background: $color-menu-highlight;
+    background: var(--color-menu-highlight);
   }
 
   > .spacer {

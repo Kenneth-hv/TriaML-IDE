@@ -7,6 +7,8 @@
       <Toolbar />
       <TabPanel />
     </div>
+    <Preferences />
+    <About />
   </body>
 </template>
 
@@ -15,12 +17,14 @@ import Title from "./components/Title.vue";
 import Titlebar from "./components/titlebar/Titlebar.vue";
 import Toolbar from "./components/toolbar/Toolbar.vue";
 import TabPanel from "./components/tabPanel/TabPanel.vue";
+import Preferences from "./components/dialogs/Preferences.vue";
+import About from "./components/dialogs/About.vue";
 import { ipcRenderer } from "electron";
 import { Options, Vue, setup } from "vue-class-component";
 import { useStore } from "@/store";
 
 @Options({
-  components: { Title, Titlebar, Toolbar, TabPanel },
+  components: { Title, Titlebar, Toolbar, TabPanel, Preferences, About },
 })
 export default class App extends Vue {
   store = setup(() => useStore());
@@ -39,6 +43,5 @@ export default class App extends Vue {
 </script>
 
 <style lang="scss">
-@import "./assets/styles/dark.scss";
 @import "./assets/styles/style.scss";
 </style>

@@ -3,6 +3,7 @@
 import { app, protocol, BrowserWindow, Menu, MenuItem, webFrame, ipcMain, globalShortcut, ipcRenderer } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
+import Store from "electron-store";
 import os from "os";
 import type * as pty from 'node-pty';
 import electronLocalshortcut from "electron-localshortcut";
@@ -16,6 +17,8 @@ const shell = os.platform() == "win32" ? "powershell.exe" : "bash";
 protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } },
 ]);
+
+Store.initRenderer();
 
 async function createWindow() {
   // Create the browser window.
@@ -99,6 +102,10 @@ if (isDevelopment) {
   }
 }
 
+ipcMain.on("GET_VERSION", () => {
+  const version = process.env.npm_package_version || "0.0.0";
+  window.webContents.send("VERSION", version);
+});
 
 
 ipcMain.on("ZOOM_IN", () => {

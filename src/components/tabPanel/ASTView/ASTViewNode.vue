@@ -7,7 +7,7 @@
       @mouseover.stop="isHovering = true"
       @mouseout="isHovering = false"
     >
-      <span @click.stop="toggle()">{{ node.name }}</span>
+      <span @click.stop="toggle()">{{ `${extended ? '[-]' : '[+]' } ${node.name}` }}</span>
       <div class="ast-item" v-for="n_node in node.elements" :key="n_node">
         <ASTViewNode :node="n_node" />
       </div>
