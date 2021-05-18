@@ -39,6 +39,7 @@ export default class Terminal extends Vue {
     window.setInterval(() => {
       if (self.isActive) {
         fitAddon.fit();
+        self.tabFile.terminalProcess.changeSize(term.cols, term.rows);
       }
     }, 100);
 

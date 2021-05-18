@@ -1,4 +1,5 @@
 import Store from "electron-store";
+import { compile } from "vue";
 import { Config } from "./config/config";
 
 const store = new Store();
@@ -23,7 +24,10 @@ export default class TerminalCommands {
         
         const env: Config = this.getConfig();
         const workspace = `${path}/.triaml/${triangleFileName}`;
+        const compilerOutputFile = `${workspace}/${this.COMPILER_OUTPUT}`
+
         let compileCommand = `mkdir -p ${workspace}; cd ${workspace}; ${env.enviroment.compiler.value} ${path}/${triangleFileName}`;
+        compileCommand += `; ${env.enviroment.disassembler.value} ${compilerOutputFile} > ${this.DASM_OUTPUT}`
 
         for (const [flag, arg] of Object.entries(this.COMPILER_FLAGS)) {
             compileCommand += ` ${flag} ${arg}`
@@ -34,22 +38,6 @@ export default class TerminalCommands {
         }
 
         return compileCommand;
-    }
-
-    public static createDisassemblerCommand(path: string, triangleFileName: string) {
-        path = this.handleSpaces(path);
-        triangleFileName = this.handleSpaces(triangleFileName);
-
-        const env: Config = this.getConfig();
-        const workspace = `${path}/.triaml/${triangleFileName}`;
-        const compilerOutputFile = `${workspace}/${this.COMPILER_OUTPUT}`
-        let disassembleCommand = `mkdir -p ${workspace}; cd ${workspace}; ${env.enviroment.disassembler.value} ${compilerOutputFile} > ${this.DASM_OUTPUT}`;
-
-        if (process.platform == 'win32') {
-            disassembleCommand = this.useCygwin(disassembleCommand);
-        }
-
-        return disassembleCommand;
     }
 
     public static createRunCommand(path: string, triangleFileName: string) {

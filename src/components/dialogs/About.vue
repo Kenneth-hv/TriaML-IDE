@@ -3,7 +3,7 @@
     <template v-slot:header>{{$t("about.title")}}</template>
     <template v-slot:content>
       <div class="about">
-        <img src="@/assets/logo.png" />
+        <img src="@/assets/img/logo.png" />
         <div class="about-info">
           <h2>TriaML IDE</h2>
           <h4>{{$t("about.version")}} {{ version }}</h4>

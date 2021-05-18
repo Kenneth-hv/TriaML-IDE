@@ -1,6 +1,6 @@
 <template>
   <div class="tab-panel">
-    <img :src="require('@/assets/logo_black.svg')" />
+    <img :src="require('@/assets/img/logo_black.svg')" />
     <div class="tab-group">
       <Tab
         v-for="(tabFile, index) in getTabManager().tabFiles"

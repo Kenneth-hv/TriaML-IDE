@@ -4,7 +4,7 @@
     <div id="frr-2" class="floating-resize-region"></div>
     <div id="frr-3" class="floating-resize-region"></div>
     <div id="window-icon">
-      <img src="@/assets/logo.png" />
+      <img src="@/assets/img/logo.png" />
     </div>
 
     <WindowMenu />

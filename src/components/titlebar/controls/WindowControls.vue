@@ -8,7 +8,8 @@
 </template>
 
 <script  lang="ts">
-import { Options, Vue } from "vue-class-component";
+import { Options, Vue, setup } from "vue-class-component";
+import { useStore } from "@/store";
 import WindowButton from "./WindowButton.vue";
 const { remote } = require('electron');
 const win = remote.getCurrentWindow();
@@ -17,9 +18,12 @@ const win = remote.getCurrentWindow();
   components: { WindowButton }
 })
 export default class WindowControls extends Vue {
+  store = setup(() => useStore());
+
   close() {
-    win.close();
+    this.store.dispatch('CLOSE');
   }
+
   maximize() {
     if (remote.getCurrentWindow().isMaximized()) {
       win.unmaximize();
@@ -27,6 +31,7 @@ export default class WindowControls extends Vue {
       win.maximize();
     }
   }
+  
   minimize() {
     win.minimize();
   }

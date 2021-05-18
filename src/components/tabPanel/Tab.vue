@@ -3,12 +3,12 @@
   <div class="tab" :class=" { active : isActive } ">
     <p>{{ tabFile.fileName }}</p>
     <img v-if="tabFile.isSaved"
-      :src="require('@/assets/close_tab.svg')"
+      :src="require('@/assets/img/close_tab.svg')"
       @click="closeTab()"
       v-on:click.stop
     />
     <img v-else
-      :src="require('@/assets/close_unsaved_tab.svg')"
+      :src="require('@/assets/img/close_unsaved_tab.svg')"
       @click="closeTab()"
       v-on:click.stop
     />

@@ -60,6 +60,9 @@ export const store = createStore<State>({
     },
     ZOOM_DEFAULT(state) {
       state.triaMLApp.zoomDefault();
+    },
+    CLOSE(state) {
+      state.triaMLApp.close();
     }
   },
   actions: {
@@ -110,6 +113,9 @@ export const store = createStore<State>({
     },
     ZOOM_DEFAULT({ commit }) {
       commit('ZOOM_DEFAULT');
+    },
+    CLOSE({ commit }) {
+      commit('CLOSE');
     },
   },
   modules: {

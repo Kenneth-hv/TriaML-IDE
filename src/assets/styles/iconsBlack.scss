@@ -1,0 +1,63 @@
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.5);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Tool bar */
+
+#toolbar {
+  .toolbar-button {
+    img {
+      filter: none;
+    }
+  }
+}
+
+.tab-group {
+  .tab {
+    img {
+      filter: none;
+    }
+  }
+}
+
+/* Menu List */
+
+.dropdown > .button:hover {
+  background-color: #00000020;
+}
+
+.menu-list {
+  > .spacer {
+    background-color: #00000020;
+  }
+}
+
+/* Window Control | - | [] | X | */
+
+#window-controls .icon {
+  filter: invert(1);
+}
+
+#window-controls .button:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+#window-controls .button:active {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+#close-button:active .icon {
+  filter: none;
+}

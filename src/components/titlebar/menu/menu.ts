@@ -40,29 +40,7 @@ const menu_elements = [
       },
       {
         title: "menu.file.quit",
-      },
-    ],
-  },
-  {
-    title: "menu.edit",
-    items: [
-      {
-        title: "menu.edit.undo",
-      },
-      {
-        title: "menu.edit.redo",
-      },
-      {
-        title: "spacer",
-      },
-      {
-        title: "menu.edit.cut",
-      },
-      {
-        title: "menu.edit.copy",
-      },
-      {
-        title: "menu.edit.paste",
+        command: "CLOSE",
       },
     ],
   },

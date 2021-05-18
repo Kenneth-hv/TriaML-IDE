@@ -29,7 +29,7 @@ async function createWindow() {
     minHeight: 410,
     frame: false,
     backgroundColor: "#2b2b2b",
-    icon: "./src/assets/logo.png",
+    icon: "./src/assets/img/logo.png",
     webPreferences: {
       enableRemoteModule: true,
       devTools: true,
@@ -118,16 +118,16 @@ ipcMain.on("ZOOM_OUT", () => {
 });
 
 // NODE PTY TERMINAL MANAGER
-const terminals: any = {};
+const terminals: { [key: number]: pty.IPty } = {};
 
 ipcMain.on("TERMINAL_INIT", (_event, id: number) => {
   terminals[id] = require('node-pty').spawn(shell, [], {
     name: 'xterm-color',
-    cols: 100,
+    cols: 300,
     rows: 60,
     cwd: process.env.HOME,
     env: process.env as { [key: string]: string; }
-  });
+  }) as pty.IPty;
 
   terminals[id].on('data', (data: any) => {
     window.webContents.send("TERMINAL_OUTPUT_ID_" + id.toString(), data,);
@@ -140,7 +140,11 @@ ipcMain.on("TERMINAL_INPUT", (_event, data, id) => {
 
 ipcMain.on("TERMINAL_KILL", (_event, id) => {
   terminals[id].kill();
-  terminals[id] = null;
+  delete terminals[id];
+});
+
+ipcMain.on("TERMINAL_CHANGE_SIZE", (_event, id, cols, rows) => {
+  terminals[id].resize(cols, rows);
 });
 
 // Bind shortcuts
@@ -155,4 +159,4 @@ ipcMain.on('BIND_SHORTCUT', (_event, shortcut: string) => {
   electronLocalshortcut.register(window, fullShortcut, () => {
     window.webContents.send('SC_' + shortcut);
   });
-})
+});

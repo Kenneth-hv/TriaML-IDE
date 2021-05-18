@@ -1,7 +1,6 @@
-$white-icons: true;
-
 :root {
   --color-font: #cccccc;
+  --color-background: #585858;
   --color-body-background: #111111;
   --color-titlebar-background: #2b2b2b;
   --color-titlebar-font: #cccccc;
@@ -12,6 +11,14 @@ $white-icons: true;
   --color-tab-panel-content: #1e1e1e;
   --color-menu-background: #202020;
   --color-menu-highlight: #830000;
+
+  --color-hover-effect-1: #ffffff09;
+
+  --color-table-child-e: #fff1;
+  --color-table-child-o: #fff2;
+
+  --color-button: #585858;
+  --color-button-hover: #888888;
 }
 
 /* Basic styling */
@@ -23,6 +30,7 @@ $white-icons: true;
   box-sizing: border-box;
   outline: none;
   box-shadow: none;
+  color: var(--color-font);
 }
 
 html {
@@ -154,10 +162,6 @@ body {
       margin-left: auto;
       margin-right: auto;
       cursor: pointer;
-
-      @if $white-icons {
-        filter: invert(1);
-      }
     }
   }
 
@@ -183,10 +187,6 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-
-    @if not $white-icons {
-      filter: invert(1);
-    }
   }
 }
 
@@ -230,10 +230,6 @@ body {
       height: 10px;
       cursor: pointer;
       opacity: 0;
-
-      @if $white-icons {
-        filter: invert(1);
-      }
 
       &:hover {
         opacity: 0.8;
@@ -444,14 +440,14 @@ body {
     padding: 6px;
 
     button {
-      background-color: #585858;
+      background-color: var(--color-button);
+      color: var(--color-font);
       margin-left: 4px;
-      color: #fff;
       height: 100%;
       padding: 0.2em 0.8em;
       cursor: pointer;
       &:hover {
-        background-color: #888888;
+        background-color: var(--color-button-hover);
       }
     }
   }
@@ -471,7 +467,7 @@ body {
         padding: 4px;
         cursor: text;
         background-color: #585858;
-        color: white;
+        color: var(--color-font);
       }
     }
 
@@ -557,14 +553,6 @@ body {
 
 /* Menu List */
 
-.dropdown > .button:hover {
-  @if $white-icons {
-    background-color: #ffffff20;
-  } @else {
-    background-color: #00000020;
-  }
-}
-
 .menu-list {
   position: absolute;
   z-index: 999;
@@ -592,12 +580,6 @@ body {
   > .spacer {
     margin: 5px 5px;
     height: 1px;
-
-    @if $white-icons {
-      background-color: #ffffff20;
-    } @else {
-      background-color: #00000020;
-    }
   }
 }
 
@@ -660,32 +642,8 @@ body {
   }
 }
 
-#window-controls .icon {
-  @if $white-icons {
-    filter: none;
-  } @else {
-    filter: invert(1);
-  }
-}
-
 #window-controls .button {
   user-select: none;
-}
-
-#window-controls .button:hover {
-  @if $white-icons {
-    background: rgba(255, 255, 255, 0.1);
-  } @else {
-    background: rgba(0, 0, 0, 0.1);
-  }
-}
-
-#window-controls .button:active {
-  @if $white-icons {
-    background: rgba(255, 255, 255, 0.2);
-  } @else {
-    background: rgba(0, 0, 0, 0.2);
-  }
 }
 
 #close-button:hover {
@@ -694,14 +652,6 @@ body {
 
 #close-button:active {
   background: #f1707a !important;
-}
-
-#close-button:active .icon {
-  @if $white-icons {
-    filter: invert(1);
-  } @else {
-    filter: none;
-  }
 }
 
 #min-button {

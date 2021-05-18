@@ -26,7 +26,7 @@
             <!-- Select setting using v-model -->
             <div v-else-if="setting.type == 'select'" class="select-setting">
               <select v-model="setting.selected" >
-                <option v-for="value in setting.available" :key="value">{{
+                <option v-for="value in setting.options" :key="value">{{
                   value
                 }}</option>
               </select>

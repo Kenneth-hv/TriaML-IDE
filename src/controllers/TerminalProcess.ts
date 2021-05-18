@@ -27,4 +27,8 @@ export default class TerminalProcess {
     public kill() {
         ipcRenderer.send("TERMINAL_KILL", this._processId);
     }
+
+    public changeSize(cols: number, rows: number) {
+        ipcRenderer.send("TERMINAL_CHANGE_SIZE", this._processId, cols, rows);
+    }
 }

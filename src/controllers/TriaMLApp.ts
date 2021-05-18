@@ -27,6 +27,7 @@ export default class TriaMLApp {
         this._showAbout = false;
 
         this._config = store.get('config') as Config;
+        // this._config = defaultConfig
         if (!this._config) {
             this._config = defaultConfig;
             store.set('config', this._config)
@@ -119,5 +120,11 @@ export default class TriaMLApp {
     public compile() {
         this.selectedTool = Tool.TERMINAL;
         this._tabFileManager.compile();
+    }
+
+    public close() {
+        if(this._tabFileManager.closeAllTabs()) {
+            window.close();
+        }
     }
 }

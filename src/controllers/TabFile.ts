@@ -99,14 +99,8 @@ export default class TabFile {
 
     public compile() {
         this._terminalProcess.sendCommand(TerminalCommands.createCompileCommand(this.fileFolderPath, this.fileName));
-        this.disassemble();
         this.loadAST();
         this.loadTable();
-    }
-
-    public disassemble() {
-        this._terminalProcess.sendCommand(TerminalCommands.createDisassemblerCommand(this.fileFolderPath, this.fileName));
-        this.loadTAMCode();
     }
 
     public run() {

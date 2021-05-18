@@ -1,0 +1,19 @@
+:root {
+  --color-font: #cccccc;
+  --color-background: #585858;
+  --color-body-background: #111111;
+  --color-titlebar-background: #2b2b2b;
+  --color-titlebar-font: #cccccc;
+  --color-toolbar: #2b2b2b;
+  --color-tab-panel: #2b2b2b;
+  --color-tab: #292929;
+  --color-tab-active: #1e1e1e;
+  --color-tab-panel-content: #1e1e1e;
+  --color-menu-background: #202020;
+  --color-menu-highlight: #830000;
+  --color-hover-effect-1: #ffffff09;
+  --color-table-child-e: #fff1;
+  --color-table-child-o: #fff2;
+  --color-button: #585858;
+  --color-button-hover: #888888;
+}

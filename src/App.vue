@@ -44,4 +44,9 @@ export default class App extends Vue {
 
 <style lang="scss">
 @import "./assets/styles/style.scss";
+@import "./assets/styles/iconsWhite.scss";
+</style>
+
+<style>
+@import "./assets/styles/themes/dark.css";
 </style>

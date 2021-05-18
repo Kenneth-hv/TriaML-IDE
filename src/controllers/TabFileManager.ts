@@ -112,17 +112,26 @@ export default class TabFileManager {
             );
 
             if (savePromptResult == 0) {
-                this.saveTab(tabFileId);
+                this.saveTab(tabFileIndex);
                 if (!tabFile.isSaved) {
-                    return;
+                    return false;
                 }
             }
 
             if (savePromptResult == 2) {
-                return;
+                return false;
             }
         }
         this.disposeTab(tabFileIndex);
+        return true;
+    }
+
+    public closeAllTabs(): boolean {
+        // While there is tabs on tabFiles
+        while (this._tabFiles.length > 0) {
+            if (!this.closeTab(this._tabFiles[0].id)) return false;
+        }
+        return true;
     }
 
     private disposeTab(index: number) {
