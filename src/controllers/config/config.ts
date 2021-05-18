@@ -26,7 +26,7 @@ export const defaultConfig: Config = {
     "language": {
       "type": "select",
       "selected": "English",
-      "options": ["English", "Spanish"]
+      "options": ["English", "Spanish", "Deutsch", "French"]
     }
   }
 };

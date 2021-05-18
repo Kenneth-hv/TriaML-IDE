@@ -1,4 +1,6 @@
 export const mappings: { [key: string]: string } = {
   "English": "en",
-  "Spanish": "es"
+  "Spanish": "es",
+  "Deutsch": "de",
+  "French": "fr"
 }
