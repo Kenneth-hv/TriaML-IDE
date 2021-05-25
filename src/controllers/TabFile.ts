@@ -1,3 +1,17 @@
+// Copyright 2021 Tecnológico de Costa Rica
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import FileManager from "./FileManager";
 import TerminalProcess from "./TerminalProcess";
 import TerminalCommands from "./TerminalCommands"
@@ -13,7 +27,7 @@ export default class TabFile {
     private _terminalProcess: TerminalProcess;
     private _tamCode = "";
     private _ast = {};
-    private _table = {};
+    private _table: Array<{ id: string, level: string }> = [];
 
 
     constructor(fileLocation?: string) {
@@ -83,7 +97,7 @@ export default class TabFile {
     get tamCode(): string {
         return this._tamCode;
     }
-    
+
     get ast(): any {
         return this._ast;
     }
@@ -97,21 +111,18 @@ export default class TabFile {
         this._isSaved = true;
     }
 
-    public compile() {
+    public compile(): boolean {
+        if (this.filePath == "") return false;
         this._terminalProcess.sendCommand(TerminalCommands.createCompileCommand(this.fileFolderPath, this.fileName));
-        this.disassemble();
         this.loadAST();
         this.loadTable();
-    }
-
-    public disassemble() {
-        this._terminalProcess.sendCommand(TerminalCommands.createDisassemblerCommand(this.fileFolderPath, this.fileName));
-        this.loadTAMCode();
+        return true;
     }
 
     public run() {
-        this.compile();
+        if (this.filePath == "") return false;
         this._terminalProcess.sendCommand(TerminalCommands.createRunCommand(this.fileFolderPath, this.fileName));
+        return true;
     }
 
     public loadTAMCode() {
@@ -126,9 +137,23 @@ export default class TabFile {
     }
 
     public loadTable() {
-        const tableFile = `${this.fileFolderPath}/.triaml/${this.fileName}/${TerminalCommands.AST_OUTPUT}`
+        const tableFile = `${this.fileFolderPath}/.triaml/${this.fileName}/${TerminalCommands.TABLE_OUTPUT}`
         const tableXml = FileManager.openFile(tableFile);
-        this._table = convert.xml2js(tableXml);
+        const table = convert.xml2js(tableXml);
+        this._table = this.parseTable(table).reverse();
+    }
+
+    private parseTable(table: any): Array<{ id: string, level: string }> {
+        let elements: Array<{ id: string, level: string }> = [];
+        for (const i in table.elements) {
+            const element = table.elements[i];
+            if (element.name == "Declaration") {
+                elements.push(element.attributes);
+            } else {
+                elements = elements.concat(this.parseTable(element));
+            }
+        }
+        return elements;
     }
 
     public close(): boolean {

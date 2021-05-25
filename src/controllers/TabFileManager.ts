@@ -1,3 +1,17 @@
+// Copyright 2021 Tecnológico de Costa Rica
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 import TabFile from "./TabFile";
 import { remote } from "electron";
 import { Tool } from "./TriaMLApp";
@@ -112,17 +126,26 @@ export default class TabFileManager {
             );
 
             if (savePromptResult == 0) {
-                this.saveTab(tabFileId);
+                this.saveTab(tabFileIndex);
                 if (!tabFile.isSaved) {
-                    return;
+                    return false;
                 }
             }
 
             if (savePromptResult == 2) {
-                return;
+                return false;
             }
         }
         this.disposeTab(tabFileIndex);
+        return true;
+    }
+
+    public closeAllTabs(): boolean {
+        // While there is tabs on tabFiles
+        while (this._tabFiles.length > 0) {
+            if (!this.closeTab(this._tabFiles[0].id)) return false;
+        }
+        return true;
     }
 
     private disposeTab(index: number) {
@@ -135,20 +158,22 @@ export default class TabFileManager {
         }
     }
 
-    public compile() {
+    public compile(): boolean {
         if (this._selectedIndex > -1) {
             if (this.saveCurrentTab()) {
                 const tabFile = this._tabFiles[this._selectedIndex];
-                tabFile.compile();
+                return tabFile.compile();
             }
         }
+        return false;
     }
 
-    public run() {
+    public run(): boolean {
         if (this._selectedIndex > -1) {
             const tabFile = this._tabFiles[this._selectedIndex];
-            tabFile.run();
+            return tabFile.run();
         }
+        return false;
     }
 
     public updateTool(tool: Tool) {

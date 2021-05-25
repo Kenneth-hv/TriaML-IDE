@@ -1,6 +1,6 @@
 {
   "name": "triaml-ide",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "description": "A Triangle IDE for OCaml written compiler.",
   "author": {
@@ -23,6 +23,7 @@
     "core-js": "^3.6.5",
     "electron-localshortcut": "^3.2.1",
     "electron-rebuild": "^2.3.5",
+    "electron-store": "^8.0.0",
     "monaco-editor": "^0.23.0",
     "monaco-editor-webpack-plugin": "^3.0.1",
     "node-pty": "^0.10.1",
@@ -48,7 +49,7 @@
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-typescript": "^4.5.12",
     "@vue/cli-plugin-vuex": "^4.5.12",
-    "@vue/cli-service": "~4.5.0",
+    "@vue/cli-service": "^4.5.13",
     "@vue/compiler-sfc": "^3.0.0",
     "@vue/eslint-config-typescript": "^7.0.0",
     "babel-eslint": "^10.1.0",

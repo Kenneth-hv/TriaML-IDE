@@ -13,27 +13,30 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 <template>
-  <div class="tamcode-view" :class="{ active: isActive }">
-    <pre><p>{{ tabFile.tamCode }}</p></pre>
-  </div>
+  <FloatingPanelBackground>
+    <div class="floating-panel">
+      <div class="header drag-region">
+        <slot name="header"></slot>
+      </div>
+      <div class="content">
+        <slot name="content"></slot>
+      </div>
+      <div class="footer">
+        <slot name="footer"></slot>
+      </div>
+    </div>
+  </FloatingPanelBackground>
 </template>
 
 <script lang="ts">
-import { Options, Vue, setup } from "vue-class-component";
-import { useStore } from "@/store";
-import TabFile from "@/controllers/TabFile";
+import { Options, Vue } from "vue-class-component";
+import FloatingPanelBackground from "./FloatingPanelBackground.vue";
 
 @Options({
   props: {
-    tabFile: TabFile,
     isActive: Boolean,
   },
-  components: {},
+  components: { FloatingPanelBackground },
 })
-export default class TAMCodeView extends Vue {
-  store = setup(() => useStore());
-  tabFile!: TabFile;
-}
+export default class FloatingPanel extends Vue {}
 </script>
-
-<style></style>

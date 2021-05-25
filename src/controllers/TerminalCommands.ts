@@ -1,16 +1,30 @@
-export default class TerminalCommands {
-    // HARD_CODED, PATH SETTINGS TO DO
-    static TRIANGLE_COMPILER = 'C:/Compile/Triangle.exe'
-    static TRIANGLE_DISASSEMBLER = 'C:/Compile/Dasm.exe'
-    static TRIANGLE_ABSTRACT_MACHINE = 'C:/Compile/TAM.exe'
-    static CYGWIN_BASH = 'C:/OCaml64/bin/bash'
+// Copyright 2021 Tecnológico de Costa Rica
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
+import Store from "electron-store";
+import { compile } from "vue";
+import { Config } from "./config/config";
+
+const store = new Store();
+
+export default class TerminalCommands {
     static DASM_OUTPUT = "dasm.dout";
     static COMPILER_OUTPUT = "a.out";
     static AST_OUTPUT = "ast.xml";
 
     // NOT BEING USED BY THE COMPILER BUT IT'S THE DEFAULT OUTPUT
-    static TABLE_OUTPUT = "table.xml";
+    static TABLE_OUTPUT = "tabla.xml";
 
     private static COMPILER_FLAGS = {
         "-o": TerminalCommands.COMPILER_OUTPUT,
@@ -19,45 +33,54 @@ export default class TerminalCommands {
     }
 
     public static createCompileCommand(path: string, triangleFileName: string) {
+        path = this.handleSpaces(path);
+        triangleFileName = this.handleSpaces(triangleFileName);
+        
+        const config: Config = this.getConfig();
         const workspace = `${path}/.triaml/${triangleFileName}`;
-        let compileCommand = `mkdir -p ${workspace}; cd ${workspace}; ${TerminalCommands.TRIANGLE_COMPILER} ${path}/${triangleFileName}`;
+        const compilerOutputFile = `${workspace}/${this.COMPILER_OUTPUT}`
 
-        for (const [flag, arg] of Object.entries(TerminalCommands.COMPILER_FLAGS)) {
+        let compileCommand = `mkdir -p ${workspace}; cd ${workspace}; ${config.enviroment.compiler.value} ${path}/${triangleFileName}`;
+
+        for (const [flag, arg] of Object.entries(this.COMPILER_FLAGS)) {
             compileCommand += ` ${flag} ${arg}`
         }
 
+        compileCommand += `; ${config.enviroment.disassembler.value} ${compilerOutputFile} > ${this.DASM_OUTPUT}`
+
         if (process.platform == 'win32') {
-            compileCommand = TerminalCommands.useCygwin(compileCommand);
+            compileCommand = this.useCygwin(compileCommand);
         }
 
         return compileCommand;
     }
 
-    public static createDisassemblerCommand(path: string, triangleFileName: string) {
-        const workspace = `${path}/.triaml/${triangleFileName}`;
-        const compilerOutputFile = `${workspace}/${this.COMPILER_OUTPUT}`
-        let disassembleCommand = `mkdir -p ${workspace}; cd ${workspace}; ${TerminalCommands.TRIANGLE_DISASSEMBLER} ${compilerOutputFile} > ${this.DASM_OUTPUT}`;
-
-        if (process.platform == 'win32') {
-            disassembleCommand = TerminalCommands.useCygwin(disassembleCommand);
-        }
-
-        return disassembleCommand;
-    }
-
     public static createRunCommand(path: string, triangleFileName: string) {
+        path = this.handleSpaces(path);
+        triangleFileName = this.handleSpaces(triangleFileName);
+        
+        const config: Config = this.getConfig();
         const workspace = `${path}/.triaml/${triangleFileName}`;
         const compilerOutputFile = `${workspace}/${this.COMPILER_OUTPUT}`
-        let runCommand = `mkdir -p ${workspace}; cd ${workspace}; ${TerminalCommands.TRIANGLE_ABSTRACT_MACHINE} ${compilerOutputFile}`;
+        let runCommand = `mkdir -p ${workspace}; cd ${workspace}; ${config.enviroment.tam.value} ${compilerOutputFile}`;
 
         if (process.platform == 'win32') {
-            runCommand = TerminalCommands.useCygwin(runCommand);
+            runCommand = this.useCygwin(runCommand);
         } 
 
         return runCommand;
     }
 
     private static useCygwin(command: string): string {
-        return `${TerminalCommands.CYGWIN_BASH} --login -c "${command}"`
+        const config: Config = this.getConfig();
+        return `${config.enviroment.cygwin.value} --login -c "${command}"`
+    }
+
+    private static handleSpaces(path: string): string {
+        return path.replaceAll(' ', '\\ ');
+    }
+
+    private static getConfig(): Config {
+        return store.get('config') as Config;
     }
 }

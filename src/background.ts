@@ -1,8 +1,23 @@
+// Copyright 2021 Tecnológico de Costa Rica
+
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+
+//     http://www.apache.org/licenses/LICENSE-2.0
+
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 //"use strict";
 
 import { app, protocol, BrowserWindow, Menu, MenuItem, webFrame, ipcMain, globalShortcut, ipcRenderer } from "electron";
 import { createProtocol } from "vue-cli-plugin-electron-builder/lib";
 import installExtension, { VUEJS_DEVTOOLS } from "electron-devtools-installer";
+import Store from "electron-store";
 import os from "os";
 import type * as pty from 'node-pty';
 import electronLocalshortcut from "electron-localshortcut";
@@ -17,6 +32,8 @@ protocol.registerSchemesAsPrivileged([
   { scheme: "app", privileges: { secure: true, standard: true } },
 ]);
 
+Store.initRenderer();
+
 async function createWindow() {
   // Create the browser window.
   window = new BrowserWindow({
@@ -26,13 +43,17 @@ async function createWindow() {
     minHeight: 410,
     frame: false,
     backgroundColor: "#2b2b2b",
-    icon: "./src/assets/logo.png",
+    icon: "./src/assets/img/logo.png",
     webPreferences: {
       enableRemoteModule: true,
-      devTools: true,
+      devTools: isDevelopment,
       nodeIntegration: !!process.env.ELECTRON_NODE_INTEGRATION
     },
   });
+
+  if (!isDevelopment) {
+    window.setMenu(null);
+  }
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -52,29 +73,22 @@ async function createWindow() {
     window.webContents.send("SET_WINDOW_MAXIMIZED", true);
   });
 
+  // Unregister CommandOrControl+R
+  electronLocalshortcut.unregister(window, "CommandOrControl+R");
 }
 
-// Quit when all windows are closed.
 app.on("window-all-closed", () => {
-  // On macOS it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
   if (process.platform !== "darwin") {
     app.quit();
   }
 });
 
 app.on("activate", () => {
-  // On macOS it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) createWindow();
 });
 
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.on("ready", async () => {
   if (isDevelopment && !process.env.IS_TEST) {
-    // Install Vue Devtools
     try {
       await installExtension(VUEJS_DEVTOOLS);
     } catch (e) {
@@ -84,7 +98,6 @@ app.on("ready", async () => {
   createWindow();
 });
 
-// Exit cleanly on request from parent process in development mode.
 if (isDevelopment) {
   if (process.platform === "win32") {
     process.on("message", (data) => {
@@ -99,28 +112,24 @@ if (isDevelopment) {
   }
 }
 
-
-
-ipcMain.on("ZOOM_IN", () => {
-  console.log("hi");
-  // webFrame.setZoomLevel(webFrame.getZoomLevel() + 1);
-});
-
-ipcMain.on("ZOOM_OUT", () => {
-  // webFrame.setZoomLevel(webFrame.getZoomLevel() - 1);
+ipcMain.on("OPEN_EXTERNAL", (_, url) => {
+  const command = 
+  os.platform() == "win32" ? "start" : 
+  os.platform() == "darwin" ? "open" : "xdg-open";
+  require("child_process").execSync(`${command} ${url}`);
 });
 
 // NODE PTY TERMINAL MANAGER
-const terminals: any = {};
+const terminals: { [key: number]: pty.IPty } = {};
 
 ipcMain.on("TERMINAL_INIT", (_event, id: number) => {
   terminals[id] = require('node-pty').spawn(shell, [], {
     name: 'xterm-color',
-    cols: 100,
+    cols: 300,
     rows: 60,
     cwd: process.env.HOME,
     env: process.env as { [key: string]: string; }
-  });
+  }) as pty.IPty;
 
   terminals[id].on('data', (data: any) => {
     window.webContents.send("TERMINAL_OUTPUT_ID_" + id.toString(), data,);
@@ -133,7 +142,11 @@ ipcMain.on("TERMINAL_INPUT", (_event, data, id) => {
 
 ipcMain.on("TERMINAL_KILL", (_event, id) => {
   terminals[id].kill();
-  terminals[id] = null;
+  delete terminals[id];
+});
+
+ipcMain.on("TERMINAL_CHANGE_SIZE", (_event, id, cols, rows) => {
+  terminals[id].resize(cols, rows);
 });
 
 // Bind shortcuts
@@ -148,4 +161,4 @@ ipcMain.on('BIND_SHORTCUT', (_event, shortcut: string) => {
   electronLocalshortcut.register(window, fullShortcut, () => {
     window.webContents.send('SC_' + shortcut);
   });
-})
+});

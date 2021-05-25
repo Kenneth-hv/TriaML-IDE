@@ -1,0 +1,44 @@
+/* Copyright 2021 Tecnológico de Costa Rica
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License. */
+
+.black {
+  --color-font: #cccccc;
+  --color-background: #010101;
+  --color-fill-main: #111111;
+  --color-fill-seconday: #222222;
+
+  --color-titlebar-background: #111111;
+  --color-titlebar-font: #cccccc;
+
+  --color-toolbar: #111111;
+
+  --color-tab: #080808;
+  --color-tab-active: #000000;
+  --color-tab-content: #000000;
+
+  --color-menu-background: #0c0c0c;
+  --color-menu-highlight: #000264;
+  --color-menu-highlight-font: #ffffff;
+
+  --color-ast-hover: #ffffff09;
+  --color-ast-node-font: #ffffff;
+  --color-ast-leaf-font: #acacac;
+
+  --color-table-header: #fff3;
+  --color-table-child-even: #fff1;
+  --color-table-child-odd: #fff2;
+
+  --color-button: #222222;
+  --color-button-hover: #303030;
+}

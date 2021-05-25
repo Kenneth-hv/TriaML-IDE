@@ -20,5 +20,18 @@
   "menu.view.zoomout": "Zoom Out",
   "menu.view.restorezoom": "Restore Zoom",
   "menu.help": "Help",
-  "menu.help.about": "About"
+  "menu.help.about": "About",
+  "config.enviroment": "Enviroment",
+  "config.enviroment.compiler": "Compiler",
+  "config.enviroment.tam": "Triangle Abstract Machine",
+  "config.enviroment.disassembler": "Disassembler",
+  "config.enviroment.cygwin": "Cygwin",
+  "config.display": "Display",
+  "config.display.theme": "Theme",
+  "config.display.language": "Language",
+  "about.title": "About",
+  "about.version": "Version",
+  "about.authors": "Authors",
+  "about.bugreports": "Bug Reports",
+  "close": "Close"
 }
