@@ -7,13 +7,14 @@
         <div class="about-info">
           <h2>TriaML IDE</h2>
           <h4>{{$t("about.version")}} {{ version }}</h4>
+          <span>Tecnológico de Costa Rica</span><br />
           <h5>{{$t("about.authors")}}</h5>
           <span>Kenneth Herrera</span><br />
           <span>Esteban Jiménez</span><br />
           <span>Jose Daniel Jiménez</span><br />
           <span>Esteban Mata</span><br />
           <h5>{{$t("about.bugreports")}}</h5>
-          <span>Github Report Issue</span><br />
+          <span class="link" @click="openReportIssue()">Github Report Issue</span><br />
         </div>
       </div>
     </template>
@@ -34,15 +35,7 @@ import FloatingPanel from "./FloatingPanel.vue";
 })
 export default class About extends Vue {
   store = setup(() => useStore());
-  version: string = "";
-
-  mounted() {
-    const self = this;
-    ipcRenderer.on("VERSION", (_, value) => {
-      self.version = value;
-    });
-    ipcRenderer.send("GET_VERSION")
-  }
+  version: string = "0.3.0";
 
   close() {
     this.store.commit("CLOSE_ABOUT");
@@ -52,8 +45,8 @@ export default class About extends Vue {
     return this.store.state.triaMLApp.showAbout;
   }
 
-  getVersion() {
-    return ipcRenderer.send("GET_VERSION");
+  openReportIssue() {
+    ipcRenderer.send("OPEN_EXTERNAL", "https://github.com/Kenneth-hv/TriaML-IDE/issues");
   }
 }
 </script>

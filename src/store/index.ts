@@ -31,6 +31,9 @@ export const store = createStore<State>({
     CLOSE_PREFERENCES(state) {
       state.triaMLApp.closePreferences();
     },
+    SAVE_PREFERENCES(state) {
+      state.triaMLApp.savePreferences();
+    },
     OPEN_ABOUT(state) {
       state.triaMLApp.openAbout();
     },
@@ -83,6 +86,9 @@ export const store = createStore<State>({
     },
     CLOSE_PREFERENCES({ commit }) {
       commit('CLOSE_PREFERENCES');
+    },
+    SAVE_PREFERENCES({ commit }) {
+      commit('SAVE_PREFERENCES');
     },
     OPEN_ABOUT({ commit }) {
       commit('OPEN_ABOUT');

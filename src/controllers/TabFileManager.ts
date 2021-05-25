@@ -144,20 +144,22 @@ export default class TabFileManager {
         }
     }
 
-    public compile() {
+    public compile(): boolean {
         if (this._selectedIndex > -1) {
             if (this.saveCurrentTab()) {
                 const tabFile = this._tabFiles[this._selectedIndex];
-                tabFile.compile();
+                return tabFile.compile();
             }
         }
+        return false;
     }
 
-    public run() {
+    public run(): boolean {
         if (this._selectedIndex > -1) {
             const tabFile = this._tabFiles[this._selectedIndex];
-            tabFile.run();
+            return tabFile.run();
         }
+        return false;
     }
 
     public updateTool(tool: Tool) {

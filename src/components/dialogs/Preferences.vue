@@ -25,7 +25,7 @@
 
             <!-- Select setting using v-model -->
             <div v-else-if="setting.type == 'select'" class="select-setting">
-              <select v-model="setting.selected" >
+              <select v-model="setting.selected" @change="update()">
                 <option v-for="value in setting.options" :key="value">{{
                   value
                 }}</option>
@@ -48,16 +48,19 @@ import FloatingPanel from "./FloatingPanel.vue";
 
 @Options({
   components: { FloatingPanel },
+  emits: ["update_preferences"],
 })
 export default class Preferences extends Vue {
   store = setup(() => useStore());
   needsReload = false;
 
-  reload() {
-    window.location.reload();
+  update(): void {
+    this.store.commit("SAVE_PREFERENCES");
+    this.$emit("update_preferences");
   }
 
   close() {
+    this.update();
     this.store.commit("CLOSE_PREFERENCES");
   }
 

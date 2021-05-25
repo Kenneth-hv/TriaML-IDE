@@ -1,0 +1,30 @@
+.black {
+  --color-font: #cccccc;
+  --color-background: #010101;
+  --color-fill-main: #111111;
+  --color-fill-seconday: #222222;
+
+  --color-titlebar-background: #111111;
+  --color-titlebar-font: #cccccc;
+
+  --color-toolbar: #111111;
+
+  --color-tab: #080808;
+  --color-tab-active: #000000;
+  --color-tab-content: #000000;
+
+  --color-menu-background: #0c0c0c;
+  --color-menu-highlight: #000264;
+  --color-menu-highlight-font: #ffffff;
+
+  --color-ast-hover: #ffffff09;
+  --color-ast-node-font: #ffffff;
+  --color-ast-leaf-font: #acacac;
+
+  --color-table-header: #fff3;
+  --color-table-child-even: #fff1;
+  --color-table-child-odd: #fff2;
+
+  --color-button: #222222;
+  --color-button-hover: #303030;
+}

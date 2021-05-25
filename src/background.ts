@@ -102,19 +102,11 @@ if (isDevelopment) {
   }
 }
 
-ipcMain.on("GET_VERSION", () => {
-  const version = process.env.npm_package_version || "0.0.0";
-  window.webContents.send("VERSION", version);
-});
-
-
-ipcMain.on("ZOOM_IN", () => {
-  console.log("hi");
-  // webFrame.setZoomLevel(webFrame.getZoomLevel() + 1);
-});
-
-ipcMain.on("ZOOM_OUT", () => {
-  // webFrame.setZoomLevel(webFrame.getZoomLevel() - 1);
+ipcMain.on("OPEN_EXTERNAL", (_, url) => {
+  const command = 
+  os.platform() == "win32" ? "start" : 
+  os.platform() == "darwin" ? "open" : "xdg-open";
+  require("child_process").execSync(`${command} ${url}`);
 });
 
 // NODE PTY TERMINAL MANAGER

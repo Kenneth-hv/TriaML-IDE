@@ -21,7 +21,7 @@ export const defaultConfig: Config = {
     "theme": {
       "type": "select",
       "selected": "Dark",
-      "options": ["Dark", "Light"]
+      "options": ["Dark", "Black", "Blue", "Light"]
     },
     "language": {
       "type": "select",

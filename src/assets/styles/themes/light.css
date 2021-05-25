@@ -1,19 +1,30 @@
-:root {
+.light {
   --color-font: #000000;
   --color-background: #dadada;
-  --color-body-background: #ffffff;
+  --color-fill-main: #dadada;
+  --color-fill-seconday: #b6b6b6;
+  
   --color-titlebar-background: #dadada;
   --color-titlebar-font: #000000;
+
   --color-toolbar: #dadada;
-  --color-tab-panel: #dadada;
+
   --color-tab: #b3b3b3;
   --color-tab-active: #ffffff;
-  --color-tab-panel-content: #ffffff;
-  --color-menu-background: #b8b8b8;
+  --color-tab-content: #ffffff;
+
+  --color-menu-background: #cecece;
   --color-menu-highlight: #004da5;
-  --color-hover-effect-1: #00000009;
-  --color-table-child-e: #d4d4d411;
-  --color-table-child-o: #ffffff22;
-  --color-button: #9c9c9c;
-  --color-button-hover: #6e6e6e;
+  --color-menu-highlight-font: #ffffff;
+
+  --color-ast-hover: #00000009;
+  --color-ast-node-font: #000000;
+  --color-ast-leaf-font: #303030;
+  
+  --color-table-header: #0004;
+  --color-table-child-even: #0001;
+  --color-table-child-odd: #0002;
+  
+  --color-button: #bebebe;
+  --color-button-hover: #a7a7a7;
 }

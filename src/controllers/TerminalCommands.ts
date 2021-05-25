@@ -22,16 +22,17 @@ export default class TerminalCommands {
         path = this.handleSpaces(path);
         triangleFileName = this.handleSpaces(triangleFileName);
         
-        const env: Config = this.getConfig();
+        const config: Config = this.getConfig();
         const workspace = `${path}/.triaml/${triangleFileName}`;
         const compilerOutputFile = `${workspace}/${this.COMPILER_OUTPUT}`
 
-        let compileCommand = `mkdir -p ${workspace}; cd ${workspace}; ${env.enviroment.compiler.value} ${path}/${triangleFileName}`;
-        compileCommand += `; ${env.enviroment.disassembler.value} ${compilerOutputFile} > ${this.DASM_OUTPUT}`
+        let compileCommand = `mkdir -p ${workspace}; cd ${workspace}; ${config.enviroment.compiler.value} ${path}/${triangleFileName}`;
 
         for (const [flag, arg] of Object.entries(this.COMPILER_FLAGS)) {
             compileCommand += ` ${flag} ${arg}`
         }
+
+        compileCommand += `; ${config.enviroment.disassembler.value} ${compilerOutputFile} > ${this.DASM_OUTPUT}`
 
         if (process.platform == 'win32') {
             compileCommand = this.useCygwin(compileCommand);
@@ -44,10 +45,10 @@ export default class TerminalCommands {
         path = this.handleSpaces(path);
         triangleFileName = this.handleSpaces(triangleFileName);
         
-        const env: Config = this.getConfig();
+        const config: Config = this.getConfig();
         const workspace = `${path}/.triaml/${triangleFileName}`;
         const compilerOutputFile = `${workspace}/${this.COMPILER_OUTPUT}`
-        let runCommand = `mkdir -p ${workspace}; cd ${workspace}; ${env.enviroment.tam.value} ${compilerOutputFile}`;
+        let runCommand = `mkdir -p ${workspace}; cd ${workspace}; ${config.enviroment.tam.value} ${compilerOutputFile}`;
 
         if (process.platform == 'win32') {
             runCommand = this.useCygwin(runCommand);
@@ -57,8 +58,8 @@ export default class TerminalCommands {
     }
 
     private static useCygwin(command: string): string {
-        const env: Config = this.getConfig();
-        return `${env.enviroment.cygwin.value} --login -c "${command}"`
+        const config: Config = this.getConfig();
+        return `${config.enviroment.cygwin.value} --login -c "${command}"`
     }
 
     private static handleSpaces(path: string): string {

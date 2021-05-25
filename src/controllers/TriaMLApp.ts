@@ -27,7 +27,10 @@ export default class TriaMLApp {
         this._showAbout = false;
 
         this._config = store.get('config') as Config;
-        // this._config = defaultConfig
+
+        this._config.display.theme.options = defaultConfig.display.theme.options;
+        this._config.display.language.options = defaultConfig.display.language.options;
+
         if (!this._config) {
             this._config = defaultConfig;
             store.set('config', this._config)
@@ -63,9 +66,13 @@ export default class TriaMLApp {
         this._showPreferences = true;
     }
 
-    public closePreferences() {
+    public savePreferences() {
         const store = new Store();
         store.set('config', this._config);
+    }
+
+    public closePreferences() {
+        this.savePreferences();
         this._showPreferences = false;
     }
 
@@ -113,13 +120,15 @@ export default class TriaMLApp {
     }
 
     public run() {
-        this.selectedTool = Tool.TERMINAL;
-        this._tabFileManager.run();
+        if (this._tabFileManager.run()) {
+            this.selectedTool = Tool.TERMINAL;
+        }
     }
 
     public compile() {
-        this.selectedTool = Tool.TERMINAL;
-        this._tabFileManager.compile();
+        if (this._tabFileManager.compile()) {
+            this.selectedTool = Tool.TERMINAL;
+        }
     }
 
     public close() {

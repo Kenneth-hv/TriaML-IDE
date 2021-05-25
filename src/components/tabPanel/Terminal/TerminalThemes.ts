@@ -1,0 +1,56 @@
+import { ITheme } from "xterm";
+
+export const terminalThemes: { [themeName: string]: ITheme } = {
+  dark: {
+    foreground: "#cccccc",
+    background: "#1e1e1e",
+    cursor: "#cccccc",
+    cursorAccent: "#cccccc",
+    selection: "#cccccc",
+  },
+  light: {
+    foreground: "#000000",
+    background: "#ffffff",
+    cursor: "#000000",
+    cursorAccent: "#000000",
+    selection: "#000000",
+  },
+  black: {
+    foreground: "#ffffff",
+    background: "#000000",
+    cursor: "#ffffff",
+    cursorAccent: "#ffffff",
+    selection: "#ffffff",
+  },
+  blue: {
+    foreground: "#ffffff",
+    background: "#0c173b",
+    cursor: "#ffffff",
+    cursorAccent: "#ffffff",
+    selection: "#ffffff",
+  },
+  
+  base: {
+    foreground: "",
+    background: "",
+    cursor: "",
+    cursorAccent: "",
+    selection: "",
+    black: "",
+    red: "",
+    green: "",
+    yellow: "",
+    blue: "",
+    magenta: "",
+    cyan: "",
+    white: "",
+    brightBlack: "",
+    brightRed: "",
+    brightGreen: "",
+    brightYellow: "",
+    brightBlue: "",
+    brightMagenta: "",
+    brightCyan: "",
+    brightWhite: "",
+  },
+};

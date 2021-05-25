@@ -1,69 +1,55 @@
-::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-}
-
-::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.4);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.5);
-}
-
-::-webkit-scrollbar-thumb:active {
-  background: rgba(255, 255, 255, 0.6);
-}
-
-/* Tool bar */
-
-#toolbar {
-  .toolbar-button {
-    img {
-      filter: invert(1);
-    }
+.icons-white {
+  ::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
   }
-}
 
-.tab-group {
-  .tab {
-    img {
-      filter: invert(1);
-    }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.4);
   }
-}
 
-/* Menu List */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
 
-.dropdown > .button:hover {
-  background-color: #ffffff20;
-  // background-color: #00000020; on black icons
-}
+  ::-webkit-scrollbar-thumb:active {
+    background: rgba(255, 255, 255, 0.6);
+  }
 
-.menu-list {
-  > .spacer {
+  /* Tool bar */
+
+  #toolbar .toolbar-button img {
+    filter: invert(1);
+  }
+
+  .tab-group .tab img {
+    filter: invert(1);
+  }
+
+  /* Menu List */
+
+  .dropdown > .button:hover {
     background-color: #ffffff20;
-    // background-color: #00000020; on black icons
   }
-}
 
-/* Window Control | - | [] | X | */
+  .menu-list > .spacer {
+    background-color: #ffffff20;
+  }
 
-#window-controls .icon {
-  filter: none;
-  // filter: invert(1); on black icon
-}
+  /* Window Control | - | [] | X | */
 
-#window-controls .button:hover {
-  background: rgba(255, 255, 255, 0.1);
-  // background: rgba(0, 0, 0, 0.1); on black icons
-}
+  #window-controls .icon {
+    filter: none;
+  }
 
-#window-controls .button:active {
-  background: rgba(255, 255, 255, 0.2);
-  // background: rgba(0, 0, 0, 0.2);
-}
+  #window-controls .button:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
 
-#close-button:active .icon {
-  filter: invert(1);
-  // filter: none; on black icons
+  #window-controls .button:active {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  #close-button:active .icon {
+    filter: invert(1);
+  }
 }

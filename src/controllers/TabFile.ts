@@ -97,14 +97,18 @@ export default class TabFile {
         this._isSaved = true;
     }
 
-    public compile() {
+    public compile(): boolean {
+        if (this.filePath == "") return false;
         this._terminalProcess.sendCommand(TerminalCommands.createCompileCommand(this.fileFolderPath, this.fileName));
         this.loadAST();
         this.loadTable();
+        return true;
     }
 
     public run() {
+        if (this.filePath == "") return false;
         this._terminalProcess.sendCommand(TerminalCommands.createRunCommand(this.fileFolderPath, this.fileName));
+        return true;
     }
 
     public loadTAMCode() {
