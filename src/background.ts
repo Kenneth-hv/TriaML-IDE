@@ -32,10 +32,14 @@ async function createWindow() {
     icon: "./src/assets/img/logo.png",
     webPreferences: {
       enableRemoteModule: true,
-      devTools: true,
+      devTools: isDevelopment,
       nodeIntegration: !!process.env.ELECTRON_NODE_INTEGRATION
     },
   });
+
+  if (!isDevelopment) {
+    window.setMenu(null);
+  }
 
   if (process.env.WEBPACK_DEV_SERVER_URL) {
     // Load the url of the dev server if in development mode
@@ -55,6 +59,8 @@ async function createWindow() {
     window.webContents.send("SET_WINDOW_MAXIMIZED", true);
   });
 
+  // Unregister CommandOrControl+R
+  electronLocalshortcut.unregister(window, "CommandOrControl+R");
 }
 
 // Quit when all windows are closed.
