@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import Store from "electron-store";
-import { compile } from "vue";
 import { Config } from "./config/config";
 
 const store = new Store();
@@ -73,7 +72,7 @@ export default class TerminalCommands {
 
     private static useCygwin(command: string): string {
         const config: Config = this.getConfig();
-        return `${config.enviroment.cygwin.value} --login -c "${command}"`
+        return `${config.enviroment.cygwin?.value} --login -c "${command}"`
     }
 
     private static handleSpaces(path: string): string {

@@ -16,6 +16,7 @@ import TabFileManager from "./TabFileManager";
 import { webFrame } from "electron";
 import Store from "electron-store";
 import { defaultConfig, Config } from "./config/config";
+import os from "os";
 
 const store = new Store();
 
@@ -42,13 +43,17 @@ export default class TriaMLApp {
 
         this._config = store.get('config') as Config;
 
-        this._config.display.theme.options = defaultConfig.display.theme.options;
-        this._config.display.language.options = defaultConfig.display.language.options;
-
         if (!this._config) {
             this._config = defaultConfig;
             store.set('config', this._config)
         }
+
+        if (os.platform() != "win32") {
+            delete this.config.enviroment.cygwin;
+        }
+
+        this._config.display.theme.options = defaultConfig.display.theme.options;
+        this._config.display.language.options = defaultConfig.display.language.options;
     }
 
     public get tabFileManager(): TabFileManager {
