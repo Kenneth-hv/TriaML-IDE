@@ -55,11 +55,14 @@ export default class Terminal extends Vue {
     const self = this;
     window.setInterval((): void => {
       if (self.isActive) {
+        // Update Xterm.js size
         fitAddon.fit();
+        // Update Node-PTY size
         self.tabFile.terminalProcess.changeSize(
-          self.terminal.cols,
-          self.terminal.rows
+          Math.floor(self.terminal.cols),
+          Math.floor(self.terminal.rows)
         );
+        // Update terminal theme
         self.terminal.setOption("theme", this.getTheme());
       }
     }, 50);

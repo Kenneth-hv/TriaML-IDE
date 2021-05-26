@@ -50,7 +50,7 @@ export type Config = {
     compiler: ConfigStringSetting
     tam: ConfigStringSetting
     disassembler: ConfigStringSetting
-    cygwin: ConfigStringSetting
+    cygwin?: ConfigStringSetting
   }
   display: {
     theme: ConfigSelectSetting
