@@ -32,8 +32,8 @@ export default class TerminalCommands {
     }
 
     public static createCompileCommand(path: string, triangleFileName: string) {
-        path = this.handleSpaces(path);
-        triangleFileName = this.handleSpaces(triangleFileName);
+        path = this.convertPath(path);
+        triangleFileName = this.convertPath(triangleFileName);
         
         const config: Config = this.getConfig();
         const workspace = `${path}/.triaml/${triangleFileName}`;
@@ -55,8 +55,8 @@ export default class TerminalCommands {
     }
 
     public static createRunCommand(path: string, triangleFileName: string) {
-        path = this.handleSpaces(path);
-        triangleFileName = this.handleSpaces(triangleFileName);
+        path = this.convertPath(path);
+        triangleFileName = this.convertPath(triangleFileName);
         
         const config: Config = this.getConfig();
         const workspace = `${path}/.triaml/${triangleFileName}`;
@@ -72,11 +72,13 @@ export default class TerminalCommands {
 
     private static useCygwin(command: string): string {
         const config: Config = this.getConfig();
-        return `${config.enviroment.cygwin?.value} --login -c "${command}"`
+        const cygwin = config.enviroment.cygwin?.value || 'MISSING_CYGWIN';
+        return `${this.convertPath(cygwin as string)} --login -c "${command}"`
     }
 
-    private static handleSpaces(path: string): string {
-        return path.replaceAll(' ', '\\ ');
+    private static convertPath(path: string): string {
+        // Replaces all \ to / and <space> with \\<space>
+        return path.replaceAll('\\', '/').replaceAll(' ', '\\ ');
     }
 
     private static getConfig(): Config {
