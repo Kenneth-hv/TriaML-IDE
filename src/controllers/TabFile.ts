@@ -16,6 +16,10 @@ import FileManager from "./FileManager";
 import TerminalProcess from "./TerminalProcess";
 import TerminalCommands from "./TerminalCommands"
 import convert from "xml-js"
+import Store from "electron-store";
+import { Config } from "./config/config";
+
+const store = new Store();
 
 export default class TabFile {
     private static _idcount: number = 0;
@@ -113,7 +117,13 @@ export default class TabFile {
 
     public compile(): boolean {
         if (this.filePath == "") return false;
-        this._terminalProcess.sendCommand(TerminalCommands.createCompileCommand(this.fileFolderPath, this.fileName));
+        const config = store.get('config') as Config;
+        this._terminalProcess.sendCommand(
+            TerminalCommands.createCompileCommand(
+                this.fileFolderPath,
+                this.fileName,
+                config
+            ));
         this.loadAST();
         this.loadTable();
         return true;
@@ -121,7 +131,12 @@ export default class TabFile {
 
     public run() {
         if (this.filePath == "") return false;
-        this._terminalProcess.sendCommand(TerminalCommands.createRunCommand(this.fileFolderPath, this.fileName));
+        const config = store.get('config') as Config;
+        this._terminalProcess.sendCommand(
+            TerminalCommands.createRunCommand(
+                this.fileFolderPath,
+                this.fileName, config
+            ));
         return true;
     }
 

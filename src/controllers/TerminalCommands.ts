@@ -12,10 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import Store from "electron-store";
 import { Config } from "./config/config";
-
-const store = new Store();
 
 export default class TerminalCommands {
     static DASM_OUTPUT = "dasm.dout";
@@ -31,11 +28,10 @@ export default class TerminalCommands {
         // TODO "-xe": "xe.xml",
     }
 
-    public static createCompileCommand(path: string, triangleFileName: string) {
+    public static createCompileCommand(path: string, triangleFileName: string, config: Config) {
         path = this.convertPath(path);
         triangleFileName = this.convertPath(triangleFileName);
         
-        const config: Config = this.getConfig();
         const workspace = `${path}/.triaml/${triangleFileName}`;
         const compilerOutputFile = `${workspace}/${this.COMPILER_OUTPUT}`
 
@@ -48,30 +44,28 @@ export default class TerminalCommands {
         compileCommand += `; ${config.enviroment.disassembler.value} ${compilerOutputFile} > ${this.DASM_OUTPUT}`
 
         if (process.platform == 'win32') {
-            compileCommand = this.useCygwin(compileCommand);
+            compileCommand = this.useCygwin(compileCommand, config);
         }
 
         return compileCommand;
     }
 
-    public static createRunCommand(path: string, triangleFileName: string) {
+    public static createRunCommand(path: string, triangleFileName: string, config: Config) {
         path = this.convertPath(path);
         triangleFileName = this.convertPath(triangleFileName);
         
-        const config: Config = this.getConfig();
         const workspace = `${path}/.triaml/${triangleFileName}`;
         const compilerOutputFile = `${workspace}/${this.COMPILER_OUTPUT}`
         let runCommand = `mkdir -p ${workspace}; cd ${workspace}; ${config.enviroment.tam.value} ${compilerOutputFile}`;
 
         if (process.platform == 'win32') {
-            runCommand = this.useCygwin(runCommand);
+            runCommand = this.useCygwin(runCommand, config);
         } 
 
         return runCommand;
     }
 
-    private static useCygwin(command: string): string {
-        const config: Config = this.getConfig();
+    private static useCygwin(command: string, config: Config): string {
         const cygwin = config.enviroment.cygwin?.value || 'MISSING_CYGWIN';
         return `${this.convertPath(cygwin as string)} --login -c "${command}"`
     }
@@ -79,9 +73,5 @@ export default class TerminalCommands {
     private static convertPath(path: string): string {
         // Replaces all \ to / and <space> with \\<space>
         return path.replaceAll('\\', '/').replaceAll(' ', '\\ ');
-    }
-
-    private static getConfig(): Config {
-        return store.get('config') as Config;
     }
 }
