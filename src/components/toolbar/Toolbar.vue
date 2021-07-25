@@ -44,6 +44,11 @@ limitations under the License.
       :class="{ active: getSelectedTool() == tools.TABLE && this.showToolbar() }"
       @click="setSelectedTool(tools.TABLE)"
     />
+    <ToolbarButton
+      iconName="error"
+      :class="{ active: getSelectedTool() == tools.ERROR && this.showToolbar() }"
+      @click="setSelectedTool(tools.ERROR)"
+    />
   </div>
 </template>
 
@@ -52,7 +57,7 @@ limitations under the License.
 import { Options, Vue, setup } from "vue-class-component";
 import { useStore } from "@/store";
 import ToolbarButton from "./ToolbarButton.vue";
-import { Tool } from "@/controllers/TriaMLApp";
+import { Tool } from "@/app/TriaML";
 
 @Options({
   components: { ToolbarButton },

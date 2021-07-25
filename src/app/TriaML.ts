@@ -25,7 +25,8 @@ export enum Tool {
     TERMINAL,
     DISASSEMBLER,
     AST,
-    TABLE
+    TABLE,
+    ERROR
 }
 
 export default class TriaMLApp {

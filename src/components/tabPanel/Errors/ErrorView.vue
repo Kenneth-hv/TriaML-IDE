@@ -13,18 +13,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 <template>
-  <div class="table-view" :class="{ active: isActive }">
-    <table>
-      <tr>
-        <th>ID</th>
-        <th>Level</th>
-      </tr>
-      <tr v-for="row in tabFile.table" :key="row.id">
-        <td>{{ row.id }}</td>
-        <td>{{ row.level }}</td>
-      </tr>
-    </table>
-  </div>
+  <div>Error</div>
 </template>
 
 <script lang="ts">
@@ -38,7 +27,7 @@ import TabFile from "@/app/TabFile";
     isActive: Boolean,
   },
 })
-export default class TableView extends Vue {
+export default class ErrorView extends Vue {
   store = setup(() => useStore());
   tabFile!: TabFile;
 }

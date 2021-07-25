@@ -14,7 +14,7 @@
 
 import TabFile from "./TabFile";
 import { remote } from "electron";
-import { Tool } from "./TriaMLApp";
+import { Tool } from "./TriaML";
 
 export default class TabFileManager {
     private _tabFiles: TabFile[] = [];
