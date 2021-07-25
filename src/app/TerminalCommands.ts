@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import { Config } from "./config/config";
+import path from "path";
 
 export default class TerminalCommands {
     static DASM_OUTPUT = "dasm.dout";
@@ -72,7 +73,6 @@ export default class TerminalCommands {
     }
 
     private static convertPath(path: string): string {
-        // Replaces all \ to / and <space> with \\<space>
-        return path.replaceAll('\\', '/').replaceAll(' ', '\\ ');
+        return path.replace(/[-[/\]{}()*+?.,\\^$|#\s]/g, '\\$&');
     }
 }
