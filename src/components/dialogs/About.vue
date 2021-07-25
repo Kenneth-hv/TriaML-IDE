@@ -49,7 +49,7 @@ import FloatingPanel from "./FloatingPanel.vue";
 })
 export default class About extends Vue {
   store = setup(() => useStore());
-  version: string = "0.3.0";
+  version: string = "0.4.0";
 
   close() {
     this.store.commit("CLOSE_ABOUT");

@@ -55,8 +55,8 @@ export default class ErrorView extends Vue {
   tabFile!: TabFile;
 
   changePosition(row: number, column: number) {
-    this.tabFile.changePosition(row, column);
     this.store.dispatch("SET_SELECTED_TOOL", Tool.CODE_EDITOR);
+    this.tabFile.changePosition(row, column);
   }
 }
 </script>

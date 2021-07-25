@@ -57,10 +57,21 @@ export default class CodeEditor extends Vue {
     });
 
     tabFile.changePositionCallback = (row: number, column: number) => {
-      editor.revealPositionInCenterIfOutsideViewport({
-        column: column,
-        lineNumber: row
-      });
+      // Wait 200ms to make sure tab is shown
+      setTimeout(() => {
+        editor.revealPositionInCenterIfOutsideViewport(
+          {
+            column: column,
+            lineNumber: row,
+          },
+          1
+        );
+        editor.setPosition({
+          column: column + 1,
+          lineNumber: row,
+        });
+        editor.focus();
+      }, 200);
     };
   }
 }
