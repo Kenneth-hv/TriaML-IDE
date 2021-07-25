@@ -22,7 +22,7 @@ limitations under the License.
 import { Options, Vue, setup } from "vue-class-component";
 import ASTViewNode from "./ASTViewNode.vue";
 import { useStore } from "@/store";
-import TabFile from "@/controllers/TabFile";
+import TabFile from "@/app/TabFile";
 
 @Options({
   props: {

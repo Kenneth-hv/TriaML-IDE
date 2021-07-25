@@ -34,22 +34,27 @@ limitations under the License.
       :isActive="getSelectedTool() == tools.TABLE"
       :tabFile="this.tabFile"
     />
+    <ErrorView
+      :isActive="getSelectedTool() == tools.ERROR"
+      :tabFile="this.tabFile"
+    />
   </div>
 </template>
 
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component";
 import { useStore } from "@/store";
-import TabFile from "@/controllers/TabFile";
+import TabFile from "@/app/TabFile";
 import CodeEditor from "./Editor/CodeEditor.vue";
 import Terminal from "./Terminal/Terminal.vue";
 import ASTView from "./ASTView/ASTView.vue";
 import TAMCodeView from "./TAMCodeView/TAMCodeView.vue";
 import TableView from "./TableView/TableView.vue";
-import { Tool } from "@/controllers/TriaMLApp";
+import ErrorView from "./Errors/ErrorView.vue"
+import { Tool } from "@/app/TriaML";
 
 @Options({
-  components: { CodeEditor, Terminal, ASTView, TAMCodeView, TableView },
+  components: { CodeEditor, Terminal, ASTView, TAMCodeView, TableView, ErrorView },
   props: {
     tabFile: TabFile,
     isActive: Boolean,

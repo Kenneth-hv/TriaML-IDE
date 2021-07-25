@@ -19,9 +19,9 @@ limitations under the License.
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component";
 import { useStore } from "@/store";
-import TabFile from "@/controllers/TabFile";
+import TabFile from "@/app/TabFile";
 import * as monaco from "monaco-editor";
-import { Syntax } from "./TriangleSyntax"
+import { Syntax } from "./TriangleSyntax";
 
 @Options({
   components: { CodeEditor },
@@ -55,6 +55,24 @@ export default class CodeEditor extends Vue {
     editor.onDidChangeModelContent(() => {
       tabFile.fileContent = editor.getValue();
     });
+
+    tabFile.changePositionCallback = (row: number, column: number) => {
+      // Wait 200ms to make sure tab is shown
+      setTimeout(() => {
+        editor.revealPositionInCenterIfOutsideViewport(
+          {
+            column: column,
+            lineNumber: row,
+          },
+          1
+        );
+        editor.setPosition({
+          column: column + 1,
+          lineNumber: row,
+        });
+        editor.focus();
+      }, 200);
+    };
   }
 }
 </script>

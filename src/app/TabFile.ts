@@ -16,6 +16,11 @@ import FileManager from "./FileManager";
 import TerminalProcess from "./TerminalProcess";
 import TerminalCommands from "./TerminalCommands"
 import convert from "xml-js"
+import Store from "electron-store";
+import { Config } from "./config/config";
+import { IPosition } from "monaco-editor";
+
+const store = new Store();
 
 export default class TabFile {
     private static _idcount: number = 0;
@@ -28,6 +33,8 @@ export default class TabFile {
     private _tamCode = "";
     private _ast = {};
     private _table: Array<{ id: string, level: string }> = [];
+    private _errors: any;
+    private _changePositionCallback?: (row: number, column: number) => void;
 
 
     constructor(fileLocation?: string) {
@@ -106,6 +113,20 @@ export default class TabFile {
         return this._table;
     }
 
+    get errors(): any {
+        return this._errors;
+    }
+
+    set changePositionCallback(callback: any) {
+        this._changePositionCallback = callback;
+    }
+
+    public changePosition(row: number, column: number): void {
+        if (this._changePositionCallback){
+            this._changePositionCallback(row, column);
+        }
+    }
+
     public saveFileContent() {
         FileManager.saveFile(this._filePath, this._fileContent);
         this._isSaved = true;
@@ -113,7 +134,13 @@ export default class TabFile {
 
     public compile(): boolean {
         if (this.filePath == "") return false;
-        this._terminalProcess.sendCommand(TerminalCommands.createCompileCommand(this.fileFolderPath, this.fileName));
+        const config = store.get('config') as Config;
+        this._terminalProcess.sendCommand(
+            TerminalCommands.createCompileCommand(
+                this.fileFolderPath,
+                this.fileName,
+                config
+            ));
         this.loadAST();
         this.loadTable();
         return true;
@@ -121,7 +148,12 @@ export default class TabFile {
 
     public run() {
         if (this.filePath == "") return false;
-        this._terminalProcess.sendCommand(TerminalCommands.createRunCommand(this.fileFolderPath, this.fileName));
+        const config = store.get('config') as Config;
+        this._terminalProcess.sendCommand(
+            TerminalCommands.createRunCommand(
+                this.fileFolderPath,
+                this.fileName, config
+            ));
         return true;
     }
 
@@ -154,6 +186,13 @@ export default class TabFile {
             }
         }
         return elements;
+    }
+
+    public loadErrors() {
+        const errorFile = `${this.fileFolderPath}/.triaml/${this.fileName}/${TerminalCommands.ERROR_OUTPUT}`
+        const errorXml = FileManager.openFile(errorFile);
+        const errors = convert.xml2js(errorXml);
+        this._errors = errors.elements[0].elements;
     }
 
     public close(): boolean {

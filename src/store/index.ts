@@ -14,7 +14,7 @@
 
 import { InjectionKey } from 'vue'
 import { createStore, useStore as baseUseStore, Store } from 'vuex'
-import TriaMLApp from '@/controllers/TriaMLApp'
+import TriaMLApp from '@/app/TriaML'
 
 export interface State {
   triaMLApp: TriaMLApp

@@ -13,15 +13,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 <template>
-  <div class="table-view" :class="{ active: isActive }">
-    <table>
+  <div class="error-view" :class="{ active: isActive }">
+    <table v-if="tabFile.errors">
       <tr>
-        <th>ID</th>
-        <th>Level</th>
+        <th>Error</th>
+        <th>Postition</th>
       </tr>
-      <tr v-for="row in tabFile.table" :key="row.id">
-        <td>{{ row.id }}</td>
-        <td>{{ row.level }}</td>
+      <tr
+        v-for="error in tabFile.errors"
+        :key="error.attributes.message"
+        @click="
+          changePosition(
+            parseInt(error.attributes.row),
+            parseInt(error.attributes.column)
+          )
+        "
+      >
+        <td>{{ error.attributes.message }}</td>
+        <td>
+          Column: {{ error.attributes.row }} Row: {{ error.attributes.column }}
+        </td>
       </tr>
     </table>
   </div>
@@ -31,6 +42,7 @@ limitations under the License.
 import { Options, Vue, setup } from "vue-class-component";
 import { useStore } from "@/store";
 import TabFile from "@/app/TabFile";
+import { Tool } from "@/app/TriaML";
 
 @Options({
   props: {
@@ -38,9 +50,14 @@ import TabFile from "@/app/TabFile";
     isActive: Boolean,
   },
 })
-export default class TableView extends Vue {
+export default class ErrorView extends Vue {
   store = setup(() => useStore());
   tabFile!: TabFile;
+
+  changePosition(row: number, column: number) {
+    this.store.dispatch("SET_SELECTED_TOOL", Tool.CODE_EDITOR);
+    this.tabFile.changePosition(row, column);
+  }
 }
 </script>
 

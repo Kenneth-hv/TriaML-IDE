@@ -19,7 +19,7 @@ limitations under the License.
 <script lang="ts">
 import { Options, Vue, setup } from "vue-class-component";
 import { useStore } from "@/store";
-import TabFile from "@/controllers/TabFile";
+import TabFile from "@/app/TabFile";
 import { Terminal as Xterm, ITheme } from "xterm";
 import { FitAddon } from "xterm-addon-fit";
 import "xterm/css/xterm.css";

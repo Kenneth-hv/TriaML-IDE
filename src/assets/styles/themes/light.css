@@ -38,6 +38,7 @@ limitations under the License. */
   --color-table-header: #0004;
   --color-table-child-even: #0001;
   --color-table-child-odd: #0002;
+  --color-table-child-hover: #0007;
   
   --color-button: #bebebe;
   --color-button-hover: #a7a7a7;
