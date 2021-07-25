@@ -54,15 +54,18 @@ Building the app from source code, required:
 ## **System’s Context Diagram**
 
 The following diagram explains by itself the interaction between the different components of the system, giving an idea of how it works.
-
-<img alt="Delta" src="https://raw.githubusercontent.com/Kenneth-hv/TriaML-IDE/main/src/assets/img/sistContextDiagram.png">
-
+<p align="center">
+    <img alt="Delta" src="https://raw.githubusercontent.com/Kenneth-hv/TriaML-IDE/main/src/assets/img/sistContextDiagram.png">
+</p>
 
 ## **General Architectural Representation**
 
 TriaML architecture is divided into two processes:
 
-<img alt="Delta" src="https://raw.githubusercontent.com/Kenneth-hv/TriaML-IDE/main/src/assets/img/architecturalRepresentation.png">
+<p align="center">
+    <img alt="Delta" src="https://raw.githubusercontent.com/Kenneth-hv/TriaML-IDE/main/src/assets/img/architecturalRepresentation.png">
+</p>
+
 
 **Main Process**
 
