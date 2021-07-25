@@ -18,6 +18,7 @@ export default class TerminalCommands {
     static DASM_OUTPUT = "dasm.dout";
     static COMPILER_OUTPUT = "a.out";
     static AST_OUTPUT = "ast.xml";
+    static ERROR_OUTPUT = "xe.xml";
 
     // NOT BEING USED BY THE COMPILER BUT IT'S THE DEFAULT OUTPUT
     static TABLE_OUTPUT = "tabla.xml";
@@ -25,13 +26,13 @@ export default class TerminalCommands {
     private static COMPILER_FLAGS = {
         "-o": TerminalCommands.COMPILER_OUTPUT,
         "-xd": TerminalCommands.AST_OUTPUT,
-        // TODO "-xe": "xe.xml",
+        "-xe": TerminalCommands.ERROR_OUTPUT
     }
 
     public static createCompileCommand(path: string, triangleFileName: string, config: Config) {
         path = this.convertPath(path);
         triangleFileName = this.convertPath(triangleFileName);
-        
+
         const workspace = `${path}/.triaml/${triangleFileName}`;
         const compilerOutputFile = `${workspace}/${this.COMPILER_OUTPUT}`
 
@@ -53,14 +54,14 @@ export default class TerminalCommands {
     public static createRunCommand(path: string, triangleFileName: string, config: Config) {
         path = this.convertPath(path);
         triangleFileName = this.convertPath(triangleFileName);
-        
+
         const workspace = `${path}/.triaml/${triangleFileName}`;
         const compilerOutputFile = `${workspace}/${this.COMPILER_OUTPUT}`
         let runCommand = `mkdir -p ${workspace}; cd ${workspace}; ${config.enviroment.tam.value} ${compilerOutputFile}`;
 
         if (process.platform == 'win32') {
             runCommand = this.useCygwin(runCommand, config);
-        } 
+        }
 
         return runCommand;
     }

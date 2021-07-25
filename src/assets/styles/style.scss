@@ -388,6 +388,56 @@ body {
   }
 }
 
+/* Error View */
+
+.error-view {
+  display: none;
+  height: calc(100vh - 64px);
+  width: calc(100vw - 42px);
+  padding: 4px;
+  overflow: auto;
+
+  &.active {
+    display: block;
+  }
+
+  table {
+    th,
+    td {
+      padding: 5px 10px;
+      text-align: left;
+    }
+  }
+
+  tr:nth-child(even) {
+    background-color: var(--color-table-child-even);
+
+    &:hover {
+      background-color: var(--color-table-child-hover);
+
+      * {
+        cursor: pointer;
+      }
+    }
+  }
+
+  tr:nth-child(odd) {
+    background-color: var(--color-table-child-odd);
+
+    &:hover {
+      background-color: var(--color-table-child-hover);
+
+      * {
+        cursor: pointer;
+      }
+    }
+  }
+
+  tr:nth-child(1) {
+    background-color: var(--color-table-header) !important;
+  }
+}
+
 /* Pop-out Panels */
 
 .floating-panel-bg {

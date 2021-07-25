@@ -21,7 +21,7 @@ import { Options, Vue, setup } from "vue-class-component";
 import { useStore } from "@/store";
 import TabFile from "@/app/TabFile";
 import * as monaco from "monaco-editor";
-import { Syntax } from "./TriangleSyntax"
+import { Syntax } from "./TriangleSyntax";
 
 @Options({
   components: { CodeEditor },
@@ -55,6 +55,13 @@ export default class CodeEditor extends Vue {
     editor.onDidChangeModelContent(() => {
       tabFile.fileContent = editor.getValue();
     });
+
+    tabFile.changePositionCallback = (row: number, column: number) => {
+      editor.revealPositionInCenterIfOutsideViewport({
+        column: column,
+        lineNumber: row
+      });
+    };
   }
 }
 </script>

@@ -189,6 +189,9 @@ export default class TabFileManager {
                 case Tool.TABLE:
                     tabFile.loadTable();
                     break;
+                case Tool.ERROR:
+                    tabFile.loadErrors();
+                    break;
                 default:
                     break;
             }

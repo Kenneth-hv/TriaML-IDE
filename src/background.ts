@@ -47,7 +47,8 @@ async function createWindow() {
     webPreferences: {
       enableRemoteModule: true,
       devTools: isDevelopment,
-      nodeIntegration: !!process.env.ELECTRON_NODE_INTEGRATION
+      nodeIntegration: true,
+      contextIsolation: false,
     },
   });
 
